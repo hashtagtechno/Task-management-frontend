@@ -1,0 +1,41 @@
+.sideBarNav {
+    width: var(--NavWidth);
+    height: 100vh;
+    margin-left: 0;
+    position: fixed;
+    left: 0; 
+    top: 80px;
+    box-shadow: 2px 3px 5px -1px rgba(224, 224, 224, 0.76);
+    width: 200px;
+  }
+  
+  .nav-item {
+    display: flex;
+  }
+  
+  .nav-link {
+    font-size: 13px;
+    font-weight: 600;
+    height: 45px; 
+    color: #0f1730;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px; 
+    border-radius: 4px; 
+  }
+  
+  .nav-link.active {
+    background-color:#007ba5;
+    color: white !important;
+    height: 100%; 
+    display: flex;
+    align-items: center;
+  }
+//   .nav-link:hover {
+//     background-color:#c0dff4;
+//     color: white !important;
+//     height: 100%; 
+//     display: flex;
+//     align-items: center;
+//   }

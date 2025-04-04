@@ -1,0 +1,124 @@
+<app-header></app-header>
+<div class="main-container">
+    <app-sidebar></app-sidebar>
+    <div class="content ms-3">
+
+<div class="row">
+    <div class="container-fluid mt-3">
+        
+          
+        <div class="row">
+          <div class="col-md-8 mb-4">
+            <div class="d-flex justify-content-end mb-3">
+              <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
+            </div>
+            <div class="task-header-row mb-1 mt-5">
+                <div class="row">
+                  <div class="col-3 title-label">Task</div>
+                  <div class="col-3 title-label">Project</div>
+                  <div class="col-2 title-label">Status</div>
+                  <div class="col-2 title-label">Due Date</div>
+                  <div class="col-2 title-label">Action</div>
+                </div>
+              </div>
+            <div class="accordion" id="taskAccordion">
+                <div class="accordion-item" *ngFor="let task of tasks; let i = index">
+                    
+                  <h2 class="accordion-header" [id]="'heading' + i">
+                    <button
+                      class="accordion-button collapsed d-flex align-items-center justify-content-between"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      [attr.data-bs-target]="'#collapse' + i"
+                      aria-expanded="false"
+                      [attr.aria-controls]="'collapse' + i"
+                    >
+                      <div class="d-flex  w-100">
+                        <!-- Side line -->
+                        <div class="me-3">
+                            <div class="vertical-line" [ngClass]="{
+                              'bg-blue-sideline': task.status === 'Not Started',
+                              'bg-warning': task.status === 'Inprogress',
+                              'bg-success': task.status === 'Completed',
+                              'bg-dark': task.status === 'Closed'
+                            }"></div>
+                          </div>
+              
+                        <!-- Title and ID -->
+                        <div class="p-1  col-3">
+                          <div class="text-muted title-text">{{ task.title }}</div>
+                          <div>
+                            <span class="label-style">ID:</span>
+                            <span class="label-style"><i>{{ "TZK-" + task.id }}</i></span>
+                          </div>
+                        </div>
+                        <div class=" text-muted  col-3 align-content-center">
+                            <small>{{ task.project }}</small>
+                          </div>
+                        <!-- Status -->
+                        <div class=" text-muted  col-2 align-content-center">
+                          <small>{{ task.status }}</small>
+                        </div>
+              
+                        <!-- Due Date -->
+                        <div class=" text-muted col-2 align-content-center">
+                          <small>{{ task.due_date | date }}</small>
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+              
+                  <div
+                    [id]="'collapse' + i"
+                    class="accordion-collapse collapse"
+                    [attr.aria-labelledby]="'heading' + i"
+                    data-bs-parent="#taskAccordion"
+                  >
+                    <div class="accordion-body">
+                      <!-- Task content here -->
+                      Description: {{ task.description || 'No description' }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+             </div> 
+      
+          <!-- Right Section: Graph + Activities -->
+          <div class="col-md-4">
+            <!-- Bar Chart -->
+            <div class="card mb-4">
+              <div class="card-header">Task Overview</div>
+              <div class="card-body">
+                <div echarts [options]="chartOptions" class="w-100" style="height: 300px;"></div>
+              </div>
+            </div>
+      
+            <!-- Recent Activities -->
+            <div class="card">
+              <div class="card-header">Recent Activities</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let activity of recentActivities">
+                  <strong>{{ activity.user }}</strong> {{ activity.action }} <br />
+                  <small class="text-muted">{{ activity.time | date:'short' }}</small>
+                </li>
+              </ul>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+      
+</div>
+
+
+
+<!-- 
+<div class="col-md-8"></div>
+    
+<div class="col-md-4">
+    <div><button>Add Task</button></div>
+    <div class="card">
+    <div echarts [options]="chartOptions" class="chart-container"></div>
+</div>
+</div> -->
+<!-- </div> -->

@@ -1,0 +1,79 @@
+// @import "node_modules/bootstrap/scss/variables";
+$black: #000;
+$white: #fff;
+.signin {
+  min-height: 100vh;
+  background: rgb(0, 31, 83);
+  background: linear-gradient(110deg, #b9d3df 0%, #bcd58c36 100%);
+  h3 {
+    font-size: 28px;
+    color: $black;
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+  }
+  h4 {
+    color: #0a356b;
+  }
+  .submit {
+    background-color: #0a356b;
+  }
+  //COVER BG
+  .img {
+    // background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-bottom: 3px solid #0a356b;
+  }
+
+  .wrap {
+    width: 100%;
+    overflow: hidden;
+    background: $white;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+  }
+
+  .login-wrap {
+    position: relative;
+    background: $white h3 {
+      font-weight: 300;
+    }
+  }
+  .btn-signin {
+    background-color: #0a356b;
+    color: white;
+  }
+  .btn-signin:hover {
+    color: #0a356b;
+    background-color: white;
+    border-color: #0a356b;
+  }
+  .border-bottom-signin {
+    border-bottom: 3px solid #0a356b;
+    background-color: #f0f0f0;
+  }
+  .spendNdrop-logo {
+    width: 100px;
+  }
+
+  .form-group {
+    position: relative;
+    .label {
+      font-family: "Poppins", sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $black;
+      font-weight: 700;
+    }
+    input {
+      font-family: "Poppins", sans-serif;
+      font-size: 0.7rem;
+    }
+    a {
+      color: lighten($black, 50%);
+    }
+  }
+}
