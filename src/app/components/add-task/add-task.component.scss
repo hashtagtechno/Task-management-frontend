@@ -1,0 +1,32 @@
+.alert-error {
+    font-size: 10px;
+    color: #f21707;
+    padding-top: 5px;
+    position: absolute;
+    // margin-top: 2rem;
+    // margin-left: -1rem;
+  }
+  .form-group{
+    background-color: #fff;
+    padding: 1px;
+    border: .2px solid #ced4da;
+    font-size: 13px;
+    font-family: AvenirNext;
+    height: 31px;
+}
+.custom-input{
+    border: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;   /* Removes the outline that browsers apply when the element is focused */
+  border: none;    /* Removes the default border when focused */
+}
+.ng-select.ng-select-single .ng-select-container {
+    height: 24px;
+    margin-top: -12%;
+    margin-left: 15%;
+  }
+
+  

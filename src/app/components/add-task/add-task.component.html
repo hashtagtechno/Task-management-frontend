@@ -1,27 +1,142 @@
-<div
-  class="modal-content-addtask"
->
-  <div class="modal-header d-block pb-3">
-    <div class="row modal-heading-row">
-     
-      <div class="col-md-15">
-    
-        <span class="modal-title">New Task</span>
-        <img
-          class="close pull-right circle"
-          src="../../../../assets/task-details/close_icon.svg"
-          (click)="closeModal()"
-        />
-      
-      </div>
-      <div class="col-md-15" >
-        <img src="../../../../assets/modal-images/Add task_1.png" />
-       
-        <img
-          class="close pull-right circle"
-          src="../../../../assets/task-details/close_icon.svg"
-          (click)="closeModal()"
-        />
+<div class="login-modal pb-5"><div class="modal-header"><span class="modal-title">New Task</span>
+    <div class="ms-auto">
+        <i class="fa fa-times text-dark fa-lg" aria-hidden="true" (click)="closeModal()" ></i>
+  </div>
+  </div>
+  <div class="modal-body">
+    <form
+    [formGroup]="addTaskForm"
+    (ngSubmit)="onClickSubmitAdd(addTaskForm.value)"
+  >
+    <!-- <div class="row dept-row">
+              <div class="col-md-7"></div>
+          </div> -->
+    <div class="row task-title-row mb-2">
+      <div class="col-1 custom_alert"></div>
+      <div class="col-12 px-0 mb-3">
+        <div class="form-group">
+          <div class="floating-input">
+            <label class="w-100">
+              <input
+                placeholder=" "
+                formControlName="task_name"
+                class="custom-input w-100"
+                maxlength="100"
+              />
+              <span class="modal-form-label">Task Title</span>
+              <div
+                *ngIf="
+                  (addTaskForm?.get('task_name')?.invalid &&
+                  addTaskForm?.get('task_name')?.dirty ||
+                  addTaskForm?.get('task_name')?.touched) ||
+                  addTaskForm?.get('task_name')?.errors?.['required']
+                "
+                class="alert-error"
+              >
+                * required.
+              </div>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="row date-row">
+        <div
+          class="col-md-4 dept-row effort-box-team"
+        
+        >
+          <a class="effort-btnOne user-icon">
+            <img src="../../../../assets/modal-images/dept.png" width="35px" />
+          </a>
+          <div class="form-group">
+            <div class="dropdown effort-txt effort-txt2">
+              <ng-select
+                [searchable]="true"
+                [items]="  projectOptions"
+                formControlName="project_name"
+                bindLabel="name"
+                placeholder="Team"
+                [closeOnSelect]="true"
+                (change)="projectChange($event)"
+              >
+                <ng-template ng-option-tmp let-item="item">
+                  <div
+                   
+                    placement="right"
+                    containerClass="customClassTooltip"
+                    *ngIf="item.name.length > 12"
+                  >
+                    {{
+                      item.name.length > 12
+                        ? (item.name | slice : 0 : 12) + "..."
+                        : item.name
+                    }}
+                  </div>
+                  <div *ngIf="12 >= item.name.length">
+                    {{ item.name }}
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+
+          <span  class="alert-error">* required. </span>
+        </div>
+        <div
+          class="col-md-4 d-flex dept-row effort-box-team border-white"
+      
+        >
+          <div class="pro-col char-trim">
+            <label class="form-label modal-form-label">Project : &nbsp;</label>
+            <span class="projectname char-trim">
+              <a
+                placement="left"
+                containerClass="customClassTooltip"
+              >
+                <!-- {{ currentPoolName }} -->
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-4 effort-box">
+          <a class="effort-btn">
+            <img
+              src="../../../../assets/modal-images/calender.svg"
+              class="due-icon"
+            />
+          </a>
+          <div class="form-group">
+            <div class="floating-input">
+              <label class="label-hour">
+                <input
+                  type="text"
+                  placeholder="Start"
+                  class="effort-txt start-date custom-form-control"
+                  bsDatepicker
+                  #dp="bsDatepicker"
+                  [minDate]="minDate"
+                  [bsConfig]="{
+                    isAnimated: true,
+                    dateInputFormat: 'DD-MM-YYYY',
+                    containerClass: 'theme-orange',
+                    showWeekNumbers: false
+                  }"
+                  formControlName="due_date"
+                  [outsideClick]="true"
+                  (bsValueChange)="onValueChange($event)"
+                />
+              </label>
+            </div>
+            <div
+              *ngIf="
+                addTaskForm.get('due_date')?.errors?.['required']
+              "
+              class="alert-error"
+            >
+              * required.
+            </div>
+          </div>
+        </div>
+      
+     
