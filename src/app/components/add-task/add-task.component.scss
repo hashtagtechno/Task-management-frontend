@@ -6,13 +6,16 @@
     // margin-top: 2rem;
     // margin-left: -1rem;
   }
-  .form-group{
+  .form-group,.custom-form-control{
     background-color: #fff;
     padding: 1px;
     border: .2px solid #ced4da;
     font-size: 13px;
-    font-family: AvenirNext;
-    height: 31px;
+    height: 36px;
+    border-radius: 0.25em;
+}
+textarea{
+  border: .2px solid #ced4da;
 }
 .custom-input{
     border: none;
@@ -28,5 +31,38 @@ select:focus {
     margin-top: -12%;
     margin-left: 15%;
   }
+  .btn-custom-success {
+    width: auto;
+    height: auto;
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    margin: 5px 3px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+  }
+  .btn-custom-success:hover {
+    color: white;
+  }
+  .update-btn:hover{
+    border:1px solid #007ba5; 
+    background-color: white;
+    color: #007ba5; 
+}
+.btn-custom-success{
+    border:white;
+    background-color: #007ba5;
+    color: white;
+}
+  .btn-custom-cancel {
+    width: auto;
+    height: auto;
+    background-color: none;
+    color: black;
+    font-size: 10px;
+    margin: 5px 3px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+  }
+  
+
 
   

@@ -1,29 +1,23 @@
-<div class="login-modal pb-5"><div class="modal-header"><span class="modal-title">New Task</span>
+<div class="add-task-modal pb-1"><div class="modal-header"><span class="modal-title">New Task</span>
     <div class="ms-auto">
         <i class="fa fa-times text-dark fa-lg" aria-hidden="true" (click)="closeModal()" ></i>
   </div>
   </div>
-  <div class="modal-body">
+  <div class="modal-body m-2">
     <form
     [formGroup]="addTaskForm"
     (ngSubmit)="onClickSubmitAdd(addTaskForm.value)"
   >
-    <!-- <div class="row dept-row">
-              <div class="col-md-7"></div>
-          </div> -->
-    <div class="row task-title-row mb-2">
-      <div class="col-1 custom_alert"></div>
-      <div class="col-12 px-0 mb-3">
+    
+    <div class="row  mb-2">
         <div class="form-group">
-          <div class="floating-input">
-            <label class="w-100">
               <input
-                placeholder=" "
+                placeholder="Task Title "
                 formControlName="task_name"
                 class="custom-input w-100"
                 maxlength="100"
               />
-              <span class="modal-form-label">Task Title</span>
+             
               <div
                 *ngIf="
                   (addTaskForm?.get('task_name')?.invalid &&
@@ -31,25 +25,18 @@
                   addTaskForm?.get('task_name')?.touched) ||
                   addTaskForm?.get('task_name')?.errors?.['required']
                 "
-                class="alert-error"
+                class="alert-error mt-2"
               >
                 * required.
               </div>
-            </label>
-          </div>
-        </div>
-      </div>
+         
+      </div> 
     </div>
-    <div class="row date-row">
+    <div class="row  mt-4 mb-2">
         <div
-          class="col-md-4 dept-row effort-box-team"
-        
+          class="col-md-4 p-0"
         >
-          <a class="effort-btnOne user-icon">
-            <img src="../../../../assets/modal-images/dept.png" width="35px" />
-          </a>
-          <div class="form-group">
-            <div class="dropdown effort-txt effort-txt2">
+            <div >
               <ng-select
                 [searchable]="true"
                 [items]="  projectOptions"
@@ -61,9 +48,6 @@
               >
                 <ng-template ng-option-tmp let-item="item">
                   <div
-                   
-                    placement="right"
-                    containerClass="customClassTooltip"
                     *ngIf="item.name.length > 12"
                   >
                     {{
@@ -78,41 +62,54 @@
                 </ng-template>
               </ng-select>
             </div>
-          </div>
-
           <span  class="alert-error">* required. </span>
         </div>
         <div
-          class="col-md-4 d-flex dept-row effort-box-team border-white"
-      
+          class="col-md-4"
         >
-          <div class="pro-col char-trim">
-            <label class="form-label modal-form-label">Project : &nbsp;</label>
-            <span class="projectname char-trim">
-              <a
-                placement="left"
-                containerClass="customClassTooltip"
-              >
-                <!-- {{ currentPoolName }} -->
-              </a>
-            </span>
+              <div >
+                <ng-select
+                  [searchable]="true"
+                  [items]="  projectOptions"
+                  formControlName="assigned_to"
+                  bindLabel="name"
+                  placeholder="Team"
+                  [closeOnSelect]="true"
+                  (change)="projectChange($event)"
+                >
+                  <ng-template ng-option-tmp let-item="item">
+                    <div
+                      placement="right"
+                      containerClass="customClassTooltip"
+                      *ngIf="item.name.length > 12"
+                    >
+                      {{
+                        item.name.length > 12
+                          ? (item.name | slice : 0 : 12) + "..."
+                          : item.name
+                      }}
+                    </div>
+                    <div *ngIf="12 >= item.name.length">
+                      {{ item.name }}
+                    </div>
+                  </ng-template>
+                </ng-select>
           </div>
+          <div
+          *ngIf="
+            addTaskForm.get('assigned_to')?.errors?.['required']
+          "
+          class="alert-error"
+        >
+          * required.
+    </div>
         </div>
 
-        <div class="col-md-4 effort-box">
-          <a class="effort-btn">
-            <img
-              src="../../../../assets/modal-images/calender.svg"
-              class="due-icon"
-            />
-          </a>
-          <div class="form-group">
-            <div class="floating-input">
-              <label class="label-hour">
+        <div class="col-md-4 p-0">
                 <input
                   type="text"
                   placeholder="Start"
-                  class="effort-txt start-date custom-form-control"
+                  class=" custom-form-control w-100 ps-2"
                   bsDatepicker
                   #dp="bsDatepicker"
                   [minDate]="minDate"
@@ -126,16 +123,43 @@
                   [outsideClick]="true"
                   (bsValueChange)="onValueChange($event)"
                 />
-              </label>
+                <div
+                *ngIf="
+                  addTaskForm.get('due_date')?.errors?.['required']
+                "
+                class="alert-error"
+              >
+                * required.
+          </div>
             </div>
-            <div
-              *ngIf="
-                addTaskForm.get('due_date')?.errors?.['required']
-              "
-              class="alert-error"
-            >
-              * required.
+          
+      </div>
+        <div class="row mt-4 mb-2">
+         <textarea formcontrolName="description" rows="5"
+         cols="50"
+         placeholder="Write your notes..."></textarea>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mb-3" class="d-flex justify-content-end">
+              <button
+                type="submit"
+                class="btn btn-custom-success"
+                [disabled]="
+                  !addTaskForm.valid" 
+                
+              >
+               Create
+              </button>
+              <button
+                type="button"
+                class="btn btn-custom-cancel"
+                (click)= "closeModal()"
+              >
+                Cancel
+              </button>
             </div>
+            <div class="mb-3"></div>
           </div>
         </div>
       

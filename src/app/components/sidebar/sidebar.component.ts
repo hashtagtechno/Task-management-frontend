@@ -16,7 +16,8 @@ export class SidebarComponent {
   sidebarItems = [
     { title: 'Task Home', icon:"fa fa-home", route: '/taskhome' },
     { title: 'Projects', icon:"fa fa-home", route: '../projects' },
-    { title: 'Profile', icon:"fa fa-home", route: '/profile'}
+    { title: 'Profile', icon:"fa fa-home", route: '/profile'},
+    { title: 'Kanban', icon:"fa fa-home", route: '/kanban'}
   ]
 }
 

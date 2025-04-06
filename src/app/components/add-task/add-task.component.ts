@@ -37,7 +37,7 @@ export class AddTaskComponent {
       description: new UntypedFormControl(''),
       due_date: new UntypedFormControl('', Validators.required),
       assigned_to:new UntypedFormControl('', Validators.required),
-      projct_name:new UntypedFormControl('', Validators.required),
+      project_name:new UntypedFormControl('', Validators.required),
  })
 }
  closeModal() {

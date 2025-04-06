@@ -1,1 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@ng-select/ng-select/themes/default.theme.css";
+// --------------------------drop down----------------------------
+
+.ng-select .ng-select-container {
+    border: 1px solid #ced4da;
+    border-radius: 0.25em;
+    min-height: 33px;
+    height: 33px;
+  
+    .ng-placeholder {
+      font-size: 13px;
+      color: gray;
+    }
+  }
+  
+  .ng-dropdown-panel .ng-dropdown-panel-items {
+    border: 1px solid #ced4da;
+  }
+  .ng-dropdown-panel {
+    z-index: 9999 !important;
+  }
+  
+  .ng-option {
+    font-size: 13px;
+  
+  }
+  
+  .ng-select span {
+    font-size: 13px;
+  }
+  .btn-custom {
+    width: max-content;
+    height: auto;
+    margin: 5px 3px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+    color: white;
+    background-color: #023047;
+    font-family: "PoppinsMedium";
+    font-size: 11px;
+    border-radius: 5px;
+  }
+  
+  .btn-custom-disable {
+    width: auto;
+    height: auto;
+    margin: 5px 3px;
+    box-shadow: none;
+    color: white;
+    background-color: #023047;
+    font-family: "PoppinsMedium";
+    font-size: 11px;
+    border-radius: 5px;
+  }
+  
+ 
+  .btn-custom-primary {
+    width: auto;
+    height: auto;
+    background-color: #467fd0;
+    color: white;
+    font-size: 10px;
+    margin: 5px 3px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+  }
+  
+ 
+ 
+  
+  .btn-custom-primary:hover {
+    color: white;
+  }
+  
+  .btn-custom:hover {
+    color: white;
+  }
+  

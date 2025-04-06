@@ -1,0 +1,26 @@
+<app-header></app-header>
+<div class="main-container">
+    <app-sidebar></app-sidebar>
+<div class="row">
+    <div class="col" *ngFor="let col of ['New', 'Active', 'Done', 'Closed']">
+      <h5 class="text-center">{{ col }}</h5>
+      <div
+        cdkDropList
+        [cdkDropListData]="getList(col)"
+        class="task-column"
+        (cdkDropListDropped)="drop($event, col)"
+      >
+        <div
+          class="task-card"
+          *ngFor="let task of getList(col)"
+          cdkDrag
+        >
+          <strong>{{ task.title }}</strong><br />
+          <small>Assignee: {{ task.assignee }}</small><br />
+          <small>Due: {{ task.due_date | date }}</small><br />
+          <small>Progress: {{ task.progress }}%</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  

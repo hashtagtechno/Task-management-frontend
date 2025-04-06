@@ -8,4 +8,8 @@ export const routes: Routes = [ {
     path: 'taskhome', 
     loadComponent: () => import('../app/pages/task-home/task-home.component').then(m => m.TaskHomeComponent) 
   },
+  { 
+    path: 'kanban', 
+    loadComponent: () => import('../app/pages/kanban-board/kanban-board.component').then(m => m.KanbanBoardComponent) 
+  },
 ];

@@ -20,12 +20,13 @@ app-sidebar {
 }
 .title-label{
     color: grey; 
-    font-size: 11px;
+    font-size: 13px;
 }
 .accordion-button{
     padding:  0px;
     font-size: 14px;
    border: 1px solid lightgrey;
+   background-color: aliceblue;;
 }
 .accordion-button:after{
 width: 1rem;
@@ -51,5 +52,8 @@ margin-right: .5rem;
   }
   .title-text{
     font-weight: 500;
+  }
+  .pointer {
+    cursor: pointer;
   }
   

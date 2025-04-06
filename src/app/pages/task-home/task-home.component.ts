@@ -8,6 +8,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddTaskComponent } from '../../components/add-task/add-task.component';
+import { TaskDetailsComponent } from '../../components/task-details/task-details.component';
 @Component({
   selector: 'app-task-home',
   standalone: true,
@@ -73,6 +74,10 @@ recentActivities = [
   openTaskModal() {
   
       this.modalService.open(AddTaskComponent, { centered: true });
+  }
+  openviewTask(){
+    
+    this.modalService.open(TaskDetailsComponent, { centered: true });
   }
   
 }
