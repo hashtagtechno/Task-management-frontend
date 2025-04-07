@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-details',
@@ -10,38 +11,42 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './task-details.component.scss'
 })
 export class TaskDetailsComponent {
-  constructor(public activeModal: NgbActiveModal,){}
+  taskId!:string;
+  task!:any;
+  constructor(public activeModal: NgbActiveModal,private TaskService:TaskService){}
+  ngOnInit(){
+    console.log(this.taskId)
+    if(this.taskId){
+      this.TaskService.getTaskDetails(this.taskId).subscribe(
+        (response) => {
+          console.log(response)
+          this.task=response
+          console.log(this.task)
+    })
+  }
+}
   closeModal() {
     this.activeModal.close();
   }
-  task:Task = {
-    id: 101,
-    title: 'Implement Login Flow',
-    status: 'Inprogress',
-    assignee: 'Sneha Paul',
-    start_date: new Date('2025-04-01'),
-    due_date: new Date('2025-04-10'),
-    progress: 45,
-    description: `Design and implement login flow for users including:
-  - Login page UI
-  - API integration
-  - Error handling
-  - Redirect to dashboard after login
+  getLast4Chars(id:string): string {
+    return  'TZK-' + id?.slice(-4);  
+  }   
   
-  Note: Use JWT for token management.`
-  };
+
   onUpdateStatus() {
     // you can open another modal, toggle status, or emit an event here
     console.log('Update Status Clicked');
   }
 }
 export interface Task {
-  id: number;
-  title: string;
-  status: 'Not Started' | 'Inprogress' | 'Completed' | 'Closed';
-  assignee?: string;
-  start_date?: Date;
-  due_date?: Date;
-  progress?: number;
+  _id:  string;
+task_name: string;
+  status: string
+  assigned_to?: string;
+  project_name:string,
+  updatedAt: Date,
+  createdAt:Date,
+    due_date: Date,
   description?: string;
+  __v:number;
 }

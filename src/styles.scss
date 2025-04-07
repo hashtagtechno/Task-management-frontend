@@ -74,4 +74,24 @@
   .btn-custom:hover {
     color: white;
   }
+  .swal2-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+  }
+  .swal2-popup {
+    width: fit-content !important;
+  }
+  .swal2-icon {
+    display: none !important;
+  }
+  .swal2-confirm,
+  .swal2-cancel {
+    font-size: 13px;
+  }
+  .swal2-cancel {
+    color: black;
+    background-color: white;
+    border: 1px solid lightgray;
+  }
   

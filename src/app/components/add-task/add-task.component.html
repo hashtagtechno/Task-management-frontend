@@ -20,9 +20,6 @@
              
               <div
                 *ngIf="
-                  (addTaskForm?.get('task_name')?.invalid &&
-                  addTaskForm?.get('task_name')?.dirty ||
-                  addTaskForm?.get('task_name')?.touched) ||
                   addTaskForm?.get('task_name')?.errors?.['required']
                 "
                 class="alert-error mt-2"
@@ -42,7 +39,7 @@
                 [items]="  projectOptions"
                 formControlName="project_name"
                 bindLabel="name"
-                placeholder="Team"
+                placeholder="Project"
                 [closeOnSelect]="true"
                 (change)="projectChange($event)"
               >
@@ -62,7 +59,9 @@
                 </ng-template>
               </ng-select>
             </div>
-          <span  class="alert-error">* required. </span>
+          <span  class="alert-error"   *ngIf="
+          addTaskForm?.get('project_name')?.errors?.['required']
+        ">* required. </span>
         </div>
         <div
           class="col-md-4"
@@ -70,7 +69,7 @@
               <div >
                 <ng-select
                   [searchable]="true"
-                  [items]="  projectOptions"
+                  [items]="assigneeOptions"
                   formControlName="assigned_to"
                   bindLabel="name"
                   placeholder="Team"
@@ -135,10 +134,22 @@
           
       </div>
         <div class="row mt-4 mb-2">
-         <textarea formcontrolName="description" rows="5"
-         cols="50"
+         <textarea formControlName="description" rows="5"
+         cols="50"[ngClass]="{
+          'border-touched': addTaskForm.get('description')?.touched,
+          'border-invalid': addTaskForm.get('description')?.invalid && addTaskForm.get('description')?.touched
+        }"
          placeholder="Write your notes..."></textarea>
+        
         </div>
+        <div
+        *ngIf="
+          addTaskForm.get('description')?.errors?.['required']
+        "
+        class="alert-error"
+      >
+        * required.
+  </div>
         <div class="row">
           <div class="col-md-12">
             <div class="mb-3" class="d-flex justify-content-end">
@@ -162,5 +173,6 @@
             <div class="mb-3"></div>
           </div>
         </div>
+        </form>
       
      

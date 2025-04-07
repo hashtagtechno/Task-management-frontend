@@ -16,6 +16,10 @@
 }
 textarea{
   border: .2px solid #ced4da;
+  font-size:13px;
+}
+textarea.border-touched{
+  border: .2px solid #ced4da;
 }
 .custom-input{
     border: none;

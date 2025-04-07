@@ -29,11 +29,24 @@
   .search-btn i {
     font-size: 16px; /* Adjust the size of the icon */
   }
-  .fixed-top{
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
+  .fixed-top {
+    width: 100%;
+    z-index: 1050;
   }
+  
+  .search-box {
+    max-width: 300px;
+  }
+  
+  .search-box input.search-txt {
+    width: 100%;
+    border-radius: 4px;
+    padding: 5px 10px;
+  }
+  
+  .search-btn {
+    color: #333;
+    cursor: pointer;
+  }
+  
   
