@@ -19,9 +19,9 @@ export class TaskDetailsComponent {
     if(this.taskId){
       this.TaskService.getTaskDetails(this.taskId).subscribe(
         (response) => {
-          console.log(response)
+          // console.log(response)
           this.task=response
-          console.log(this.task)
+          // console.log(this.task)
     })
   }
 }
@@ -35,7 +35,7 @@ export class TaskDetailsComponent {
 
   onUpdateStatus() {
     // you can open another modal, toggle status, or emit an event here
-    console.log('Update Status Clicked');
+    // console.log('Update Status Clicked');
   }
 }
 export interface Task {

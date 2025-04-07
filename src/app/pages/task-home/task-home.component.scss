@@ -10,7 +10,7 @@ app-sidebar {
 }
 
 .content {
-    width: calc(100% - 200px); 
+    width: calc(100% - 220px); 
     padding: 10px;
     margin-top: 80px;
 
@@ -28,6 +28,9 @@ app-sidebar {
     font-size: 14px;
    border: 1px solid lightgrey;
    background-color: aliceblue;;
+}
+.list-group-item{
+font-size: 13px;
 }
 .accordion-button:after{
 width: 1rem;
