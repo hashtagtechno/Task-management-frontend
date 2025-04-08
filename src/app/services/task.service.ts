@@ -9,7 +9,7 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   getTasks() {
-    console.log(environment.apiUrl)
+    // console.log(environment.apiUrl)
     return this.http.get(`${environment.apiUrl}/tasks`);
   }
   addTask(taskdata:any){

@@ -3,6 +3,8 @@ import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from 
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { AddTaskComponent } from '../../components/add-task/add-task.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-kanban-board',
   standalone: true,
@@ -19,7 +21,7 @@ export class KanbanBoardComponent {
   activeTasks:Task[];
   doneTasks:Task[];
   closedTasks:Task[];
-  constructor(){
+  constructor(private modalService: NgbModal){
     this.taskList = [
       {
         id: 1,
@@ -52,6 +54,38 @@ export class KanbanBoardComponent {
         assignee: 'Diana',
         due_date: '2025-03-29',
         progress: 100
+      },
+      {
+        id: 5,
+        title: 'Design homepage',
+        task_status: 'New',
+        assignee: 'Alice',
+        due_date: '2025-04-10',
+        progress: 0
+      },
+      {
+        id: 6,
+        title: 'Implement login API',
+        task_status: 'Active',
+        assignee: 'Bob',
+        due_date: '2025-04-12',
+        progress: 40
+      },
+      {
+        id: 7,
+        title: 'Fix footer bug',
+        task_status: 'Done',
+        assignee: 'Charlie',
+        due_date: '2025-04-03',
+        progress: 100
+      },
+      {
+        id: 8,
+        title: 'Client review feedback',
+        task_status: 'Closed',
+        assignee: 'Diana',
+        due_date: '2025-03-29',
+        progress: 100
       }
     ];
     
@@ -73,6 +107,19 @@ export class KanbanBoardComponent {
   getList(column: any): any[] {
     return column.task || [];
   }
+  openCreateTaskModal() {
+      // console.log('Task created:', task);
+      const modalRef = this.modalService.open(AddTaskComponent);
+      modalRef.componentInstance.event.subscribe((data: any) => {
+        console.log('Task created:', data);
+       
+            if (data=='Task created successfully') {
+              // You get the returned data here
+              console.log('Returned data:',data );
+              // this.ngOnInit();''
+            }
+          })
+    }
 }
 export interface Task {
   id: number;

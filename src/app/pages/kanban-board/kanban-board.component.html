@@ -4,31 +4,46 @@
     <div class="content ms-3">
 
 <div class="row">
-<div class="kanban-container d-flex gap-3">
-  <div class="kanban-column" *ngFor="let column of [
+<div class="kanban-container d-flex">
+  <div class="kanban-column col-md-3" *ngFor="let column of [
     { title: 'New', tasks: newTasks },
     { title: 'Active', tasks: activeTasks },
     { title: 'Done', tasks: doneTasks },
     { title: 'Closed', tasks: closedTasks }
   ]">
-    <h5 class="column-title">{{ column.title }}</h5>
+    <h6 class="column-title pb-1"[ngClass]="{
+      'border-bottom-blue': column.title === 'New',
+      'border-bottom-red': column.title === 'Active',
+      'border-bottom-orange': column.title === 'Done',
+      'border-bottom-green': column.title === 'Closed'
+    }">{{ column.title }}</h6>
     <div
       cdkDropList
       [cdkDropListData]="column.tasks"
-      class="task-drop-zone"
+      class="task-drop-zone container"
       (cdkDropListDropped)="drop($event, column.title)"
     >
       <div
-        class="task-card"
+        class="task-card card mb-2"
         *ngFor="let task of column.tasks"
         cdkDrag
       >
-        <h6>{{ task.title }}</h6>
-        <p><strong>Assignee:</strong> {{ task.assignee }}</p>
-        <small>Due: {{ task.due_date }}</small>
+       <span class="d-inline-flex"><label class="me-2">Title:</label><p>{{ task.title }}</p></span> 
+       <span class="d-inline-flex"><label class="me-2">Assignee:</label><p>{{ task.assignee }}</p></span> 
+       <span class="d-inline-flex"><label class="me-2">Due Date:</label><p>{{ task.due_date }}</p></span> 
+
+      </div>
+      <div 
+      *ngIf="column.title === 'New'" 
+      class="task-card card text-center p-3 border border-dashed create-task-card" 
+      (click)="openCreateTaskModal()" 
+      style="cursor: pointer;"
+    >
+      <strong>+ Create Task</strong>
+    </div>
       </div>
     </div>
-  </div>
+  
 </div>
 </div>
 </div>

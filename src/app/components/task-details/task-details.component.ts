@@ -15,7 +15,7 @@ export class TaskDetailsComponent {
   task!:any;
   constructor(public activeModal: NgbActiveModal,private TaskService:TaskService){}
   ngOnInit(){
-    console.log(this.taskId)
+    // console.log(this.taskId)
     if(this.taskId){
       this.TaskService.getTaskDetails(this.taskId).subscribe(
         (response) => {

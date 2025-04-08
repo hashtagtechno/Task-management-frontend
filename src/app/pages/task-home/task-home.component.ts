@@ -29,18 +29,7 @@ export class TaskHomeComponent implements OnInit {
   chartOptions: EChartsOption = {};
   currentPage: number = 1;
   tasks:any;
-//  tasks = [
-//   { title: 'Task 1',id:1, description: 'Description of Task 1', status: 'Not Started', project: 'Sprint1', due_date:'10/05/2025' },
-//   { title: 'Task 2',id:2, description: 'Description of Task 2', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-//   { title: 'Task 4',id:4, description: 'Description of Task 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-//   { title: 'Task 1',id:1, description: 'Description of Task 1', status: 'Not Started', project: 'Sprint1', due_date:'10/05/2025' },
-//   { title: 'Task 2',id:2, description: 'Description of Task 2', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-//   { title: 'Task 4',id:4, description: 'Description of Task 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-//   { title: 'Task 4',id:4, description: 'Description of Task 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-//   { title: 'Task 1',id:1, description: 'Description of Task 1', status: 'Not Started', project: 'Sprint1', due_date:'10/05/2025' },
-//   { title: 'Task 2',id:2, description: 'Description of Task 2', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-//   { title: 'Task 4',id:4, description: 'Description of Task 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' }
-// ];
+
 recentActivities = [
   { user: 'User1', action: 'created Task 1', time: new Date() },
   { user: 'User2', action: 'completed Task 2', time: new Date() },
@@ -94,11 +83,11 @@ recentActivities = [
     // console.log('Task created:', task);
     const modalRef = this.modalService.open(AddTaskComponent);
     modalRef.componentInstance.event.subscribe((data: any) => {
-      console.log('Task created:', data);
+      // console.log('Task created:', data);
      
           if (data=='Task created successfully') {
             // You get the returned data here
-            console.log('Returned data:',data );
+            // console.log('Returned data:',data );
             this.ngOnInit();''
           }
         })

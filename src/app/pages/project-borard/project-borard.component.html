@@ -8,18 +8,18 @@
         <div class="row">
           <div class="col-md-8 mb-4">
             <div class="d-flex justify-content-end mb-3">
-              <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
+              <button class="btn btn-create" (click)="openProjectModal()">+ Create Project</button>
             </div>
-            <div class="task-header-row mb-3 mt-5">
+            <div class="Project-header-row mb-3 mt-5">
                 <div class="row">
-                  <div class="col-2 title-label">Task</div>
+                  <div class="col-3 title-label">Project</div>
                   <div class="col-3 title-label">Project</div>
                   <div class="col-2 title-label">Status</div>
                   <div class="col-2 title-label">Due Date</div>
                 </div>
               </div>
-            <div class="accordion" id="taskAccordion">
-                <div class="accordion-item" *ngFor="let task of tasks; let i = index">
+            <div class="accordion" id="ProjectAccordion">
+                <div class="accordion-item" *ngFor="let project of projects; let i = index">
                     
                   <h2 class="accordion-header" [id]="'heading' + i">
                     <div
@@ -29,25 +29,25 @@
                         <!-- Side line -->
                         <div class="me-3">
                           <div class="vertical-line" [ngClass]="{
-                              'bg-blue-sideline': task.status === 'Not Started',
-                              'bg-warning': task.status === 'Inprogress',
-                              'bg-success': task.status === 'Completed',
-                              'bg-dark': task.status === 'Closed'
+                              'bg-blue-sideline': project.status === 'Not Started',
+                              'bg-warning': project.status === 'Inprogress',
+                              'bg-success': project.status === 'Completed',
+                              'bg-dark': project.status === 'Closed'
                             }"></div>
                         </div>
                   
                         <!-- Title and ID -->
-                        <div class="p-1 col-2">
-                          <div class="text-muted title-text">{{ task.task_name }}</div>
+                        <div class="p-1 col-3">
+                          <div class="text-muted title-text">{{ project.title }}</div>
                           <div>
                             <span class="label-style">ID:</span>
-                            <span class="label-style"><i>{{ getLast4Chars(task._id)}}</i></span>
+                            <span class="label-style"><i>{{ getLast4Chars(project.id)}}</i></span>
                           </div>
                         </div>
                   
                         <!-- Project -->
                         <div class="text-muted col-3 align-content-center">
-                          <small>{{ task.project_name }}</small>
+                          <small>{{ project.title }}</small>
                         </div>
                   
                         <!-- Status -->
@@ -57,39 +57,22 @@
                   
                         <!-- Due Date -->
                         <div class="text-muted col-2 align-content-center">
-                          <small>{{ task.due_date | date }}</small>
+                          <small>{{ project.due_date | date }}</small>
                         </div>
                   
                         <div
                           class="text-muted col-1 align-content-center"
                         >
-                          <small class="text-primary pointer" (click)="openviewTask(task._id)">View</small>
+                          <small class="text-primary pointer" (click)="openviewProject(project.id)">View</small>
                         </div>
                         <div
                         class="text-muted col-1 align-content-center"
                       >
-                        <small class="text-primary pointer" (click)="deleteTask(task._id)">Delete</small>
+                        <small class="text-primary pointer" (click)="deleteProject(project.id)">Delete</small>
                       </div>
-                      <div
-                      class="text-muted col-1 align-content-center"
-                    >
-                      <small class="text-primary pointer">Update</small>
-                    </div>
                       </div>
                     </div>
                   </h2>
-                  
-              
-                  <!-- <div
-                    [id]="'collapse' + i"
-                    class="accordion-collapse collapse"
-                    [attr.aria-labelledby]="'heading' + i"
-                    data-bs-parent="#taskAccordion"
-                  >
-                    <div class="accordion-body">
-                      Description: {{ task.description || 'No description' }}
-                    </div>
-                  </div> -->
                 </div>
               </div>
              </div> 
@@ -98,15 +81,15 @@
           <div class="col-md-4">
             <!-- Bar Chart -->
             <div class="card mb-4">
-              <div class="card-header">Task Overview</div>
+              <div class="card-header">Project Overview</div>
               <div class="card-body">
-                <div echarts [options]="chartOptions" class="w-100" style="height: 300px;"></div>
+                <div echarts [options]="donutChartOptions" class="w-100" style="height: 400px;"></div>
               </div>
             </div>
       
             <!-- Recent Activities -->
             <div class="card">
-              <div class="card-header">Recent Tasks</div>
+              <div class="card-header">Recent Projects</div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let activity of recentActivities">
                   <strong>{{ activity.user }}</strong> {{ activity.action }} <br />
