@@ -76,4 +76,11 @@ $white: #fff;
       color: lighten($black, 50%);
     }
   }
+  .signup-btn{
+text-decoration: underline;
+cursor: pointer;
+font-size: 11px;
+color: blue;
+  }
+ 
 }

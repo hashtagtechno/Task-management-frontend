@@ -1,0 +1,62 @@
+<div class="signup-modal pb-1"><div class="modal-header"><span class="modal-title">SignUp </span>
+    <div class="ms-auto">
+        <i class="fa fa-times text-white fa-lg" aria-hidden="true" (click)="closeModal()" ></i>
+  </div>
+  </div>
+<div class="card-body mt-4"> 
+    <div class="container">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        
+            <div class="form-group mb-3">
+                <label class="text-uppercase">User name</label>
+                <div class="input-group">
+                  <input type="text" formControlName="userName" class="form-control" placeholder=" User name">
+                  <button type="button" class="btn btn-outline-secondary">
+                    
+                  </button>
+                </div>
+                <div *ngIf="signUpForm.controls['userName'].hasError('required')">Username is required</div>
+               
+              </div>
+          <!-- New Password -->
+          <div class="form-group mb-3">
+            <label class="text-uppercase">New Password</label>
+            <div class="input-group">
+              <input [type]="passwordVisible.new ? 'text' : 'password'" formControlName="newPassword" class="form-control" placeholder=" New Password">
+              <button type="button" class="btn btn-outline-secondary" (click)="passwordVisible.new = !passwordVisible.new">
+                👁
+              </button>
+            </div>
+            <small class="text-danger" *ngIf="signUpForm.controls['newPassword'].invalid && signUpForm.controls['newPassword'].touched">
+              Password must be at least 6 characters long and contain:
+              <ul>
+                <li>At least 1 uppercase letter</li>
+                <li>At least 1 lowercase letter</li>
+                <li>At least 1 number</li>
+              </ul>
+            </small>
+          </div>
+      
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label class="text-uppercase">Re-Type Password</label>
+            <div class="input-group">
+              <input [type]="passwordVisible.confirm ? 'text' : 'password'" formControlName="confirmPassword" class="form-control" placeholder="Re-Type New Password">
+              <button type="button" class="btn btn-outline-secondary" (click)="passwordVisible.confirm = !passwordVisible.confirm">
+                👁
+              </button>
+            </div>
+            <small class="text-danger" *ngIf="signUpForm.hasError('mismatch') && signUpForm.controls['confirmPassword'].touched"
+            >
+              Passwords do not match.
+            </small>
+          </div>
+          <div class="note mt-2"><small>   <i>Note: The New Password field must be at least 6 characters</i>  
+<br>
+           <i> Note: The New Password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number</i></small></div>
+           
+      
+          <button type="submit" class="btn btn-primary mt-4 w-100 bg-success" [disabled]="signUpForm.invalid">SignUp</button>
+        </form>
+        </div>
+        </div>

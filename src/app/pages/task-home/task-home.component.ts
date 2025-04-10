@@ -34,14 +34,15 @@ recentActivities = [
   { user: 'User1', action: 'created Task 1', time: new Date() },
   { user: 'User2', action: 'completed Task 2', time: new Date() },
 ];
- 
+newStatus!:string;
+ newAction:string='';
   ngOnInit(): void {
     this.tasksService.getTasks().subscribe(data => {
       this.tasks = data;
-      // console.log(this.tasks)
     }, error => {
-      // console.error('API Error:', error);
+ 
     });
+    
   
     this.chartOptions = {
       title: {
@@ -54,9 +55,8 @@ recentActivities = [
           type: 'category',   
           data: ['New', 'Active', 'Completed', 'Closed'],
           axisLabel: {
-            // Rotate the x-axis labels for better display
             rotate: 45,
-            interval: 0,  // This ensures all labels are displayed
+            interval: 0,  
           }
         }
       ],
@@ -80,21 +80,53 @@ recentActivities = [
     };
   }
   openTaskModal() {
-    // console.log('Task created:', task);
     const modalRef = this.modalService.open(AddTaskComponent);
     modalRef.componentInstance.event.subscribe((data: any) => {
-      // console.log('Task created:', data);
-     
           if (data=='Task created successfully') {
-            // You get the returned data here
-            // console.log('Returned data:',data );
+            
             this.ngOnInit();''
           }
         })
   }
   getLast4Chars(id:string): string {
-    return  'TZK-' + id.slice(-4);  // Get the last 4 characters
+    return  'TZK-' + id.slice(-4);  
   }   
+  updateTask(id: string, status: string) {
+    if (status === "NOT_STARTED") {
+      this.newStatus = "Inprogress";
+      this.newAction = "Start";
+    } else if (status === "Inprogress") {
+      this.newStatus = "Completed";
+      this.newAction = "Complete";
+    }
+    // console.log('newAction:', this.newAction); // Check the value of newAction
+    if(this.newAction){
+      Swal.fire({
+        position: 'top',
+        title: `Are you sure to ${this.newAction} the task`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.newAction,
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: 'black',
+        cancelButtonColor: 'white',
+      }).then((res) => {
+        if (res.value) {
+          // Inside the then(), using an arrow function ensures `this` refers to the component instance
+          this.tasksService.updateTask(id, this.newStatus).subscribe(
+            (response: any) => {
+              this.ngOnInit();
+            },
+            (error: any) => {
+              // Error handling logic here
+            }
+          );
+        }
+      });
+    }
+  
+  }
+  
   
   openviewTask(taskId:string){
     if ( !taskId) {
@@ -102,14 +134,10 @@ recentActivities = [
       return;
     }
     else{
-      // console.log(taskId)
-     
-      const modalRef = this.modalService.open(TaskDetailsComponent); // Open the modal
-      // Pass data to the modal component using componentInstance
-      modalRef.componentInstance.taskId = taskId;
     
+      const modalRef = this.modalService.open(TaskDetailsComponent); 
+      modalRef.componentInstance.taskId = taskId;
     }
-
     }
     deleteTask(id:string){
       Swal.fire({
@@ -123,20 +151,17 @@ recentActivities = [
         cancelButtonColor: 'white',
       }).then((res) => {
         if (res.value) {
-          // console.log('delete');
           this.tasksService.deleteTask(id).subscribe(
             (response) => {
               this._notificationSvc.success('', 'Deleted successfully');
              this.ngOnInit(  )
             },
             (error) => {
-              // console.log(error);
               this._notificationSvc.error('', 'deletion Failed!');
               this.ngOnInit();
             }
           );
         } else {
-          // console.log('Cancel');
         }
       });
     }

@@ -22,4 +22,7 @@ export class TaskService {
   deleteTask(id:string){
     return this.http.delete(`${environment.apiUrl}/tasks/${id}`);
   }
+  updateTask(id:string,status:string){
+    return this.http.put(`${environment.apiUrl}/tasks/${id}`,{'status':status});
+  }
 }

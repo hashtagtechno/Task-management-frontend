@@ -1,0 +1,67 @@
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+app-sidebar {
+    width: 200px; 
+    height: 100vh;
+}
+
+.content {
+    width: calc(100% - 220px); 
+    padding: 10px;
+    margin-top: 80px;
+
+}
+.profile-card-header{
+    background-color:#167abf;
+    color: white;
+    font-size: 16px;
+    height: 40px;
+}
+
+.fa{
+    color:#167abf;
+
+}
+.profile-card-header{
+    background-color:#167abf;
+    color: white;
+    font-size: 16px;
+    height: 40px;
+}
+
+.fa{
+    color:#167abf;
+
+}
+li {
+    list-style-type: none; /* Removes bullet points */
+    padding-left: 0; /* Optional: Removes extra left padding */
+    margin-left: 0; /* Optional: Adjusts left margin */
+  
+}
+.li-row{
+    height: 45px;
+    border-bottom:1px solid lightgrey;
+}
+label{
+    color: grey;
+    font-size:13px;
+}
+.bg-success{
+    border:none;
+}
+.note{
+    font-size:13px;
+}
+
+.marker-removed li {
+    list-style: none;
+}
+
+ul, ol {
+    padding-left: 0;
+    margin-left: 0;
+}

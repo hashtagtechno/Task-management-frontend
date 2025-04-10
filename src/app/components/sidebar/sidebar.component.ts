@@ -17,6 +17,7 @@ export class SidebarComponent {
     { title: 'Task Home', icon:"fa fa-home", route: '/taskhome' },
     { title: 'Projects', icon:"fa-solid fa-list-check", route: '../projects' },
     { title: 'Kanban', icon:"fa-solid fa-boxes-stacked", route: '/kanban'},
+    { title: 'Profile', icon:"fa-solid fa-boxes-stacked", route: '/profile'},
     { title: 'LogOut', icon:"fa-solid fa-right-from-bracket", route: '/'},
   ]
 }

@@ -29,8 +29,8 @@
                         <!-- Side line -->
                         <div class="me-3">
                           <div class="vertical-line" [ngClass]="{
-                              'bg-blue-sideline': task.status === 'Not Started',
-                              'bg-warning': task.status === 'Inprogress',
+                              'bg-blue-sideline': task.status === 'NOT_STARTED',
+                              'bg-pink': task.status === 'inprogress',
                               'bg-success': task.status === 'Completed',
                               'bg-dark': task.status === 'Closed'
                             }"></div>
@@ -52,7 +52,7 @@
                   
                         <!-- Status -->
                         <div class="text-muted col-2 align-content-center">
-                          <small>Not Started</small>
+                          <small>{{task.status}}</small>
                         </div>
                   
                         <!-- Due Date -->
@@ -73,7 +73,8 @@
                       <div
                       class="text-muted col-1 align-content-center"
                     >
-                      <small class="text-primary pointer">Update</small>
+                      <small class="text-primary pointer" *ngIf="task.status!='Completed'"   (click)="updateTask(task._id,task.status)">Update</small>
+                   
                     </div>
                       </div>
                     </div>
