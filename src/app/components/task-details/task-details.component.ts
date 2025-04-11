@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from '../../services/task.service';
 import Swal from 'sweetalert2';
@@ -15,6 +15,8 @@ export class TaskDetailsComponent {
  newAction:string='';
   taskId!:string;
   task!:any;
+  public event: EventEmitter<any> = new EventEmitter();
+    msg!:string;
   constructor(public activeModal: NgbActiveModal,private TaskService:TaskService){}
   ngOnInit(){
     // console.log(this.taskId)
@@ -59,7 +61,9 @@ export class TaskDetailsComponent {
              // Inside the then(), using an arrow function ensures `this` refers to the component instance
              this.TaskService.updateTask(id, this.newStatus).subscribe(
                (response: any) => {
-                 this.ngOnInit();
+                this.msg ='Task Updated Successfully';
+                this.triggerEvent(this.msg);
+                this.activeModal.close();
                },
                (error: any) => {
                  // Error handling logic here
@@ -68,6 +72,9 @@ export class TaskDetailsComponent {
            }
          });
        }
+  }
+  triggerEvent(msg: string) {
+    this.event.emit(msg);
   }
 }
 export interface Task {

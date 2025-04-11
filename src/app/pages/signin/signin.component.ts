@@ -37,7 +37,7 @@ export class SigninComponent {
     }
   }
   openSignUpModal(){
-      //  const modalRef = this.modalService.open(SignupComponent); 
+       const modalRef = this.modalService.open(SignupComponent); 
          
   }
 }

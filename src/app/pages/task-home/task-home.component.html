@@ -29,8 +29,8 @@
                         <!-- Side line -->
                         <div class="me-3">
                           <div class="vertical-line" [ngClass]="{
-                              'bg-blue-sideline': task.status === 'NOT_STARTED',
-                              'bg-pink': task.status === 'inprogress',
+                              'bg-blue-sideline': task.status === 'Not Started',
+                              'bg-pink': task.status === 'Inprogress',
                               'bg-success': task.status === 'Completed',
                               'bg-dark': task.status === 'Closed'
                             }"></div>
@@ -109,9 +109,9 @@
             <div class="card">
               <div class="card-header">Recent Tasks</div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let activity of recentActivities">
-                  <strong>{{ activity.user }}</strong> {{ activity.action }} <br />
-                  <small class="text-muted">{{ activity.time | date:'short' }}</small>
+                <li class="list-group-item" *ngFor="let task of recentTasks">
+                  <strong>{{ task.assigned_to }}</strong> created Task <strong>{{task.task_name}}</strong>&nbsp; on 
+                  <small class="text-muted">{{ task.createdAt | date:'short' }}</small>
                 </li>
               </ul>
             </div>

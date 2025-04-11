@@ -8,24 +8,19 @@
         <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         
             <div class="form-group mb-3">
-                <label class="text-uppercase">User name</label>
+                <label class="text-uppercase mb-2">User name</label>
                 <div class="input-group">
                   <input type="text" formControlName="userName" class="form-control" placeholder=" User name">
-                  <button type="button" class="btn btn-outline-secondary">
-                    
-                  </button>
                 </div>
                 <div *ngIf="signUpForm.controls['userName'].hasError('required')">Username is required</div>
                
               </div>
           <!-- New Password -->
           <div class="form-group mb-3">
-            <label class="text-uppercase">New Password</label>
+            <label class="text-uppercase mb-2">New Password</label>
             <div class="input-group">
               <input [type]="passwordVisible.new ? 'text' : 'password'" formControlName="newPassword" class="form-control" placeholder=" New Password">
-              <button type="button" class="btn btn-outline-secondary" (click)="passwordVisible.new = !passwordVisible.new">
-                👁
-              </button>
+             
             </div>
             <small class="text-danger" *ngIf="signUpForm.controls['newPassword'].invalid && signUpForm.controls['newPassword'].touched">
               Password must be at least 6 characters long and contain:
@@ -39,12 +34,9 @@
       
           <!-- Confirm Password -->
           <div class="form-group">
-            <label class="text-uppercase">Re-Type Password</label>
+            <label class="text-uppercase mb-2">Re-Type Password</label>
             <div class="input-group">
-              <input [type]="passwordVisible.confirm ? 'text' : 'password'" formControlName="confirmPassword" class="form-control" placeholder="Re-Type New Password">
-              <button type="button" class="btn btn-outline-secondary" (click)="passwordVisible.confirm = !passwordVisible.confirm">
-                👁
-              </button>
+              <input [type]="passwordVisible.confirm ? 'text' : 'password'" formControlName="confirmPassword" class="form-control" placeholder="Re-Type Password">
             </div>
             <small class="text-danger" *ngIf="signUpForm.hasError('mismatch') && signUpForm.controls['confirmPassword'].touched"
             >
@@ -56,7 +48,7 @@
            <i> Note: The New Password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number</i></small></div>
            
       
-          <button type="submit" class="btn btn-primary mt-4 w-100 bg-success" [disabled]="signUpForm.invalid">SignUp</button>
+          <button type="submit" class="btn btn-sbmt mt-4 w-100" [disabled]="signUpForm.invalid">Sign Up</button>
         </form>
         </div>
         </div>

@@ -33,12 +33,13 @@ app-sidebar {
 font-size: 13px;
 }
 .accordion-button:after{
-width: 1rem;
-height: 1rem;
-background-size: .5rem;
-margin-left: 0 !important;
-// order: -1;
-margin-right: .5rem;
+  display: none;
+// width: 1rem;
+// height: 1rem;
+// background-size: .5rem;
+// margin-left: 0 !important;
+// // order: -1;
+// margin-right: .5rem;
 }
 .card-header{
     background-color: #c0dff4;

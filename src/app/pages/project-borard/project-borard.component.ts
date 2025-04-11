@@ -78,7 +78,7 @@ openProjectModal(){
 
 }
 getLast4Chars(id:string): string {
-  return  'TZK-' + id.slice(-4);  // Get the last 4 characters
+  return  'PRJ-' + id.slice(-4);  // Get the last 4 characters
 }   
 openviewProject(id:string){
 }

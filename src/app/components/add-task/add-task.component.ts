@@ -14,11 +14,12 @@ import { TaskService } from '../../services/task.service';
 })
 export class AddTaskComponent {
   public event: EventEmitter<any> = new EventEmitter();
+  msg!:string;
   addTaskForm: UntypedFormGroup;
   minDate: Date = new Date();
   minEndDate: Date = new Date();
   taskId!:number;
-  msg!:string;
+
   projectOptions = [
     {
       id: 0,
@@ -62,7 +63,7 @@ export class AddTaskComponent {
   this.activeModal.close();
 }
 onClickSubmitAdd(data:any){
-console.log(data)
+// console.log(data)
 let taskdata={
   task_name:data.task_name,
   description:data.description,

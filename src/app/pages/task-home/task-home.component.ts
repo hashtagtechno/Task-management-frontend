@@ -29,16 +29,15 @@ export class TaskHomeComponent implements OnInit {
   chartOptions: EChartsOption = {};
   currentPage: number = 1;
   tasks:any;
+recentTasks!:any;
 
-recentActivities = [
-  { user: 'User1', action: 'created Task 1', time: new Date() },
-  { user: 'User2', action: 'completed Task 2', time: new Date() },
-];
 newStatus!:string;
  newAction:string='';
   ngOnInit(): void {
     this.tasksService.getTasks().subscribe(data => {
       this.tasks = data;
+      const tasksArray = data as any[];
+  this.recentTasks = tasksArray.slice(-2);
     }, error => {
  
     });
@@ -84,7 +83,7 @@ newStatus!:string;
     modalRef.componentInstance.event.subscribe((data: any) => {
           if (data=='Task created successfully') {
             
-            this.ngOnInit();''
+            this.ngOnInit();
           }
         })
   }
@@ -99,11 +98,10 @@ newStatus!:string;
       this.newStatus = "Completed";
       this.newAction = "Complete";
     }
-    // console.log('newAction:', this.newAction); // Check the value of newAction
     if(this.newAction){
       Swal.fire({
         position: 'top',
-        title: `Are you sure to ${this.newAction} the task`,
+        title: `Are you sure to ${this.newAction} the task?`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: this.newAction,
@@ -112,13 +110,11 @@ newStatus!:string;
         cancelButtonColor: 'white',
       }).then((res) => {
         if (res.value) {
-          // Inside the then(), using an arrow function ensures `this` refers to the component instance
           this.tasksService.updateTask(id, this.newStatus).subscribe(
             (response: any) => {
               this.ngOnInit();
             },
             (error: any) => {
-              // Error handling logic here
             }
           );
         }
@@ -142,7 +138,7 @@ newStatus!:string;
     deleteTask(id:string){
       Swal.fire({
         position: 'top',
-        title: `Are you sure to delete the task`,
+        title: `Are you sure to delete the task?`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Delete',
