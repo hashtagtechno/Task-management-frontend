@@ -5,7 +5,7 @@
           <div class="wrap d-md-flex">
             <div
               class="d-none d-md-block col-md-6 img"
-              style="background-image: url('../../../assets/images/task-login.jpg')"
+              style="background-image: url('../../../assets/images/signin_img.jpg')"
             ></div>
             <div class="col-12 col-md-6 p-4 p-md-5 border-bottom-signin border-3">
              
@@ -21,9 +21,9 @@
                 [formGroup]="signinForm"
                 (ngSubmit)="signin()"
               >
-                <div class="form-group mb-3">
+                <div class="mb-3 form-div">
                   <label class="label" for="name">Username</label>
-                  <input
+                  <input autocomplete="off" 
                     type="text"
                     class="form-control mt-1"
                     placeholder="Username"
@@ -32,10 +32,10 @@
                     required
                   />
                 </div>
-                <div class="form-group mb-3">
+                <div class="mb-3 form-div">
                   <label class="label" for="password">Password</label>
                   <input
-                    type="password"
+                    type="password" autocomplete="off" 
                     class="form-control mt-1"
                     placeholder="Password"
                     name="password"
@@ -49,7 +49,7 @@
                   Please try again.
                 </div>
                
-                <div class="d-grid mb-5 ">
+                <div class="d-grid mb-5 mt-4">
                   <button
                     type="submit"
                     class="btn btn-prim rounded submit px-3 btn-signin"

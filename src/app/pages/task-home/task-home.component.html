@@ -13,13 +13,14 @@
             <div class="task-header-row mb-3 mt-5">
                 <div class="row">
                   <div class="col-2 title-label">Task</div>
-                  <div class="col-3 title-label">Project</div>
-                  <div class="col-2 title-label">Status</div>
-                  <div class="col-2 title-label">Due Date</div>
+                  <div class="col-2 title-label">Project</div>
+                  <div class="col-2 title-label">Assignee</div>
+                  <div class="col-1 title-label">Status</div>
+                  <div class="col-2 title-label d-flex justify-content-center align-items-center">Due Date</div>
                 </div>
               </div>
             <div class="accordion" id="taskAccordion">
-                <div class="accordion-item" *ngFor="let task of tasks; let i = index">
+                <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
                     
                   <h2 class="accordion-header" [id]="'heading' + i">
                     <div
@@ -46,52 +47,49 @@
                         </div>
                   
                         <!-- Project -->
-                        <div class="text-muted col-3 align-content-center">
+                        <div class="text-muted col-2 align-content-center">
                           <small>{{ task.project_name }}</small>
                         </div>
-                  
-                        <!-- Status -->
                         <div class="text-muted col-2 align-content-center">
+                          <small>{{ task.assigned_to }}</small>
+                        </div>
+                        <!-- Status -->
+                        <div class="text-muted col-1 align-content-center text-center status-value" [ngClass]="{
+                          'bg-notstarted': task.status === 'Not Started',
+                          'bg-inprogress': task.status === 'Inprogress',
+                          'bg-completed': task.status === 'Completed',
+                          'bg-closed': task.status === 'Closed'
+                        }">
                           <small>{{task.status}}</small>
                         </div>
                   
                         <!-- Due Date -->
-                        <div class="text-muted col-2 align-content-center">
+                        <div class="text-muted col-2 d-flex justify-content-center align-items-center">
                           <small>{{ task.due_date | date }}</small>
                         </div>
                   
                         <div
                           class="text-muted col-1 align-content-center"
                         >
-                          <small class="text-primary pointer" (click)="openviewTask(task._id)">View</small>
+                          <small class="action-btn pointer" (click)="openviewTask(task._id)">View</small>
                         </div>
                         <div
                         class="text-muted col-1 align-content-center"
                       >
-                        <small class="text-primary pointer" (click)="deleteTask(task._id)">Delete</small>
+                        <small class="action-btn pointer" (click)="deleteTask(task._id)">Delete</small>
                       </div>
                       <div
                       class="text-muted col-1 align-content-center"
                     >
-                      <small class="text-primary pointer" *ngIf="task.status!='Completed'"   (click)="updateTask(task._id,task.status)">Update</small>
+                      <small class="action-btn pointer" *ngIf="task.status!='Completed'"   (click)="updateTask(task._id,task.status)">Update</small>
                    
                     </div>
                       </div>
                     </div>
                   </h2>
-                  
-              
-                  <!-- <div
-                    [id]="'collapse' + i"
-                    class="accordion-collapse collapse"
-                    [attr.aria-labelledby]="'heading' + i"
-                    data-bs-parent="#taskAccordion"
-                  >
-                    <div class="accordion-body">
-                      Description: {{ task.description || 'No description' }}
-                    </div>
-                  </div> -->
                 </div>
+                <pagination-controls *ngIf="tasks?.length" style="margin-top: 20px; display: block;"  previousLabel="Prev"
+                nextLabel="Next" (pageChange)="p = $event"></pagination-controls>
               </div>
              </div> 
       

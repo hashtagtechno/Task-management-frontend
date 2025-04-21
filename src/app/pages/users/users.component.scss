@@ -15,15 +15,16 @@ app-sidebar {
     margin-top: 80px;
 
 }
+.action-btn{
+  color:#23A3A4;
+}
 .label-style{
     color: grey;
     font-size: 11px;
 }
 .title-label{
-    color:black;
+    color: grey; 
     font-size: 13px;
-    font-weight: 500;
-  
 }
 .accordion-button{
     padding:  0px;
@@ -38,43 +39,19 @@ font-size: 13px;
   display: none;
 }
 .card-header{
-    background-color: #D3FBFB;
-    font-weight: 500;
-}
-.action-btn{
-  color: #23A3A4;
-}
-.bg-notstarted{
-  background-color: #0b47b83d;
-}
-.bg-inprogress{
-  background-color: #89c8de;
-}
-
-
-.bg-completed{
-  background-color: #0080433d;
-}
-.bg-closed{
-  background-color: #0080433d;
+    background-color: #23A3A4;
 }
 .vertical-line {
     width: 4px;
     height: 100%;
-  
-  }
-  .status-value{
-    border-radius: 4px;
+     background-color: #23A3A4;
+ 
   }
   .bg-blue-sideline{
-    background-color: rgb(176, 147, 244);
-  }
-  .bg-pink{
-   background-color: rgb(6,134,241,0.9);
+    background-color:#23A3A4;
   }
   .btn-create{
     background-color:#D3FBFB;
-    font-weight: 500;
   }
   .title-text{
     font-weight: 500;
@@ -82,11 +59,4 @@ font-size: 13px;
   .pointer {
     cursor: pointer;
   }
- .ngx-pagination .pagination-previous,.ngx-pagination .pagination-next {
-background-color: white!important;
-color: black;
-font-size: 12px;
-  }
-
-  
   

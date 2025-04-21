@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NotificationComponent } from '../../components/notification/notification.component';
 import { CommonModule } from '@angular/common';
 // import { NgxEchartsModule } from 'ngx-echarts';
@@ -6,29 +6,23 @@ import { EChartsOption, LegendComponentOption, PieSeriesOption, TooltipComponent
 import { NgxEchartsModule } from 'ngx-echarts';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddProjectComponent } from '../../components/add-project/add-project.component';
+import { ProjectService } from '../../services/project.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-project-borard',
   standalone: true,
-  imports: [NotificationComponent,CommonModule,NgxEchartsModule,SidebarComponent, HeaderComponent
+  imports: [NotificationComponent, NgxPaginationModule,CommonModule,NgxEchartsModule,SidebarComponent, HeaderComponent
   ],
   templateUrl: './project-borard.component.html',
   styleUrl: './project-borard.component.scss'
 })
-export class ProjectBorardComponent {
-  constructor(){}
+export class ProjectBorardComponent implements OnInit {
+  constructor(private modalService: NgbModal,private ProjectService:ProjectService){}
   chartOptions: EChartsOption = {};
- projects = [
-  { title: 'Project 1',id:"1", description: 'Description of Project 1', status: 'Not Started', project: 'Sprint1', due_date:'10/05/2025' },
-  { title: 'Project 2',id:"2", description: 'Description of Project 2', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-  { title: 'Project 4',id:"4", description: 'Description of Project 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-  { title: 'Project 1',id:"1", description: 'Description of Project 1', status: 'Not Started', project: 'Sprint1', due_date:'10/05/2025' },
-  { title: 'Project 2',id:"2", description: 'Description of Project 2', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-  { title: 'Project 4',id:"4", description: 'Description of Project 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-  { title: 'Project 4',id:"4", description: 'Description of Project 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-  { title: 'Project 1',id:"1", description: 'Description of Project 1', status: 'Not Started', project: 'Sprint1', due_date:'10/05/2025' },
-  { title: 'Project 2',id:"2", description: 'Description of Project 2', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' },
-  { title: 'Project 4',id:"4", description: 'Description of Project 4', status: 'Not Started', project: 'Sprint1',due_date:'10/05/2025' }
-];
+  p: number = 1;
+ projects:any;
 recentActivities = [
   { user: 'User1', action: 'created Project 1', time: new Date() },
   { user: 'User2', action: 'completed Project 2', time: new Date() },
@@ -74,8 +68,23 @@ public donutChartOptions: EChartsOption = {
   ]
 
 };
-openProjectModal(){
+ngOnInit(): void {
+  
+  this.ProjectService.getProjects().subscribe(data => {
+    this.projects = data;
+    console.log(this.projects);
+  }, error => {
 
+  });
+}
+openProjectModal(){
+    const modalRef = this.modalService.open(AddProjectComponent);
+    modalRef.componentInstance.event.subscribe((data: any) => {
+          if (data=='Task created successfully') {
+            
+            this.ngOnInit();
+          }
+        })
 }
 getLast4Chars(id:string): string {
   return  'PRJ-' + id.slice(-4);  // Get the last 4 characters
@@ -85,4 +94,5 @@ openviewProject(id:string){
 deleteProject(id:string){
 
 }
+
 }

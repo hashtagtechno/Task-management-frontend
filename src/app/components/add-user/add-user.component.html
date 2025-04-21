@@ -1,0 +1,169 @@
+<div class="add-user-modal pb-1"><div class="modal-header"><span class="modal-title">New User</span>
+    <div class="ms-auto">
+        <i class="fa fa-times text-dark fa-lg" aria-hidden="true" (click)="closeModal()" ></i>
+  </div>
+  </div>
+  <div class="modal-body m-2">
+    <form
+    [formGroup]="addUserForm"
+    (ngSubmit)="onClickSubmitUser(addUserForm.value)"
+  >
+    
+    <div class="row  mb-4">
+        <div class="form-group">
+            <input
+              placeholder="User name"
+              formControlName="name"
+              class="custom-input w-100"
+              maxlength="100"
+            />
+           
+            <div
+              *ngIf="
+                addUserForm?.get('name')?.errors?.['required']
+              "
+              class="alert-error mt-2"
+            >
+              * required.
+            </div>
+       
+    </div> 
+  </div>
+  <div class="row d-flex mb-4">
+  <div class="col-md-6 p-0">
+    <input
+      type="email"
+      placeholder="Email"
+      class=" custom-form-control w-100 ps-2"
+    
+      formControlName="email"
+     
+    
+    />
+    <div
+    *ngIf="
+      addUserForm.get('email')?.errors?.['required']
+    "
+    class="alert-error"
+  >
+    * required.
+</div>
+<div
+  *ngIf="addUserForm.get('email')?.touched && addUserForm.get('email')?.errors?.['email']"
+  class="alert-error"
+>
+  * Please enter a valid email address.
+</div>
+</div>
+
+
+    <div class="col-md-6 p-0">
+      <input
+        type="text"
+        placeholder="Password"
+        class=" custom-form-control w-100 ps-2"
+      
+        formControlName="password"
+       
+      
+      />
+      <div
+      *ngIf="
+        addUserForm.get('password')?.errors?.['required']
+      "
+      class="alert-error"
+    >
+      * required.
+  </div>
+  </div>
+</div>
+  <div class="row d-flex mb-4">
+  <div class="col-md-6 p-0">
+    <input
+      type="text"
+      placeholder="Designation"
+      class=" custom-form-control w-100 ps-2"
+    
+      formControlName="designation"
+     
+    
+    />
+    <div
+    *ngIf="
+      addUserForm.get('designation')?.errors?.['required']
+    "
+    class="alert-error"
+  >
+    * required.
+</div>
+  </div>
+  <div class="col-md-6 p-0">
+    <ng-select
+    [searchable]="true"
+    [items]="  roleOptions"
+    formControlName="role"
+    bindLabel="name"
+    placeholder="Role"
+    [closeOnSelect]="true"
+    (change)="roleChange($event)"
+  >
+    <ng-template ng-option-tmp let-item="item">
+     
+      <div >
+        {{ item.name }}
+      </div>
+    </ng-template>
+  </ng-select>
+    <div
+    *ngIf="
+      addUserForm.get('role')?.errors?.['required']
+    "
+    class="alert-error"
+  >
+    * required.
+</div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+     <app-multi-select (selectedItemsList)="updateChips($event)" [list]="projectOptions"></app-multi-select>
+    </div>
+    <div class="col-md-8">
+        <div class="chip-container" *ngIf="selectedProjects?.length">
+          <tag-input
+          class="form-control custom-form-tag"
+          (keydown)="disableTags()"
+          [ngModel]="displayProjectNames"
+          [removable]="false"
+          placeholder="" 
+          secondaryPlaceholder=""  [ngModelOptions]="{ standalone: true }"
+        >
+        </tag-input>
+          </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="mb-3" class="d-flex justify-content-end">
+      <button
+        type="submit"
+        class="btn btn-custom-success"
+        [disabled]="
+          !addUserForm.valid" 
+      >
+       Create
+      </button>
+      <button
+        type="button"
+        class="btn btn-custom-cancel"
+        (click)= "closeModal()"
+      >
+        Cancel
+      </button>
+    </div>
+    <div class="mb-3"></div>
+  </div>
+</div>
+
+
+  

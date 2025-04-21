@@ -13,13 +13,13 @@
             <div class="Project-header-row mb-3 mt-5">
                 <div class="row">
                   <div class="col-3 title-label">Project</div>
-                  <div class="col-3 title-label">Category</div>
-                  <div class="col-2 title-label">Status</div>
+                 
+                  <div class="col-3 title-label">start Date</div>
                   <div class="col-2 title-label">Due Date</div>
                 </div>
               </div>
             <div class="accordion" id="ProjectAccordion">
-                <div class="accordion-item" *ngFor="let project of projects; let i = index">
+                <div class="accordion-item" *ngFor="let project of projects  | paginate: { itemsPerPage: 10, currentPage: p };; let i = index">
                     
                   <h2 class="accordion-header" [id]="'heading' + i">
                     <div
@@ -28,52 +28,49 @@
                       <div class="d-flex w-100">
                         <!-- Side line -->
                         <div class="me-3">
-                          <div class="vertical-line" [ngClass]="{
-                              'bg-blue-sideline': project.status === 'Not Started',
-                              'bg-warning': project.status === 'Inprogress',
-                              'bg-success': project.status === 'Completed',
-                              'bg-dark': project.status === 'Closed'
-                            }"></div>
+                          <div class="vertical-line" ></div>
                         </div>
                   
                         <!-- Title and ID -->
                         <div class="p-1 col-3">
-                          <div class="text-muted title-text">{{ project.title }}</div>
+                          <div class="text-muted title-text">{{ project.projectName }}</div>
                           <div>
                             <span class="label-style">ID:</span>
-                            <span class="label-style"><i>{{ getLast4Chars(project.id)}}</i></span>
+                            <span class="label-style"><i>{{ getLast4Chars(project._id)}}</i></span>
                           </div>
                         </div>
                   
                         <!-- Project -->
                         <div class="text-muted col-3 align-content-center">
-                          <small>Architcture</small>
+                          <small>{{project.startDate | date}}</small>
                         </div>
                   
                         <!-- Status -->
                         <div class="text-muted col-2 align-content-center">
-                          <small>Not Started</small>
+                          <small>{{project.endDate| date}}</small>
                         </div>
                   
                         <!-- Due Date -->
-                        <div class="text-muted col-2 align-content-center">
+                        <!-- <div class="text-muted col-2 align-content-center">
                           <small>{{ project.due_date | date }}</small>
                         </div>
-                  
+                   -->
                         <div
                           class="text-muted col-1 align-content-center"
                         >
-                          <small class="text-primary pointer" (click)="openviewProject(project.id)">View</small>
+                          <small class="action-btn pointer" (click)="openviewProject(project.id)">View</small>
                         </div>
                         <div
                         class="text-muted col-1 align-content-center"
                       >
-                        <small class="text-primary pointer" (click)="deleteProject(project.id)">Delete</small>
+                        <small class="action-btn pointer" (click)="deleteProject(project.id)">Delete</small>
                       </div>
                       </div>
                     </div>
                   </h2>
                 </div>
+                <pagination-controls *ngIf="projects?.length" style="margin-top: 20px; display: block;"  previousLabel="Prev"
+                nextLabel="Next" (pageChange)="p = $event"></pagination-controls>
               </div>
              </div> 
       

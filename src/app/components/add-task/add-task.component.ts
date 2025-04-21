@@ -63,7 +63,6 @@ export class AddTaskComponent {
   this.activeModal.close();
 }
 onClickSubmitAdd(data:any){
-// console.log(data)
 let taskdata={
   task_name:data.task_name,
   description:data.description,
@@ -73,7 +72,6 @@ let taskdata={
 }
   this.TaskService.addTask(taskdata).subscribe(
     (response) => {
-      // this.taskId = response.task.task_id;
         this.msg ='Task created successfully';
           this.triggerEvent(this.msg);
           this.activeModal.close();

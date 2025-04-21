@@ -1,0 +1,25 @@
+<div>
+    <div class="dropdown">
+        <!-- <button class="drop-toggle btn flat" (click)="showDropDown = !showDropDown"> -->
+        <button class="drop-toggle btn flat">
+            <span class="dropdown-title">{{dropdownTitle}}</span>
+<i class="fa fa-solid fa-list-check"></i>
+        </button>
+        <!-- <div class="drop-show" *ngIf="showDropDown"> -->
+        <div class="drop-show">
+            <input type="text" class="dropdown-searchbar" type="text" name="search" [(ngModel)]="searchText"
+                autocomplete="off" [placeholder]="'Search'+' '+ dropdownTitle + '...'"
+                (ngModelChange)="modelChanged($event)">
+
+            <label *ngFor="let a of list">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate"
+                    [(ngModel)]="a.checked" (change)="getSelectedValue(a.checked, a)">
+                <!-- <input type="checkbox" [(ngModel)]="a.checked" (change)="getSelectedValue(a.checked, a)" /> -->
+                <span class="drop-item" *ngIf="!a?.projectName">Not Assigned</span>
+                <span class="drop-item"  *ngIf="a?.projectName && a.projectName !== 'null'">
+                    {{a?.projectName}}
+                </span>
+            </label>
+        </div>
+    </div>
+</div>

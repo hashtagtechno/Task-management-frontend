@@ -1,0 +1,125 @@
+<div class="add-task-modal pb-1"><div class="modal-header"><span class="modal-title">New Project</span>
+    <div class="ms-auto">
+        <i class="fa fa-times text-dark fa-lg" aria-hidden="true" (click)="closeModal()" ></i>
+  </div>
+  </div>
+  <div class="modal-body m-2">
+    <form
+    [formGroup]="addprojectForm"
+    (ngSubmit)="onClickSubmitProject(addprojectForm.value)"
+  >
+    
+    <div class="row  mb-4">
+        <div class="form-group">
+              <input
+                placeholder="Project Title"
+                formControlName="project_name"
+                class="custom-input w-100"
+                maxlength="100"
+              />
+             
+              <div
+                *ngIf="
+                  addprojectForm?.get('project_name')?.errors?.['required']
+                "
+                class="alert-error mt-2"
+              >
+                * required.
+              </div>
+         
+      </div> 
+    </div>
+    <div class="row d-flex">
+    <div class="col-md-6 p-0">
+      <input
+        type="text"
+        placeholder="Start Date"
+        class=" custom-form-control w-100 ps-2"
+        bsDatepicker
+        #dp="bsDatepicker"
+        [minDate]="minDate"
+        [bsConfig]="{
+          isAnimated: true,
+          dateInputFormat: 'DD-MM-YYYY',
+          containerClass: 'theme-default',
+          showWeekNumbers: false
+        }"
+        formControlName="start_date"
+        [outsideClick]="true"
+        (bsValueChange)="onValueChange($event)"
+      />
+      <div
+      *ngIf="
+        addprojectForm.get('start_date')?.errors?.['required']
+      "
+      class="alert-error"
+    >
+      * required.
+</div>
+</div>
+<div class="col-md-6 p-0">
+  <input
+    type="text"
+    placeholder="Start Date"
+    class=" custom-form-control w-100 ps-2"
+    bsDatepicker
+    #dp="bsDatepicker"
+    [minDate]="minDate"
+    [bsConfig]="{
+      isAnimated: true,
+      dateInputFormat: 'DD-MM-YYYY',
+      containerClass: 'theme-default',
+      showWeekNumbers: false
+    }"
+    formControlName="due_date"
+    [outsideClick]="true"
+    (bsValueChange)="onValueChangeEndDate($event)"
+  />
+  <div
+  *ngIf="
+    addprojectForm.get('due_date')?.errors?.['required']
+  "
+  class="alert-error"
+>
+  * required.
+</div>
+</div>
+<div class="row mt-4 mb-2">
+  <textarea formControlName="project_description" rows="5"
+  cols="50"[ngClass]="{
+   'border-touched': addprojectForm.get('project_description')?.touched,
+   'border-invalid': addprojectForm.get('project_description')?.invalid && addprojectForm.get('project_description')?.touched
+ }"
+  placeholder="Write your notes..."></textarea>
+</div>
+  <div
+ *ngIf="addprojectForm.get('project_description')?.errors?.['required']
+ "
+ class="alert-error-one"
+>
+ * required.
+ </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="mb-3" class="d-flex justify-content-end">
+      <button
+        type="submit"
+        class="btn btn-custom-success"
+        [disabled]="
+          !addprojectForm.valid" 
+      >
+       Create
+      </button>
+      <button
+        type="button"
+        class="btn btn-custom-cancel"
+        (click)= "closeModal()"
+      >
+        Cancel
+      </button>
+    </div>
+    <div class="mb-3"></div>
+  </div>
+</div>
+

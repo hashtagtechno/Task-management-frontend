@@ -10,19 +10,19 @@ export class TaskService {
 
   getTasks() {
     // console.log(environment.apiUrl)
-    return this.http.get(`${environment.apiUrl}/tasks`);
+    return this.http.get(`${environment.apiUrl}/task/tasks`);
   }
   addTask(taskdata:any){
-    return this.http.post(`${environment.apiUrl}/tasks`,taskdata);
+    return this.http.post(`${environment.apiUrl}/task/tasks`,taskdata);
   }
   getTaskDetails(id:string){
     // console.log(`${environment.apiUrl}/tasks/:${id}`)?
-    return this.http.get(`${environment.apiUrl}/tasks/${id}`);
+    return this.http.get(`${environment.apiUrl}task/tasks/${id}`);
   }
   deleteTask(id:string){
-    return this.http.delete(`${environment.apiUrl}/tasks/${id}`);
+    return this.http.delete(`${environment.apiUrl}/task/tasks/${id}`);
   }
   updateTask(id:string,status:string){
-    return this.http.put(`${environment.apiUrl}/tasks/${id}`,{'status':status});
+    return this.http.put(`${environment.apiUrl}/task/tasks/${id}`,{'status':status});
   }
 }

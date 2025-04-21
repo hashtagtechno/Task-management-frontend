@@ -2,7 +2,11 @@
     display: flex;
     flex-direction: row;
 }
-
+.ngx-pagination .pagination-previous,.ngx-pagination .pagination-next {
+  background-color: white;
+  color: black;
+  font-size: 12px;
+    }
 /* Sidebar styling */
 app-sidebar {
     width: 200px; 
@@ -16,50 +20,54 @@ app-sidebar {
 
 }
 .label-style{
-    color: grey;
-    font-size: 11px;
+  color: grey;
+  font-size: 11px;
 }
 .title-label{
-    color: grey; 
-    font-size: 13px;
+  color:black;
+  font-size: 13px;
+  font-weight: 500;
+
 }
 .accordion-button{
-    padding:  0px;
-    font-size: 14px;
-   border: 1px solid lightgrey;
-   background-color: aliceblue;;
+  padding:  0px;
+  font-size: 14px;
+ border: 1px solid lightgrey;
+ background-color:#7fd8d929!important;
 }
 .list-group-item{
 font-size: 13px;
 }
 .accordion-button:after{
-  display: none;
-// width: 1rem;
-// height: 1rem;
-// background-size: .5rem;
-// margin-left: 0 !important;
-// // order: -1;
-// margin-right: .5rem;
+display: none;
 }
 .card-header{
-    background-color: #c0dff4;
+  background-color: #D3FBFB;
+  font-weight: 500;
 }
-.vertical-line {
-    width: 4px;
-    height: 100%;
-  
-  }
+.action-btn{
+color: #23A3A4;
+}
   .bg-blue-sideline{
     background-color: rgb(196 215 242);
   }
   .btn-create{
-    background-color:#c0dff4;
+    background-color:#D3FBFB;
+    font-weight: 500;
   }
   .title-text{
     font-weight: 500;
   }
   .pointer {
     cursor: pointer;
+  }
+  .action-btn{
+    color: #23A3A4;
+  }
+  .vertical-line{
+    background-color: #23A3A4;
+    width: 4px;
+    height: 100%;
   }
   
   

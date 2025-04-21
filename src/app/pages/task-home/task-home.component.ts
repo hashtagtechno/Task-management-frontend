@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -19,7 +19,8 @@ import { NotificationComponent } from '../../components/notification/notificatio
   standalone: true,
   imports: [SidebarComponent,NotificationComponent ,HttpClientModule,HeaderComponent,NgxEchartsModule,CommonModule, NgxPaginationModule,FormsModule],
   templateUrl: './task-home.component.html',
-  styleUrl: './task-home.component.scss'
+  styleUrl: './task-home.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class TaskHomeComponent implements OnInit {
   constructor(private modalService: NgbModal,private tasksService: TaskService, protected _notificationSvc: NotificationService,){
@@ -27,10 +28,10 @@ export class TaskHomeComponent implements OnInit {
   }
   
   chartOptions: EChartsOption = {};
-  currentPage: number = 1;
+ 
   tasks:any;
 recentTasks!:any;
-
+p: number = 1;
 newStatus!:string;
  newAction:string='';
   ngOnInit(): void {
@@ -52,7 +53,7 @@ newStatus!:string;
       xAxis: [
         {
           type: 'category',   
-          data: ['New', 'Active', 'Completed', 'Closed'],
+          data: ['New', 'Active', 'Completed'],
           axisLabel: {
             rotate: 45,
             interval: 0,  
@@ -69,10 +70,10 @@ newStatus!:string;
           name: 'Task',
           type: 'bar',
           data: [
-            { value: 5, itemStyle: { color: '#007bff' } },
-            { value: 7, itemStyle: { color: '#007ba5' } },
-            { value: 9, itemStyle: { color: '#007bda' } },
-            { value: 8, itemStyle: { color: '#007bfd' } }
+            { value: 5, itemStyle: { color: '#0b47b83d' } },
+            { value: 7, itemStyle: { color: '#89c8de' } },
+            { value: 9, itemStyle: { color: '#0080433d' } },
+           
           ]
         }
       ]

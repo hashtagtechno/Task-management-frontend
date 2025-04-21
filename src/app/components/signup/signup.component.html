@@ -1,4 +1,4 @@
-<div class="signup-modal pb-1"><div class="modal-header"><span class="modal-title">SignUp </span>
+<div class="signup-modal pb-1"><div class="modal-header"><span class="modal-title">Sign Up </span>
     <div class="ms-auto">
         <i class="fa fa-times text-white fa-lg" aria-hidden="true" (click)="closeModal()" ></i>
   </div>
@@ -7,17 +7,30 @@
     <div class="container">
         <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         
-            <div class="form-group mb-3">
-                <label class="text-uppercase mb-2">User name</label>
+            <div class="form-div mb-3">
+                <label class="mb-2">User name</label>
                 <div class="input-group">
                   <input type="text" formControlName="userName" class="form-control" placeholder=" User name">
                 </div>
-                <div *ngIf="signUpForm.controls['userName'].hasError('required')">Username is required</div>
+                <div class="alert-error" *ngIf="signUpForm.controls['userName'].hasError('required')">Username is required</div>
                
               </div>
+              <div class="form-div mb-3">
+                <label class="mb-2">Email</label>
+                <div class="input-group">
+                  <input type="text" formControlName="email" class="form-control" placeholder=" Email">
+                </div>
+                <div class="alert-error" *ngIf="signUpForm.controls['email'].hasError('required')">Email is required</div>
+                <div
+                *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.errors?.['email']"
+                class="alert-error"
+              >
+                * Please enter a valid email address.
+              </div>
+              </div>
           <!-- New Password -->
-          <div class="form-group mb-3">
-            <label class="text-uppercase mb-2">New Password</label>
+          <div class="form-div mb-3">
+            <label class="mb-2"> Password</label>
             <div class="input-group">
               <input [type]="passwordVisible.new ? 'text' : 'password'" formControlName="newPassword" class="form-control" placeholder=" New Password">
              
@@ -33,12 +46,12 @@
           </div>
       
           <!-- Confirm Password -->
-          <div class="form-group">
-            <label class="text-uppercase mb-2">Re-Type Password</label>
+          <div class="form-div">
+            <label class="mb-2">Re-Type Password</label>
             <div class="input-group">
               <input [type]="passwordVisible.confirm ? 'text' : 'password'" formControlName="confirmPassword" class="form-control" placeholder="Re-Type Password">
             </div>
-            <small class="text-danger" *ngIf="signUpForm.hasError('mismatch') && signUpForm.controls['confirmPassword'].touched"
+            <small class="text-danger alert-danger" *ngIf="signUpForm.hasError('mismatch') && signUpForm.controls['confirmPassword'].touched"
             >
               Passwords do not match.
             </small>

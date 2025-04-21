@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@ng-select/ng-select/themes/default.theme.css";
+
 // --------------------------drop down----------------------------
 
 .ng-select .ng-select-container {
@@ -94,4 +95,107 @@
     background-color: white;
     border: 1px solid lightgray;
   }
+  input:-webkit-autofill {
+    background-color: white !important;
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    color: #000 !important;
+  }
+  .ngx-pagination{
+ li{
+  background-color: lightgrey!important;
+  border-radius:50px!important;
+ }
+    .current{
+      background-color: #23A3A4!important;
+      border-radius:50px!important;
+    }
+  }
+  ::ng-deep pagination-controls {
+    margin-top: 30px;
+    display: block; /* optional: ensures it behaves like a block element */
+    text-align: center;
+  }
+
+  .alert-error {
+    font-size: 10px;
+    color: #f21707;
+    padding-top: 5px;
+    position: absolute;
   
+  }
+  .alert-error-one {
+    font-size: 10px;
+    color: #f21707;
+    padding-top: 5px;
+  
+  }
+  .form-group,.custom-form-control{
+    background-color: #fff;
+    padding: 1px;
+    border: .2px solid #ced4da;
+    font-size: 13px;
+    height: 36px;
+    border-radius: 0.25em;
+}
+.custom-input{
+    border: none;
+}
+.custom-input:focus{
+  border: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;  
+  border: 1px solid grey;    
+}
+textarea{
+    border: .2px solid #ced4da;
+    font-size:13px;
+  }
+  textarea.border-touched{
+    border: .2px solid #ced4da;
+  }
+  .btn-custom-success{
+    border:white;
+    background-color: #007ba5;
+    color: white;
+}
+  .btn-custom-cancel {
+    width: auto;
+    height: auto;
+    background-color: none;
+    color: black;
+    font-size: 10px;
+    margin: 5px 3px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+  }
+  .btn-custom-success {
+    width: auto;
+    height: auto;
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    margin: 5px 3px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+  }
+  .btn-custom-success:hover {
+    color: white;
+  }
+  .update-btn:hover{
+    border:1px solid #007ba5; 
+    background-color: white;
+    color: #007ba5; 
+}
+  
+tag {
+  background: rgb(172, 239, 238) !important;
+  // box-shadow: 1px 3px 2px rgba(0, 0, 0, 20%);
+  font-size: 11px !important;
+  padding: 0px;
+}
+.ng2-tag-input{
+  border-bottom: none;
+
+}
+ 
