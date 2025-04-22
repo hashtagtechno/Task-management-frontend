@@ -22,13 +22,13 @@
                 (ngSubmit)="signin()"
               >
                 <div class="mb-3 form-div">
-                  <label class="label" for="name">Username</label>
+                  <label class="label" for="name">email</label>
                   <input autocomplete="off" 
-                    type="text"
+                    type="email"
                     class="form-control mt-1"
-                    placeholder="Username"
-                    name="username"
-                    formControlName="username"
+                    placeholder="email"
+                    name="email"
+                    formControlName="email"
                     required
                   />
                 </div>
@@ -45,8 +45,7 @@
                   />
                 </div>
                 <div class="alert alert-danger" role="alert" *ngIf="alererror">
-                  The username and password you entered did not match our records.
-                  Please try again.
+                  {{this.msg}}
                 </div>
                
                 <div class="d-grid mb-5 mt-4">

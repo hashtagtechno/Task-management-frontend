@@ -5,6 +5,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TaskService } from '../../services/task.service';
+import { ProjectService } from '../../services/project.service';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -19,37 +21,9 @@ export class AddTaskComponent {
   minDate: Date = new Date();
   minEndDate: Date = new Date();
   taskId!:number;
-
-  projectOptions = [
-    {
-      id: 0,
-      name: 'Sprint1',
-    },
-    {
-      id: 1,
-      name: 'Sprint2',
-    },
-    {
-      id: 2,
-      name: 'Sprint3',
-    },
-  ];
-  assigneeOptions = [
-    {
-      id: 0,
-      name: 'User1',
-    },
-    {
-      id: 1,
-      name: 'User2',
-    },
-    {
-      id: 2,
-      name: 'User3',
-    },
-  ];
-  
-  constructor(public activeModal: NgbActiveModal, private TaskService:TaskService,  private _fb: UntypedFormBuilder,) {
+  projectOptions = [ ];
+  assigneeOptions = [];
+  constructor(public activeModal: NgbActiveModal,private UserService:UserService,private ProjectService:ProjectService, private TaskService:TaskService,  private _fb: UntypedFormBuilder,) {
   this.addTaskForm = this._fb.group(
     {
       task_name: new UntypedFormControl('', Validators.required ),
@@ -59,24 +33,49 @@ export class AddTaskComponent {
       project_name:new UntypedFormControl(null, Validators.required),
  })
 }
+ngOnInit(){
+  this.ProjectService.getProjectList().subscribe(
+    (response:any) => {
+      // console.log(response)
+      this.projectOptions =response.projects.map((project: any) => ({
+        id: project._id,  
+  name: project.projectName,
+      })
+    )
+    })
+    this.UserService.getUserList().subscribe(
+      (response:any) => {
+        // console.log(response)
+        this.assigneeOptions =response.users.map((user: any) => ({
+          id: user._id,  
+    name: user.name,
+        })
+      )
+      })
+}
  closeModal() {
   this.activeModal.close();
 }
 onClickSubmitAdd(data:any){
+
 let taskdata={
   task_name:data.task_name,
   description:data.description,
   project_name:data.project_name.name,
+  project_id:data.project_name.id,
+user_id:data.assigned_to.id,
   assigned_to:data.assigned_to.name,
   due_date:data.due_date
 }
+console.log(taskdata);
   this.TaskService.addTask(taskdata).subscribe(
     (response) => {
         this.msg ='Task created successfully';
           this.triggerEvent(this.msg);
           this.activeModal.close();
 }
-  )}
+  )
+}
 onValueChange(data:any){
 
 }

@@ -1,8 +1,8 @@
 .btn-custom-success {
     width: auto;
     height: auto;
-    background-color: #007ba5;
-    color: white;
+    background-color: #007ba5!important;
+    color: white!important;
     font-size: 10px;
     margin: 5px 3px;
     box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
@@ -24,4 +24,9 @@
     font-size: 10px;
     margin: 5px 3px;
     box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+  }
+  .modal-header{
+    background-color: #007ba54d;
+    font-weight: 500;
+    color:#0000008c;
   }

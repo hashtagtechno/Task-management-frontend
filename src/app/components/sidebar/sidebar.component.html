@@ -1,11 +1,29 @@
-<nav class="sideBarNav">
-    <ul class="nav flex-column mt-4">
-      <li class="nav-item  mt-2 mb-2" *ngFor="let item of sidebarItems;let i=index;">
-        <a [routerLink]="item.route" class="nav-link text-uppercase"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
-            <i [class]="item.icon" class="icon-style me-2"></i>{{ item.title }}
-        </a>
-        <hr>
-      </li>
-    </ul>
-  </nav>
 
+    
+     
+  <nav class="sideBarNav">
+    <ul class="nav flex-column mt-4">
+  <li class="nav-item mt-2 mb-2" *ngFor="let item of sidebarItems; let i = index">
+    <a
+      *ngIf="item.title !== 'LogOut'; else logoutTemplate"
+      [routerLink]="item.route"
+      class="nav-link text-uppercase"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <i [class]="item.icon" class="icon-style me-2"></i>{{ item.title }}
+    </a>
+  
+    <ng-template #logoutTemplate>
+      <a
+        (click)="logout()"
+        class="nav-link text-uppercase"
+        style="cursor: pointer;"
+      >
+        <i [class]="item.icon" class="icon-style me-2"></i>{{ item.title }}
+      </a>
+    </ng-template>
+    <hr />
+  </li>
+</ul>
+</nav>

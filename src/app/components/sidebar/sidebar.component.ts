@@ -21,4 +21,9 @@ export class SidebarComponent {
     { title: 'Users', icon:"fa fa-solid fa-users", route: '/users'},
     { title: 'LogOut', icon:"fa fa-solid fa-right-from-bracket", route: '/'},
   ]
+  logout(): void {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userInfo');
+    this.router.navigate(['/']); 
+  }
 }

@@ -92,7 +92,7 @@ newStatus!:string;
     return  'TZK-' + id.slice(-4);  
   }   
   updateTask(id: string, status: string) {
-    if (status === "NOT_STARTED") {
+    if (status === "Not Started") {
       this.newStatus = "Inprogress";
       this.newAction = "Start";
     } else if (status === "Inprogress") {

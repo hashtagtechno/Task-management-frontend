@@ -2,24 +2,35 @@
 <div class="main-container">
     <app-sidebar></app-sidebar>
     <div class="content ms-3">
-<div class="row">
-    <div class="col-lg-6 col-md-6" style="padding-top: 30px; padding-left: 30px; padding-right: 30px;">
-        <div class="icon-box card-basic">
-            <div class="card-header profile-card-header mb-4">
-                <p class="free d-flex justify-content-center align-items-center">Profile</p>
-            </div>
-
-            <div class="card-body">
-                <div class="row li-row" *ngFor="let item of userData">
-                    <div class="col-1 d-flex justify-content-center align-items-center">
-                        <i [class]="item.icon" class="icon-style"></i>
-                    </div>
-                    <div class="col-10 li-col marker-removed d-flex  align-items-center">
-                        <li><label class="me-1">{{ item.key }}:</label>{{ item.value }}</li>
-                    </div>
+        <div class="row d-flex">
+            <div class="col-lg-3 col-md-3 profile-row">
+              <div class="icon-box card p-3 text-center">
+                <div class="card-body">
+                  <img src="../../../assets/images/default-avatar.png" class="profile-pic mb-2" width="80">
+                  <div><strong>{{ userInfo?.name }}</strong></div>
+                  <div class="text-secondary">{{ userInfo?.role }}</div>
                 </div>
+              </div>
             </div>
-        </div>
+          
+    <div class="col-lg-6 col-md-6  profile-row" >
+        <div class="icon-box card p-3">
+            <div class="card-body">
+                    <div class="mt-2">
+                        <i  class="icon-style fa fa-user-circle me-3"></i>  <label class="me-1">Name:</label><span class="value">{{ userInfo?.name }}</span>
+                    </div>
+                       <div  class="mt-2"> <i  class="icon-style fa fa-solid fa-envelope me-3"></i> <label class="me-1">Email:</label><span class="value">{{ userInfo?.email }}</span></div>
+                       <div  class="mt-2"> <i  class="icon-style fa fa-user-circle me-3"></i><label class="me-1">Role:</label><span class="value">{{ userInfo?.role }}</span></div>
+                       <div  class="mt-2 d-flex"><i  class="icon-style fa fa-list-check fa-solid me-3"></i> <label class="me-1">Projects:</label><span class="value">
+                        <div class="tag-container">
+                            <span class="custom-tag" *ngFor="let project of userInfo.project">
+                              {{ project.name }}
+                            </span>
+                          </div>
+                       </span></div> 
+                    </div>
+            
+                </div>
     </div>
     </div>
     </div>

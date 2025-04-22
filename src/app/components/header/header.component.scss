@@ -2,6 +2,9 @@
     position: relative; 
     width: 20%;
   }
+  .logo{
+    width: 60px;
+  }
   
   .input-container {
     position: relative; 
@@ -21,13 +24,13 @@
   .search-btn {
     position: absolute;
     top: 50%;
-    left: 90%; /* Adjust the left position as per your requirement */
-    transform: translateY(-50%); /* Center the icon vertically */
+    left: 90%; 
+    transform: translateY(-50%); 
     cursor: pointer;
   }
   
   .search-btn i {
-    font-size: 16px; /* Adjust the size of the icon */
+    font-size: 16px; 
   }
   .fixed-top {
     width: 100%;

@@ -34,7 +34,6 @@ onClickSubmitProject(data:any){
     shortDescription:data.project_description,
     startDate:data.start_date,
     endDate:data.start_date,
-   
     due_date:data.due_date
   }
     this.ProjectService.addProject(projectdata).subscribe(
