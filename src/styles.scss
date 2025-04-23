@@ -198,4 +198,13 @@ tag {
   border-bottom: none;
 
 }
- 
+.ngx-pagination .pagination-previous,.ngx-pagination .pagination-next {
+  background-color: white!important;
+  color: black;
+  font-size: 12px;
+    }
+    .char-trim {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }

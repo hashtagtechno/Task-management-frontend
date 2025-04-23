@@ -4,6 +4,7 @@ import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFor
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ProjectService } from '../../services/project.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-add-project',
@@ -19,7 +20,7 @@ export class AddProjectComponent {
     public event: EventEmitter<any> = new EventEmitter();
   minDate: Date = new Date();
   minEndDate: Date = new Date();
-constructor(private fb: UntypedFormBuilder,public activeModal: NgbActiveModal,private ProjectService:ProjectService){
+constructor(private fb: UntypedFormBuilder,protected _notificationSvc: NotificationService,public activeModal: NgbActiveModal,private ProjectService:ProjectService){
   this.addprojectForm = this.fb.group(
       {
         project_name: new UntypedFormControl('', Validators.required ),
@@ -40,6 +41,7 @@ onClickSubmitProject(data:any){
       (response) => {
           this.msg ='Project created successfully';
             this.triggerEvent(this.msg);
+            this._notificationSvc.success('', 'Project Created');
             this.activeModal.close();
   }
     )

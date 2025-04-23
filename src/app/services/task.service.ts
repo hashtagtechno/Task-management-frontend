@@ -12,12 +12,15 @@ export class TaskService {
     // console.log(environment.apiUrl)
     return this.http.get(`${environment.apiUrl}/task/tasks`);
   }
+  getTasksCount() {
+    return this.http.get(`${environment.apiUrl}/task/tasks-count`);
+  }
   addTask(taskdata:any){
     return this.http.post(`${environment.apiUrl}/task/tasks`,taskdata);
   }
   getTaskDetails(id:string){
     // console.log(`${environment.apiUrl}/tasks/:${id}`)?
-    return this.http.get(`${environment.apiUrl}task/tasks/${id}`);
+    return this.http.get(`${environment.apiUrl}/task/tasks/${id}`);
   }
   deleteTask(id:string){
     return this.http.delete(`${environment.apiUrl}/task/tasks/${id}`);

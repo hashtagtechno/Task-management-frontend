@@ -16,4 +16,7 @@ export class ProjectService {
     getProjectList(){
       return this.http.get(`${environment.apiUrl}/projects/project-list`);
     }
+    getProjectTaskCount(){
+      return this.http.get(`${environment.apiUrl}/projects/project-task-count`);
+    }
 }

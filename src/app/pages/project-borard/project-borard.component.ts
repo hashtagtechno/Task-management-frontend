@@ -21,62 +21,81 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class ProjectBorardComponent implements OnInit {
   constructor(private modalService: NgbModal,private ProjectService:ProjectService){}
   chartOptions: EChartsOption = {};
+  public donutChartOptions: EChartsOption = {}; // init as empty
   p: number = 1;
  projects:any;
+ projectsCount:any;
+ chartData!:any;
 recentActivities = [
   { user: 'User1', action: 'created Project 1', time: new Date() },
   { user: 'User2', action: 'completed Project 2', time: new Date() },
 ];
-public donutChartOptions: EChartsOption = {
-  tooltip: {
-    trigger: 'item',
-    formatter: '{b}: {c} ({d}%)'
-  } as TooltipComponentOption,
 
-  legend: {
-    orient: 'vertical',
-    left: 'left'
-  } as LegendComponentOption,
-
-  series: [
-    {
-      name: 'Tasks',
-      type: 'pie', // ✅ use exact literal "pie"
-      radius: ['40%', '70%'],
-      avoidLabelOverlap: false,
-      label: {
-        show: false,
-        position: 'center'
-      },
-      emphasis: {
-        label: {
-          show: true,
-          fontSize: 18,
-          fontWeight: 'bold'
-        }
-      },
-      labelLine: {
-        show: false
-      },
-      data: [
-        { value: 4, name: 'New' },
-        { value: 6, name: 'Active' },
-        { value: 3, name: 'Done',itemStyle: { color: 'blue' } },
-        { value: 2, name: 'Closed' }
-      ]
-    } as PieSeriesOption // ✅ this cast ensures proper typing
-  ]
-
-};
 ngOnInit(): void {
   
   this.ProjectService.getProjects().subscribe(data => {
     this.projects = data;
-    console.log(this.projects);
+    // console.log(this.projects);
   }, error => {
 
   });
+  this.ProjectService.getProjectTaskCount().subscribe((data:any) => {
+    this.projectsCount = data.projects;
+    // console.log('Received from API:', data);
+    this.chartData = this.projectsCount.map((item: { project_name: any; number_of_task: any; }) => ({
+      name: item.project_name,
+      value: item.number_of_task
+    }));
+
+    // Set chart config AFTER data is ready
+    this.donutChartOptions = {
+      tooltip: {
+        trigger: 'item',
+        formatter: (params: any) => {
+          const v = params.value as number;
+          const text = v === 1 ? 'task' : 'tasks';
+          return `${params.name}: ${v} ${text}`;
+        }
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: 'Tasks',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          // show the "3 tasks" label inside each slice
+          label: {
+            show: true,
+            position: 'inside',
+            formatter: (params: any) => {
+              const v = params.value as number;
+              const text = v === 1 ? 'task' : 'tasks';
+              return `${v} ${text}`;
+            }
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 18,
+              fontWeight: 'bold'
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: this.chartData
+        } as PieSeriesOption
+      ]
+    };
+  });
 }
+
+
+
 openProjectModal(){
     const modalRef = this.modalService.open(AddProjectComponent);
     modalRef.componentInstance.event.subscribe((data: any) => {

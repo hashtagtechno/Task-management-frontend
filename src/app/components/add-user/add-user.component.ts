@@ -62,7 +62,7 @@ export class AddUserComponent {
     let userdata={
       name:data.name,
      email:data. email,
-      password:data. email,
+      password:data. password,
       designation:data.designation,
       project:this.selectedProjects,
     role:data.role.name,

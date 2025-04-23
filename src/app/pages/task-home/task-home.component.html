@@ -5,12 +5,13 @@
 
 <div class="row">
     <div class="container-fluid mt-3">
-        <div class="row">
+        <div class="row" >
           <div class="col-md-8 mb-4">
             <div class="d-flex justify-content-end mb-3">
               <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
             </div>
-            <div class="task-header-row mb-3 mt-5">
+            <div class="task-header-row mb-3 mt-5" *ngIf="tasks?.length==0">No tasks</div>
+            <div class="task-header-row mb-3 mt-5" *ngIf="tasks?.length!=0">
                 <div class="row">
                   <div class="col-2 title-label">Task</div>
                   <div class="col-2 title-label">Project</div>
@@ -28,7 +29,7 @@
                     >
                       <div class="d-flex w-100">
                         <!-- Side line -->
-                        <div class="me-3">
+                        <div class="me-2">
                           <div class="vertical-line" [ngClass]="{
                               'bg-blue-sideline': task.status === 'Not Started',
                               'bg-pink': task.status === 'Inprogress',
@@ -39,7 +40,7 @@
                   
                         <!-- Title and ID -->
                         <div class="p-1 col-2">
-                          <div class="text-muted title-text">{{ task.task_name }}</div>
+                          <div class="text-muted title-text char-trim task-title">{{ task.task_name }}</div>
                           <div>
                             <span class="label-style">ID:</span>
                             <span class="label-style"><i>{{ getLast4Chars(task._id)}}</i></span>

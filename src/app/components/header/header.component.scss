@@ -1,22 +1,23 @@
 .search-box {
     position: relative; 
     width: 20%;
+    font-size: 13px;
   }
   .logo{
-    width: 60px;
+    width: 150px;
   }
   
   .input-container {
     position: relative; 
   }
   .navbar{
-    height: 80px;
+    height: 60px;
   }
   
   .search-txt {
     padding-left: 10px;
     width: 100%;
-    height: 40px; 
+    height: 32px; 
     border-radius: 10px;
     border: 1px solid lightgrey;
   }
@@ -30,7 +31,7 @@
   }
   
   .search-btn i {
-    font-size: 16px; 
+    font-size: 13px; 
   }
   .fixed-top {
     width: 100%;
@@ -43,7 +44,7 @@
   
   .search-box input.search-txt {
     width: 100%;
-    border-radius: 4px;
+    border-radius: 20px;
     padding: 5px 10px;
   }
   
@@ -51,5 +52,39 @@
     color: #333;
     cursor: pointer;
   }
+  .avatar-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .avatar {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color:#23A3A4;  
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    user-select: none;
+  }
+  .fa{
+    color: #23A3A4;
+  }
+  .dropdown-menu{
+    font-size: 14px;
+  }
+  .dropdown-menu li:hover{
+    font-size: 14px;
+    background-color: #23A3A4;
+    color: white;
+  }
+  .cursor{
+    cursor: pointer;
+  }
+  
   
   

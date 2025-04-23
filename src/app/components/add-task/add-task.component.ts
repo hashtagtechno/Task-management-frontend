@@ -7,6 +7,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TaskService } from '../../services/task.service';
 import { ProjectService } from '../../services/project.service';
 import { UserService } from '../../services/user.service';
+import { NotificationService } from '../../services/notification.service';
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -23,7 +24,7 @@ export class AddTaskComponent {
   taskId!:number;
   projectOptions = [ ];
   assigneeOptions = [];
-  constructor(public activeModal: NgbActiveModal,private UserService:UserService,private ProjectService:ProjectService, private TaskService:TaskService,  private _fb: UntypedFormBuilder,) {
+  constructor(public activeModal: NgbActiveModal,protected _notificationSvc: NotificationService,private UserService:UserService,private ProjectService:ProjectService, private TaskService:TaskService,  private _fb: UntypedFormBuilder,) {
   this.addTaskForm = this._fb.group(
     {
       task_name: new UntypedFormControl('', Validators.required ),
@@ -72,6 +73,7 @@ console.log(taskdata);
     (response) => {
         this.msg ='Task created successfully';
           this.triggerEvent(this.msg);
+          this._notificationSvc.success('', 'Task Created');
           this.activeModal.close();
 }
   )

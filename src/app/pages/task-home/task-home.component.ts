@@ -28,7 +28,7 @@ export class TaskHomeComponent implements OnInit {
   }
   
   chartOptions: EChartsOption = {};
- 
+ tasksCount!:any;
   tasks:any;
 recentTasks!:any;
 p: number = 1;
@@ -43,41 +43,55 @@ newStatus!:string;
  
     });
     
+    this.tasksService.getTasksCount().subscribe((data: any) => {
+      
+  this.tasksCount = data;
+  // console.log(this.tasksCount)
+  let statusMap: { [key: string]: { label: string; color: string } } = {
+    'Not Started': { label: 'New', color: '#0b47b83d' },
+    Inprogress: { label: 'Active', color: '#89c8de' },
+    Completed: { label: 'Completed', color: '#0080433d' }
+  };
   
-    this.chartOptions = {
-      title: {
-        text: '',
-        left: 'center'
-      },
-      tooltip: {},
-      xAxis: [
-        {
-          type: 'category',   
-          data: ['New', 'Active', 'Completed'],
-          axisLabel: {
-            rotate: 45,
-            interval: 0,  
-          }
+  // Create xAxis labels
+  const xAxisData = Object.keys(statusMap).map(key => statusMap[key].label);
+  
+  // Build series data
+  let chartSeriesData = Object.keys(statusMap).map(key => ({
+    value: this.tasksCount[key] || 0,
+    itemStyle: { color: statusMap[key].color }
+  }));
+  this.chartOptions = {
+    title: {
+      text: '',
+      left: 'center'
+    },
+    tooltip: {},
+    xAxis: [
+      {
+        type: 'category',   
+        data: ['New', 'Active', 'Completed'],
+        axisLabel: {
+          rotate: 45,
+          interval: 0,  
         }
-      ],
-      yAxis: [
-        {
-          type: 'value'  
-        }
-      ],
-      series: [
-        {
-          name: 'Task',
-          type: 'bar',
-          data: [
-            { value: 5, itemStyle: { color: '#0b47b83d' } },
-            { value: 7, itemStyle: { color: '#89c8de' } },
-            { value: 9, itemStyle: { color: '#0080433d' } },
-           
-          ]
-        }
-      ]
-    };
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'  
+      }
+    ],
+    series: [
+      {
+        name: 'Task',
+        type: 'bar',
+        data: chartSeriesData
+      }
+    ]
+  };
+    });
+
   }
   openTaskModal() {
     const modalRef = this.modalService.open(AddTaskComponent);
@@ -113,9 +127,11 @@ newStatus!:string;
         if (res.value) {
           this.tasksService.updateTask(id, this.newStatus).subscribe(
             (response: any) => {
+              this._notificationSvc.success('', 'Updated successfully');
               this.ngOnInit();
             },
             (error: any) => {
+              this._notificationSvc.error('', 'Updation failed');
             }
           );
         }

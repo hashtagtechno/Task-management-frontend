@@ -17,7 +17,7 @@ export class ProfileComponent {
   ngOnInit(): void {
     const storedUser = localStorage.getItem('userInfo');
     this.userInfo = storedUser ? JSON.parse(storedUser) : null;
-    console.log(this.userInfo)
+    // console.log(this.userInfo)
   }
  
 }

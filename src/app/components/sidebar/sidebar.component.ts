@@ -17,13 +17,9 @@ export class SidebarComponent {
     { title: 'Task Home', icon:"fa fa-home", route: '/taskhome' },
     { title: 'Projects', icon:"fa fa-solid fa-list-check", route: '../projects' },
     { title: 'Kanban', icon:"fa fa-solid fa-boxes-stacked", route: '/kanban'},
-    { title: 'Profile', icon:"fa fa-solid fa-boxes-stacked", route: '/profile'},
+    { title: 'Profile', icon:"fa fa-solid fa-user", route: '/profile'},
     { title: 'Users', icon:"fa fa-solid fa-users", route: '/users'},
-    { title: 'LogOut', icon:"fa fa-solid fa-right-from-bracket", route: '/'},
+   
   ]
-  logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userInfo');
-    this.router.navigate(['/']); 
-  }
+  
 }
