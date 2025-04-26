@@ -29,7 +29,6 @@ export class UsersComponent {
         const modalRef = this.modalService.open(AddUserComponent);
         modalRef.componentInstance.event.subscribe((data: any) => {
               if (data=='User added successfully') {
-                
                 this.ngOnInit();
               }
             })

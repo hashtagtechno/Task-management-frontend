@@ -7,10 +7,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProjectService } from '../../services/project.service';
+import { NotificationService } from '../../services/notification.service';
+import { NotificationComponent } from '../notification/notification.component';
 @Component({
   selector: 'app-add-user',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,NgSelectModule,MultiSelectComponent,FormsModule,TagInputModule,],
+  imports: [ReactiveFormsModule,NotificationComponent,CommonModule,NgSelectModule,MultiSelectComponent,FormsModule,TagInputModule,],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss',
   
@@ -27,7 +29,7 @@ export class AddUserComponent {
     { name: 'Developer', id: 3 },
     { name: 'Project Manager', id: 2 },
   ];
-  constructor(private ProjectService:ProjectService,private fb: UntypedFormBuilder,public activeModal: NgbActiveModal, private UserService:UserService){
+  constructor(private ProjectService:ProjectService,protected _notificationSvc: NotificationService,private fb: UntypedFormBuilder,public activeModal: NgbActiveModal, private UserService:UserService){
     this.addUserForm = this.fb.group(
           {
             name: ['', Validators.required],
@@ -73,6 +75,10 @@ export class AddUserComponent {
             this.msg ='User added successfully';
               this.triggerEvent(this.msg);
               this.activeModal.close();
+    },
+    (error)=>{
+      this.msg=error.message;
+      this._notificationSvc.error('', this.msg);
     }
       )
   }

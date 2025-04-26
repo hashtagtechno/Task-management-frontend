@@ -60,4 +60,8 @@ font-size: 13px;
   .pointer {
     cursor: pointer;
   }
-  
+  .btn-create:hover{
+    border:1px solid #007ba5; 
+    background-color: white;
+    color: #007ba5; 
+}

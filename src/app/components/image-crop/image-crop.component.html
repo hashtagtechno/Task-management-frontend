@@ -1,0 +1,21 @@
+<div class="image-cropper-container">
+
+    <image-cropper [imageFile]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" [maintainAspectRatio]="true"format="png"
+     (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+
+</div>
+
+<div class='row'>
+<div class="col-md-4">
+    <div class="mb-3" class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-custom-success"
+        (click)="uploadImage()">
+          
+            Done
+        </button>
+        <button type="button" class="btn btn-custom-cancel"
+            (click)="closeModal()">Cancel</button>
+        
+    </div>
+</div>
+</div>

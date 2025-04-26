@@ -10,6 +10,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddProjectComponent } from '../../components/add-project/add-project.component';
 import { ProjectService } from '../../services/project.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import Swal from 'sweetalert2';
+import { NotificationService } from '../../services/notification.service';
 @Component({
   selector: 'app-project-borard',
   standalone: true,
@@ -19,7 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrl: './project-borard.component.scss'
 })
 export class ProjectBorardComponent implements OnInit {
-  constructor(private modalService: NgbModal,private ProjectService:ProjectService){}
+  constructor(private modalService: NgbModal,protected _notificationSvc: NotificationService,private ProjectService:ProjectService){}
   chartOptions: EChartsOption = {};
   public donutChartOptions: EChartsOption = {}; // init as empty
   p: number = 1;
@@ -99,7 +101,7 @@ ngOnInit(): void {
 openProjectModal(){
     const modalRef = this.modalService.open(AddProjectComponent);
     modalRef.componentInstance.event.subscribe((data: any) => {
-          if (data=='Task created successfully') {
+          if (data=='Project created successfully') {
             
             this.ngOnInit();
           }
@@ -111,7 +113,31 @@ getLast4Chars(id:string): string {
 openviewProject(id:string){
 }
 deleteProject(id:string){
-
+//   Swal.fire({
+//         position: 'top',
+//         title: `Are you sure to delete the project?`,
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonText: 'Delete',
+//         cancelButtonText: 'Cancel',
+//         confirmButtonColor: 'black',
+//         cancelButtonColor: 'white',
+//       }).then((res) => {
+//         if (res.value) {
+//           this.ProjectService.deleteProject(id).subscribe(
+//             (response) => {
+//               this._notificationSvc.success('', 'Deleted successfully');
+//              this.ngOnInit(  )
+//             },
+//             (error) => {
+//               this._notificationSvc.error('', 'deletion Failed!');
+//               this.ngOnInit();
+//             }
+//           );
+//         } else {
+//         }
+//       });
+//     }
 }
 
 }
