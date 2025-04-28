@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationComponent } from '../../components/notification/notification.component';
 import { CommonModule } from '@angular/common';
 // import { NgxEchartsModule } from 'ngx-echarts';
-import { EChartsOption, LegendComponentOption, PieSeriesOption, TooltipComponentOption } from 'echarts';
+import { EChartsOption, LegendComponentOption, PieSeriesOption, TooltipComponentOption,GaugeSeriesOption  } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -24,6 +24,7 @@ export class ProjectBorardComponent implements OnInit {
   constructor(private modalService: NgbModal,protected _notificationSvc: NotificationService,private ProjectService:ProjectService){}
   chartOptions: EChartsOption = {};
   public donutChartOptions: EChartsOption = {}; // init as empty
+  gaugeChartOptions:EChartsOption={}
   p: number = 1;
  projects:any;
  projectsCount:any;
@@ -31,13 +32,57 @@ export class ProjectBorardComponent implements OnInit {
 recentActivities = [
   { user: 'User1', action: 'created Project 1', time: new Date() },
   { user: 'User2', action: 'completed Project 2', time: new Date() },
+ 
 ];
 
 ngOnInit(): void {
+  this.gaugeChartOptions = {
+    tooltip: {
+      formatter: '{a} <br/>{b} : {c}%'
+    },
+    series: [
+      {
+        name: 'Project Completion',
+        type: 'gauge',  // Now TypeScript knows this is exactly 'gauge'
+        detail: {
+          formatter: '{value}%'
+        },
+        axisLine: {
+          lineStyle: {
+            width: 15,
+            color: [
+              [0.3, '#67e0e3'],
+              [0.7, '#37a2da'],
+              [1, '#fd666d']
+            ]
+          }
+        },
+        axisTick: {
+          show: false    // hide ticks
+        },
+        splitLine: {
+          show: false    // hide split lines
+        },
+        axisLabel: {
+          show: false    // hide axis numbers/labels
+        },
+        pointer: {
+          show: true,    // show pointer/needle
+          width: 5
+        },
+        title: {
+          show: false    // hide title
+        },
+        data: [
+          { value: 70, name: 'Project Completion rate' }
+        ]
+      } as GaugeSeriesOption   // 👈 Casting here solves the typing problem
+    ]
+  };
   
-  this.ProjectService.getProjects().subscribe(data => {
-    this.projects = data;
-    // console.log(this.projects);
+  this.ProjectService.getProjects().subscribe((data:any) => {
+    this.projects = data.projects;
+    console.log(this.projects);
   }, error => {
 
   });
@@ -61,7 +106,8 @@ ngOnInit(): void {
       },
       legend: {
         orient: 'vertical',
-        left: 'left'
+        left: 'right',
+        
       },
       series: [
         {
@@ -91,7 +137,13 @@ ngOnInit(): void {
           },
           data: this.chartData
         } as PieSeriesOption
-      ]
+      ],
+      grid: {
+        left: '10%',   // Move the chart to the left by reducing this value
+        right: '15%',  // Optional: Leave space for the legend on the right
+        bottom: '20%',
+        top: '10%'
+      }
     };
   });
 }

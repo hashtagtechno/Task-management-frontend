@@ -66,6 +66,7 @@ let taskdata={
   project_id:data.project_name.id,
 user_id:data.assigned_to.id,
   assigned_to:data.assigned_to.name,
+
   due_date:data.due_date
 }
 console.log(taskdata);

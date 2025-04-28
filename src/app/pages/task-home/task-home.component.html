@@ -4,14 +4,65 @@
     <div class="content ms-3">
 
 <div class="row">
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-1">
+      <div class="row">
+        <div class="col-md-12 mb-1">
+          <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
+          </div>
+          </div>
+          </div>
         <div class="row" >
-          <div class="col-md-8 mb-4">
-            <div class="d-flex justify-content-end mb-3">
-              <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
+          <div class="col-md-2">
+            <div class="row card mb-3">
+             <div class="card-header">Total Worked Today</div>
+              <div class="card-body">12hrs</div>
             </div>
+            <div class="row card mb-3">
+              <div class="card-header">Total Activity today</div>
+               <div class="card-body">50%</div>
+             </div>
+             <div class="row card mb-3">
+              <div class="card-header">XXXX</div>
+               <div class="card-body">12hrs</div>
+             </div>
+            
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4">
+              <div class="card-header">Time Overview</div>
+              <div class="card-body">
+            <div echarts [options]="lineChartOptions" class="demo-chart" style="height: 250px;"></div>
+</div>
+</div>
+          </div>
+          <div class="col-md-4">
+            <!-- Bar Chart -->
+            <div class="card mb-4">
+              <div class="card-header">Task Overview</div>
+              <div class="card-body">
+                <div echarts [options]="chartOptions" class="w-100" style="height: 250px;"></div>
+              </div>
+            </div>
+      
+            <!-- Recent Activities -->
+            <!-- <div class="card">
+              <div class="card-header">Recent Tasks</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let task of recentTasks">
+                  <strong>{{ task.assigned_to }}</strong> created Task <strong>{{task.task_name}}</strong>&nbsp; on 
+                  <small class="text-muted">{{ task.createdAt | date:'short' }}</small>
+                </li>
+              </ul>
+            </div> -->
+          </div>
+          
+          </div>
+          <div class="row">
+          <div class="col-md-12 mb-4">
+         
             <div class="task-header-row mb-3 mt-5" *ngIf="tasks?.length==0">No tasks</div>
-            <div class="task-header-row mb-3 mt-5" *ngIf="tasks?.length!=0">
+            <div class="task-header-row mt-2 mb-2" *ngIf="tasks?.length!=0">
                 <div class="row">
                   <div class="col-2 title-label">Task</div>
                   <div class="col-2 title-label">Project</div>
@@ -93,28 +144,6 @@
                 nextLabel="Next" (pageChange)="p = $event"></pagination-controls>
               </div>
              </div> 
-      
-          <!-- Right Section: Graph + Activities -->
-          <div class="col-md-4">
-            <!-- Bar Chart -->
-            <div class="card mb-4">
-              <div class="card-header">Task Overview</div>
-              <div class="card-body">
-                <div echarts [options]="chartOptions" class="w-100" style="height: 300px;"></div>
-              </div>
-            </div>
-      
-            <!-- Recent Activities -->
-            <div class="card">
-              <div class="card-header">Recent Tasks</div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let task of recentTasks">
-                  <strong>{{ task.assigned_to }}</strong> created Task <strong>{{task.task_name}}</strong>&nbsp; on 
-                  <small class="text-muted">{{ task.createdAt | date:'short' }}</small>
-                </li>
-              </ul>
-            </div>
-          </div>
       
         </div>
       </div>

@@ -26,7 +26,30 @@ export class TaskHomeComponent implements OnInit {
   constructor(private modalService: NgbModal,private tasksService: TaskService, protected _notificationSvc: NotificationService,){
 
   }
-  
+  lineChartOptions!: EChartsOption;
+  // lineChartOptions: EChartsOption = {
+  //   title: {
+  //     text: 'Total hours worked/Day'
+  //   },
+  //   tooltip: {
+  //     trigger: 'axis'
+  //   },
+  //   xAxis: {
+  //     type: 'category', // OK now, TypeScript knows it's a valid value
+  //     data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+  //   },
+  //   yAxis: {
+  //     type: 'value'
+  //   },
+  //   series: [
+  //     {
+  //       data: [150, 230, 224, 218, 135, 147],
+  //       type: 'line',
+  //       smooth: true
+  //     }
+  //   ]
+  // };
+
   chartOptions: EChartsOption = {};
  tasksCount!:any;
   tasks:any;
@@ -35,6 +58,33 @@ p: number = 1;
 newStatus!:string;
  newAction:string='';
   ngOnInit(): void {
+    
+    const weekDates = this.getWorkWeekDates();
+    
+    this.lineChartOptions = {
+      title: {
+        text: 'Total hours worked/Day'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      xAxis: {
+        type: 'category',
+        data: weekDates
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: 'Hours',
+          data: [8, 7, 9, 6, 5], // Example work hours for Mon to Fri
+          type: 'line',
+          smooth: true
+        }
+      ]
+    };
+  
     this.tasksService.getTasks().subscribe(data => {
       this.tasks = data;
       const tasksArray = data as any[];
@@ -177,6 +227,30 @@ newStatus!:string;
         } else {
         }
       });
+    }
+
+    getWorkWeekDates(): string[] {
+      const today = new Date();
+      const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
+  
+      const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() + diffToMonday);
+  
+      const dates = [];
+  
+      for (let i = 0; i < 5; i++) {
+        const nextDay = new Date(monday);
+        nextDay.setDate(monday.getDate() + i);
+  
+        const day = nextDay.getDate().toString().padStart(2, '0');
+        const month = (nextDay.getMonth() + 1).toString().padStart(2, '0');
+        const year = nextDay.getFullYear();
+  
+        dates.push(`${day}/${month}/${year}`);
+      }
+  
+      return dates;
     }
     }
    

@@ -60,7 +60,8 @@ export class AddUserComponent {
     return false;
   }
   onClickSubmitUser(data:any){
-    // console.log('Form data:', data);
+   
+    this.selectedProjects= this.selectedProjects.map((project: { id: any; }) => ({ id: project.id }));
     let userdata={
       name:data.name,
      email:data. email,
