@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 @Injectable({
@@ -6,10 +6,12 @@ import { environment } from '../../environments/environment';
 })
 export class ProjectService {
 userInfo!:any;
+authToken!:any;
   constructor(private http: HttpClient) {
     const storedUser = localStorage.getItem('userInfo');
+    this.authToken=localStorage.getItem('authToken')
     this.userInfo = storedUser ? JSON.parse(storedUser) : null;
-    console.log(this.userInfo)
+  
    }
     addProject(projectdata:any){
       return this.http.post(`${environment.apiUrl}/projects/projects`,projectdata);
@@ -19,7 +21,10 @@ userInfo!:any;
       );
     }
     getProjectList(){
-      return this.http.get(`${environment.apiUrl}/projects/project-name`);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${ this.authToken}`
+      });
+      return this.http.get(`${environment.apiUrl}/projects/project-name`, { headers });
     }
     getProjectTaskCount(){
       return this.http.get(`${environment.apiUrl}/projects/project-task-count`);

@@ -25,11 +25,18 @@ app-sidebar {
     font-weight: 500;
   
 }
+.accordion-item{
+  border: none;
+}
+.accordion-button:not(.collapsed){
+  box-shadow: none!important;
+}
 .accordion-button{
     padding:  0px;
     font-size: 14px;
-   border: 1px solid lightgrey;
-   background-color:#7fd8d929!important;
+    border: none;
+  //  border: 1px solid lightgrey;
+  //  background-color:#7fd8d929!important;
 }
 .list-group-item{
 font-size: 13px;
@@ -38,22 +45,22 @@ font-size: 13px;
   display: none;
 }
 .card-header{
-    background-color: #D3FBFB;
+    background-color: #edfbf4b8;
     font-weight: 500;
 }
 .action-btn{
-  color: #23A3A4;
+  color: black;
 }
 .bg-notstarted{
   background-color: #0b47b83d;
 }
 .bg-inprogress{
-  background-color: #89c8de;
+  background-color:rgb(234 5 169 / 20%);
 }
 
 
 .bg-completed{
-  background-color: #0080433d;
+  background-color:#54cdf747;
 }
 .bg-closed{
   background-color: #0080433d;
@@ -73,7 +80,7 @@ font-size: 13px;
    background-color: rgb(6,134,241,0.9);
   }
   .btn-create{
-    background-color:#D3FBFB;
+    background-color:#d2efdb;
     font-weight: 500;
   }
   .title-text{
@@ -93,7 +100,14 @@ font-size: 12px;
 
   
   .btn-create:hover{
-    border:1px solid #007ba5; 
+    border:1px solid  #46885a;
     background-color: white;
     color: #007ba5; 
+}
+.accordion .accordion-item:nth-child(even) .accordion-button {
+  background-color: #d2efdb !important;
+}
+
+.accordion .accordion-item:nth-child(odd) .accordion-button {
+  background-color: #edfbf4 !important;
 }

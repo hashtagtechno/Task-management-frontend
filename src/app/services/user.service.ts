@@ -16,8 +16,8 @@ export class UserService {
   signIn(userdata:any){
     return this.http.post(`${environment.apiUrl}/auth/login`,userdata);
   }
-  getUserList(){
-    return this.http.get(`${environment.apiUrl}/auth/users-list`);
+  getUserList(id:string){
+    return this.http.get(`${environment.apiUrl}/auth/users-list/${id}`);
 }
   
 }

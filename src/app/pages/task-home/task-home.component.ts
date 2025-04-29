@@ -99,8 +99,8 @@ newStatus!:string;
   // console.log(this.tasksCount)
   let statusMap: { [key: string]: { label: string; color: string } } = {
     'Not Started': { label: 'New', color: '#0b47b83d' },
-    Inprogress: { label: 'Active', color: '#89c8de' },
-    Completed: { label: 'Completed', color: '#0080433d' }
+    Inprogress: { label: 'Active', color: '#ea05a95c' },
+    Completed: { label: 'Completed', color:'rgb(84 112 198)' }
   };
   
   // Create xAxis labels

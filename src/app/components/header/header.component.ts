@@ -32,7 +32,10 @@ export class HeaderComponent {
   logOut(){
     localStorage.removeItem('authToken');
     localStorage.removeItem('userInfo');
+    const token = localStorage.getItem('authToken');
+    const userInfo = localStorage.getItem('userInfo');
     this.router.navigateByUrl('/');
+    console.log(token,userInfo)
   }
   profile(){
     this.router.navigateByUrl('/profile');

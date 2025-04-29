@@ -61,7 +61,7 @@ export class AddUserComponent {
   }
   onClickSubmitUser(data:any){
    
-    this.selectedProjects= this.selectedProjects.map((project: { id: any; }) => ({ id: project.id }));
+    this.selectedProjects= this.selectedProjects.map((project: { id: any; }) => ({ project_id: project.id }));
     let userdata={
       name:data.name,
      email:data. email,

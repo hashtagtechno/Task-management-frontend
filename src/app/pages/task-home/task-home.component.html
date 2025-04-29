@@ -72,13 +72,13 @@
                 </div>
               </div>
             <div class="accordion" id="taskAccordion">
-                <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" >
                     
-                  <h2 class="accordion-header" [id]="'heading' + i">
+                  <h1 class="accordion-header" [id]="'heading' + i">
                     <div
                       class="accordion-button d-flex align-items-center justify-content-between"
-                    >
-                      <div class="d-flex w-100">
+                   >
+                      <div class="d-flex w-100 shadow-none">
                         <!-- Side line -->
                         <div class="me-2">
                           <div class="vertical-line" [ngClass]="{
@@ -90,7 +90,7 @@
                         </div>
                   
                         <!-- Title and ID -->
-                        <div class="p-1 col-2">
+                        <div class="p-1 col-2 pt-2 pb-2">
                           <div class="text-muted title-text char-trim task-title">{{ task.task_name }}</div>
                           <div>
                             <span class="label-style">ID:</span>
@@ -138,7 +138,7 @@
                     </div>
                       </div>
                     </div>
-                  </h2>
+                  </h1>
                 </div>
                 <pagination-controls *ngIf="tasks?.length" style="margin-top: 20px; display: block;"  previousLabel="Prev"
                 nextLabel="Next" (pageChange)="p = $event"></pagination-controls>

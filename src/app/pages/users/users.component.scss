@@ -52,7 +52,7 @@ font-size: 13px;
     background-color:#23A3A4;
   }
   .btn-create{
-    background-color:#D3FBFB;
+    background-color:#d2efdb;
   }
   .title-text{
     font-weight: 500;
@@ -61,7 +61,15 @@ font-size: 13px;
     cursor: pointer;
   }
   .btn-create:hover{
-    border:1px solid #007ba5; 
+    border:1px solid #46885a;
     background-color: white;
-    color: #007ba5; 
+    color: #46885a; 
 }
+.accordion .accordion-item:nth-child(even) .accordion-button {
+  background-color: #d2efdb !important;
+}
+
+.accordion .accordion-item:nth-child(odd) .accordion-button {
+  background-color: #edfbf4 !important;
+}
+  

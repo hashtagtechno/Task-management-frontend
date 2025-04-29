@@ -33,7 +33,6 @@ app-sidebar {
   padding:  0px;
   font-size: 14px;
  border: 1px solid lightgrey;
- background-color:#7fd8d929!important;
 }
 .list-group-item{
 font-size: 13px;
@@ -42,7 +41,7 @@ font-size: 13px;
 display: none;
 }
 .card-header{
-  background-color: #D3FBFB;
+  background-color: #edfbf4b8;
   font-weight: 500;
 }
 .action-btn{
@@ -52,7 +51,8 @@ color: #23A3A4;
     background-color: rgb(196 215 242);
   }
   .btn-create{
-    background-color:#D3FBFB;
+    background-color:#d2efdb;
+    font-weight: 500;
     font-weight: 500;
   }
   .title-text{
@@ -73,6 +73,13 @@ color: #23A3A4;
     border:1px solid #007ba5; 
     background-color: white;
     color: #007ba5; 
+}
+.accordion .accordion-item:nth-child(even) .accordion-button {
+  background-color: #d2efdb !important;
+}
+
+.accordion .accordion-item:nth-child(odd) .accordion-button {
+  background-color: #edfbf4 !important;
 }
   
   
