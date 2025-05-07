@@ -24,4 +24,11 @@ export const routes: Routes = [ {
     path: 'users', 
     loadComponent: () => import('../app/pages/users/users.component').then(m => m.UsersComponent) 
   },
+  { path: 'teams', 
+  loadChildren: () =>
+    import('./pages/teams/teams-routes').then(
+      (m) => m.TEAM_ROUTES
+    ),
+
+},
 ];

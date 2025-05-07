@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12 mb-4">
+   
+      <div class="task-header-row mb-3 mt-5" *ngIf="tasks?.length==0">No tasks</div>
+      <div class="task-header-row mt-2 mb-2" >
+          <div class="row">
+            <div class="col-2 title-label">Task</div>
+            <div class="col-2 title-label">Project</div>
+            <div class="col-2 title-label">Assignee</div>
+            <div class="col-1 title-label">Status</div>
+            <div class="col-2 title-label d-flex justify-content-center align-items-center">Due Date</div>
+          </div>
+        </div>
+      <div class="accordion" id="taskAccordion" >
+          <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" >
+              
+            <h1 class="accordion-header" [id]="'heading' + i">
+              <div
+                class="accordion-button d-flex align-items-center justify-content-between"
+             >
+                <div class="d-flex w-100 shadow-none">
+                  <!-- Side line -->
+                  <div class="me-2">
+                    <div class="vertical-line" [ngClass]="{
+                        'bg-blue-sideline': task.status === 'Not Started',
+                        'bg-pink': task.status === 'Inprogress',
+                        'bg-success': task.status === 'Completed',
+                        'bg-dark': task.status === 'Closed'
+                      }"></div>
+                  </div>
+            
+                  <!-- Title and ID -->
+                  <div class="p-1 col-2 pt-2 pb-2">
+                    <div class="text-muted title-text char-trim task-title">{{ task.task_name }}</div>
+                    <div>
+                      <span class="label-style">ID:</span>
+                      <span class="label-style"><i>{{ getLast4Chars(task._id)}}</i></span>
+                    </div>
+                  </div>
+            
+                  <!-- Project -->
+                  <div class="text-muted col-2 align-content-center">
+                    <small>{{ task.project_name }}</small>
+                  </div>
+                  <div class="text-muted col-2 align-content-center">
+                    <small>{{ task.assigned_to }}</small>
+                  </div>
+                  <!-- Status -->
+                  <div class="text-muted col-1 align-content-center text-center status-value" [ngClass]="{
+                    'bg-notstarted': task.status === 'Not Started',
+                    'bg-inprogress': task.status === 'Inprogress',
+                    'bg-completed': task.status === 'Completed',
+                    'bg-closed': task.status === 'Closed'
+                  }">
+                    <small>{{task.status}}</small>
+                  </div>
+            
+                  <!-- Due Date -->
+                  <div class="text-muted col-2 d-flex justify-content-center align-items-center">
+                    <small>{{ task.due_date | date }}</small>
+                  </div>
+            
+                  <div
+                    class="text-muted col-1 align-content-center"
+                  >
+                    <small class="action-btn pointer" (click)="openviewTask(task._id)">View</small>
+                  </div>
+                  <div
+                  class="text-muted col-1 align-content-center"
+                >
+                  <small class="action-btn pointer" (click)="deletetask(task._id)">Delete</small>
+                </div>
+                <div
+                class="text-muted col-1 align-content-center"
+              >
+                <small class="action-btn pointer" *ngIf="task.status!='Completed'"   (click)="updatetask(task._id,task.status)">Update</small>
+             
+              </div>
+                </div>
+              </div>
+            </h1>
+          </div>
+          <pagination-controls *ngIf="tasks?.length" style="margin-top: 20px; display: block;"  previousLabel="Prev"
+          nextLabel="Next" (pageChange)="p = $event"></pagination-controls>
+        </div>
+       </div> 
+
+  </div>
+

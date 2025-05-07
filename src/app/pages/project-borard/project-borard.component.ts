@@ -151,7 +151,10 @@ ngOnInit(): void {
 
 
 openProjectModal(){
-    const modalRef = this.modalService.open(AddProjectComponent);
+    const modalRef = this.modalService.open(AddProjectComponent, 
+      {
+      windowClass: 'wide-modal'}
+    );
     modalRef.componentInstance.event.subscribe((data: any) => {
           if (data=='Project created successfully') {
             

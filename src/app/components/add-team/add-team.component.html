@@ -1,0 +1,109 @@
+<!-- <app-header></app-header>
+<div class="main-container">
+    <app-sidebar></app-sidebar>
+    <div class="content ms-3">
+        
+<div class="row">
+    <div class="container-fluid mt-1">
+     <div class="row">
+        <div class="p-4">
+            <h2>Dynamic Org Chart Builder</h2>
+            <button (click)="addRootNode()">+ Add Root Member</button>
+      
+            <div formArrayName="nodes">
+                <ng-container *ngFor="let node of nodes.controls; let i = index">
+                  <app-org-node-form
+                    [nodeForm]="castToFormGroup(node)"
+                    (addChild)="addChildNode($event)">
+                  </app-org-node-form>
+                </ng-container>
+              </div>
+              
+              
+            <hr />
+      
+            <ngx-org-chart
+              [nodes]="getChartNodes()"
+              direction="vertical"
+              (itemClick)="onItemClick($event)">
+            </ngx-org-chart>
+          </div>
+          </div>
+          </div> -->
+
+
+ <app-header ></app-header>
+<div class="main-container">
+    <app-sidebar ></app-sidebar>
+    <div class="content ms-3">
+        
+<div class="row">
+
+        <form [formGroup]="addTeamForm" (ngSubmit)="onSubmit()">
+  <!-- Team Name -->
+  <div class="d-flex justify-content-center">
+ 
+    <input formControlName="team_name" placeholder="Team Name" class="input-fields" />
+  </div>
+
+
+  <div class="row d-flex justify-content-center">  <div class="arrow-down"></div></div>
+
+  <div class="d-flex justify-content-center mt-2">
+  <ng-select
+  [searchable]="true"
+  [items]="teamLeadOptions"
+  formControlName="team_manager"
+  bindLabel="name"
+  placeholder="Team Manager"
+  [closeOnSelect]="true"  class="input-fields"
+
+
+>
+  <ng-template ng-option-tmp let-item="item">
+    <div [title]="item.tooltip" [class.disabled-option]="item.disabled"
+      *ngIf="item.name.length > 12"
+    >
+      {{
+        item.name.length > 12
+          ? (item.name | slice : 0 : 12) + "..."
+          : item.name
+      }}
+    </div>
+    <div *ngIf="12 >= item.name.length" [title]="item.tooltip" [class.disabled-option]="item.disabled">
+      {{ item.name }}
+    </div>
+  </ng-template>
+</ng-select>
+</div>
+  <!-- Arrow from manager to members -->
+  <div class="row d-flex justify-content-center">  <div class="arrow-down"></div></div>
+
+
+  <!-- Team Members -->
+  <div formArrayName="team_members" class="tree-node member-box mt-2">
+    <label>Team Members:</label>
+    <div class="members-container">
+      <div *ngFor="let member of teamMembers.controls; let i = index" [formGroupName]="i" class="member-node">
+      
+        <ng-select
+  [items]="teamUserOptions"
+  bindLabel="name"
+  bindValue="id"
+  [searchable]="true"
+  placeholder="Select Member"
+  formControlName="id"
+  (change)="onMemberSelect($event, i)">
+</ng-select>
+        <button type="button" class="remove-btn mt-0 ms-2 d-flex justify-content-center align-items-center" (click)="removeTeamMember(i)">X</button>
+      
+      </div>
+      <button type="button" class="btn-sm add-btn" (click)="addTeamMember()">Add Member</button>
+    </div>
+  </div>
+
+ 
+  <div style="margin-top: 20px;">
+    <button type="submit">Submit</button>
+  </div>
+</form>

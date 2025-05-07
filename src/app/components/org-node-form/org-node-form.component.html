@@ -1,0 +1,10 @@
+
+<div class="node-form" [formGroup]="nodeForm" style="margin-left: 20px; border-left: 2px dashed #ccc; padding-left: 10px; margin-top: 10px;">
+    <input formControlName="name" placeholder="Name" />
+    <input formControlName="title" placeholder="Title" />
+    <button (click)="addChild.emit()">+ Child</button>
+
+    <div formArrayName="childs" *ngFor="let child of childNodes.controls">
+      <app-org-node-form [nodeForm]="child" (addChild)="addChild.emit()"></app-org-node-form>
+    </div>
+  </div>

@@ -22,7 +22,7 @@ authToken!:any;
             'Authorization': `Bearer ${ this.authToken}`
           });
     // console.log(environment.apiUrl)
-    return this.http.get(`${environment.apiUrl}/task/tasks`,{headers});
+    return this.http.get(`${environment.apiUrl}/task/get-all`,{headers});
   }
   getTasksCount() {
     return this.http.get(`${environment.apiUrl}/task/tasks-count`);

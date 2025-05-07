@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div class="main-container">
+    <app-sidebar></app-sidebar>
+    <div class="content ms-3">
+      
+                 
+<div class="row">
+    <div class="container-fluid mt-1">
+     <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-create" (click)="redirectAddteam()">Add Team</button>
+     </div>
+     </div>
+     </div>
+        <div class="row" >
+            <div class="col-md-2"  *ngFor="let team of teamList; let i = index">
+               
+                                <div (click)="redirectTeamDetails(team.id)"class="card team-card d-flex justify-content-center align-items-center">
+                                    {{team.teamName}}
+                                </div>
+                                        
+          
+            </div>
+            </div>
+
+

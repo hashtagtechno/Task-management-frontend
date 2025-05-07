@@ -15,10 +15,11 @@ export class SidebarComponent {
   }
   sidebarItems = [
     { title: 'Task Home', icon:"fa fa-home", route: '/taskhome' },
-    { title: 'Projects', icon:"fa fa-solid fa-list-check", route: '../projects' },
+    { title: 'Projects', icon:"fa fa-solid fa-list-check", route: '/projects' },
     { title: 'Kanban', icon:"fa fa-solid fa-boxes-stacked", route: '/kanban'},
     { title: 'Profile', icon:"fa fa-solid fa-user", route: '/profile'},
     { title: 'Users', icon:"fa fa-solid fa-users", route: '/users'},
+    { title: 'Teams', icon:"fa fa-solid fa-users", route: '/teams'},
    
   ]
   

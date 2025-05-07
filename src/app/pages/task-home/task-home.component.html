@@ -5,13 +5,7 @@
 
 <div class="row">
     <div class="container-fluid mt-1">
-      <div class="row">
-        <div class="col-md-12 mb-1">
-          <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
-          </div>
-          </div>
-          </div>
+     
         <div class="row" >
           <div class="col-md-2">
             <div class="row card mb-3">
@@ -44,109 +38,96 @@
                 <div echarts [options]="chartOptions" class="w-100" style="height: 250px;"></div>
               </div>
             </div>
-      
-            <!-- Recent Activities -->
-            <!-- <div class="card">
-              <div class="card-header">Recent Tasks</div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let task of recentTasks">
-                  <strong>{{ task.assigned_to }}</strong> created Task <strong>{{task.task_name}}</strong>&nbsp; on 
-                  <small class="text-muted">{{ task.createdAt | date:'short' }}</small>
+          </div>
+          </div>
+          <div class="content-list row">
+            <br />
+            <div class="col-md-10 tab-section">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item tab-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="alltask-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#alltask"
+                    type="button"
+                    role="tab"
+                    aria-controls="alltask"
+                    aria-selected="false"
+                    (click)="activeTab('alltask')" [class.active]="current_tab === 'alltask'"
+                  >
+                    <div class="row tab-row-info">
+                      <div class="col-3 tab-icon-col">
+                        <i class="fa fa-solid fa-list-check"></i>
+                      </div>
+                      <div class="col-9 nav-col-name">All Tasks</div>
+                    </div>
+                  </button>
                 </li>
-              </ul>
-            </div> -->
-          </div>
-          
-          </div>
-          <div class="row">
-          <div class="col-md-12 mb-4">
-         
-            <div class="task-header-row mb-3 mt-5" *ngIf="tasks?.length==0">No tasks</div>
-            <div class="task-header-row mt-2 mb-2" *ngIf="tasks?.length!=0">
-                <div class="row">
-                  <div class="col-2 title-label">Task</div>
-                  <div class="col-2 title-label">Project</div>
-                  <div class="col-2 title-label">Assignee</div>
-                  <div class="col-1 title-label">Status</div>
-                  <div class="col-2 title-label d-flex justify-content-center align-items-center">Due Date</div>
-                </div>
-              </div>
-            <div class="accordion" id="taskAccordion">
-                <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" >
-                    
-                  <h1 class="accordion-header" [id]="'heading' + i">
-                    <div
-                      class="accordion-button d-flex align-items-center justify-content-between"
-                   >
-                      <div class="d-flex w-100 shadow-none">
-                        <!-- Side line -->
-                        <div class="me-2">
-                          <div class="vertical-line" [ngClass]="{
-                              'bg-blue-sideline': task.status === 'Not Started',
-                              'bg-pink': task.status === 'Inprogress',
-                              'bg-success': task.status === 'Completed',
-                              'bg-dark': task.status === 'Closed'
-                            }"></div>
-                        </div>
-                  
-                        <!-- Title and ID -->
-                        <div class="p-1 col-2 pt-2 pb-2">
-                          <div class="text-muted title-text char-trim task-title">{{ task.task_name }}</div>
-                          <div>
-                            <span class="label-style">ID:</span>
-                            <span class="label-style"><i>{{ getLast4Chars(task._id)}}</i></span>
-                          </div>
-                        </div>
-                  
-                        <!-- Project -->
-                        <div class="text-muted col-2 align-content-center">
-                          <small>{{ task.project_name }}</small>
-                        </div>
-                        <div class="text-muted col-2 align-content-center">
-                          <small>{{ task.assigned_to }}</small>
-                        </div>
-                        <!-- Status -->
-                        <div class="text-muted col-1 align-content-center text-center status-value" [ngClass]="{
-                          'bg-notstarted': task.status === 'Not Started',
-                          'bg-inprogress': task.status === 'Inprogress',
-                          'bg-completed': task.status === 'Completed',
-                          'bg-closed': task.status === 'Closed'
-                        }">
-                          <small>{{task.status}}</small>
-                        </div>
-                  
-                        <!-- Due Date -->
-                        <div class="text-muted col-2 d-flex justify-content-center align-items-center">
-                          <small>{{ task.due_date | date }}</small>
-                        </div>
-                  
-                        <div
-                          class="text-muted col-1 align-content-center"
-                        >
-                          <small class="action-btn pointer" (click)="openviewTask(task._id)">View</small>
-                        </div>
-                        <div
-                        class="text-muted col-1 align-content-center"
-                      >
-                        <small class="action-btn pointer" (click)="deleteTask(task._id)">Delete</small>
+                <li class="nav-item tab-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="task-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#due"
+                    type="button"
+                    role="tab"
+                    aria-controls="due"
+                    aria-selected="false"
+                    (click)="activeTab('due')"  [class.active]="current_tab === 'due'"
+                  >
+                    <div class="row tab-row-task">
+                      <div class="col-3">
+                        <i class="fa fa-solid fa-calendar"></i>
                       </div>
-                      <div
-                      class="text-muted col-1 align-content-center"
-                    >
-                      <small class="action-btn pointer" *ngIf="task.status!='Completed'"   (click)="updateTask(task._id,task.status)">Update</small>
-                   
+                      <div class="col-9 nav-col-name nav-col-task">Past Due</div>
                     </div>
-                      </div>
-                    </div>
-                  </h1>
-                </div>
-                <pagination-controls *ngIf="tasks?.length" style="margin-top: 20px; display: block;"  previousLabel="Prev"
-                nextLabel="Next" (pageChange)="p = $event"></pagination-controls>
-              </div>
-             </div> 
+                  </button>
+                </li>
       
-        </div>
-      </div>
+              
+                
+              </ul>
+          
+           </div>
+           <div class="col-md-2 mb-1">
+            <div class="d-flex justify-content-end mb-3">
+              <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
+            </div>
+            </div>
+           </div>
+              
+                <div class="tab-content w-100" id="myTabContent">
+                  <div
+                    class="tab-pane fade tab-project-alltask"
+                    id="alltask"
+                    role="tabpanel"   [class.show]="current_tab === 'alltask'"
+                    [class.active]="current_tab === 'alltask'"
+                    aria-labelledby="alltask-tab"
+                  >
+                  <app-accordion
+                  [tasks]="tasks" 
+                  [p]="p"
+                  (viewTask)="openviewTask($event)"
+                  (deleteTask)="deleteTask($event)"
+                  (updateTask)="updateTask($event.id, $event.status)">
+                </app-accordion></div>
+                  <div
+                  class="tab-pane fade tab-project-details"
+                  id="due"  [class.show]="current_tab === 'due'"
+                  [class.active]="current_tab === 'due'"
+                  role="tabpanel"
+                  aria-labelledby="due-tab"
+                >
+                <app-accordion 
+                [tasks]="tasks" 
+                [p]="p"
+                (viewTask)="openviewTask($event)"
+                (deleteTask)="deleteTask($event)"
+                (updateTask)="updateTask($event.id, $event.status)">
+              </app-accordion>
+              </div>
+          
       
 </div>
 <app-notification></app-notification>

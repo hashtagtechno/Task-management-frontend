@@ -24,10 +24,16 @@ constructor(private fb: UntypedFormBuilder,protected _notificationSvc: Notificat
   this.addprojectForm = this.fb.group(
       {
         project_name: new UntypedFormControl('', Validators.required ),
+        shortDescription: new UntypedFormControl('', Validators.required ),
         start_date: new UntypedFormControl('',Validators.required),
         due_date: new UntypedFormControl('',Validators.required),
-        project_description:new UntypedFormControl(null),
+        additionalInfo:new UntypedFormControl(null),
+        projectManager:new UntypedFormControl('',Validators.required),
+        team_name:new UntypedFormControl('', Validators.required ),
    })
+}
+ngOnInit(){
+  
 }
 onClickSubmitProject(data:any){
   let projectdata={

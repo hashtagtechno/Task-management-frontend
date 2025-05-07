@@ -81,5 +81,10 @@ color: #23A3A4;
 .accordion .accordion-item:nth-child(odd) .accordion-button {
   background-color: #edfbf4 !important;
 }
+::ng-deep .modal.wide-modal .modal-dialog {
+  max-width: 900px; /* or any width you want */
+  width: 90%;
+}
+
   
   

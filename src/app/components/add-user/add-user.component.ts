@@ -26,8 +26,8 @@ export class AddUserComponent {
   projectOptions!:any;
   users!:[];
   roleOptions = [
-    { name: 'Developer', id: 3 },
-    { name: 'Project Manager', id: 2 },
+ 
+    { name: 'Team Lead', id: 1 },
   ];
   constructor(private ProjectService:ProjectService,protected _notificationSvc: NotificationService,private fb: UntypedFormBuilder,public activeModal: NgbActiveModal, private UserService:UserService){
     this.addUserForm = this.fb.group(
@@ -37,7 +37,7 @@ export class AddUserComponent {
             password: ['', Validators.required],
             designation: [''],
             role: [null],
-            projects: [[]],  
+            // projects: [[]],  
             profileImage: ['']
        })
   }
@@ -61,13 +61,13 @@ export class AddUserComponent {
   }
   onClickSubmitUser(data:any){
    
-    this.selectedProjects= this.selectedProjects.map((project: { id: any; }) => ({ project_id: project.id }));
+    // this.selectedProjects= this.selectedProjects?.map((project: { id: any; }) => ({ project_id: project.id }));
     let userdata={
       name:data.name,
      email:data. email,
       password:data. password,
       designation:data.designation,
-      project:this.selectedProjects,
+      // project:this.selectedProjects,
     role:data.role.name,
     }
     // console.log(userdata)

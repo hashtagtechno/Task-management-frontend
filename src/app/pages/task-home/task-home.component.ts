@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -14,53 +14,33 @@ import { HttpClientModule } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { NotificationService } from '../../services/notification.service';
 import { NotificationComponent } from '../../components/notification/notification.component';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 @Component({
   selector: 'app-task-home',
   standalone: true,
-  imports: [SidebarComponent,NotificationComponent ,HttpClientModule,HeaderComponent,NgxEchartsModule,CommonModule, NgxPaginationModule,FormsModule],
+  imports: [SidebarComponent,NotificationComponent ,AccordionComponent,HttpClientModule,HeaderComponent,NgxEchartsModule,CommonModule, NgxPaginationModule,FormsModule],
   templateUrl: './task-home.component.html',
   styleUrl: './task-home.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class TaskHomeComponent implements OnInit {
-  constructor(private modalService: NgbModal,private tasksService: TaskService, protected _notificationSvc: NotificationService,){
+  constructor(private modalService: NgbModal,private cd: ChangeDetectorRef,private tasksService: TaskService, protected _notificationSvc: NotificationService,){
 
   }
+  p: number = 1;
   lineChartOptions!: EChartsOption;
-  // lineChartOptions: EChartsOption = {
-  //   title: {
-  //     text: 'Total hours worked/Day'
-  //   },
-  //   tooltip: {
-  //     trigger: 'axis'
-  //   },
-  //   xAxis: {
-  //     type: 'category', // OK now, TypeScript knows it's a valid value
-  //     data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-  //   },
-  //   yAxis: {
-  //     type: 'value'
-  //   },
-  //   series: [
-  //     {
-  //       data: [150, 230, 224, 218, 135, 147],
-  //       type: 'line',
-  //       smooth: true
-  //     }
-  //   ]
-  // };
-
   chartOptions: EChartsOption = {};
  tasksCount!:any;
   tasks:any;
+  tasksArray!:any;
 recentTasks!:any;
-p: number = 1;
 newStatus!:string;
  newAction:string='';
+ current_tab: string = 'alltask';
+
   ngOnInit(): void {
-    
+   this. current_tab = 'alltask';
     const weekDates = this.getWorkWeekDates();
-    
     this.lineChartOptions = {
       title: {
         text: 'Total hours worked/Day'
@@ -78,7 +58,7 @@ newStatus!:string;
       series: [
         {
           name: 'Hours',
-          data: [8, 7, 9, 6, 5], // Example work hours for Mon to Fri
+          data: [8, 7, 9, 6, 5],
           type: 'line',
           smooth: true
         }
@@ -86,10 +66,12 @@ newStatus!:string;
     };
   
     this.tasksService.getTasks().subscribe(data => {
-      this.tasks = data;
-      const tasksArray = data as any[];
-  this.recentTasks = tasksArray.slice(-2);
-    }, error => {
+      this.tasksArray = data;
+      this.filterTasks();
+      this.cd.detectChanges();
+  // this.recentTasks = tasksArray.slice(-2);
+    }, 
+    error => {
  
     });
     
@@ -152,9 +134,23 @@ newStatus!:string;
           }
         })
   }
-  getLast4Chars(id:string): string {
-    return  'TZK-' + id.slice(-4);  
-  }   
+  filterTasks() {
+    if (this.current_tab === 'alltask') {
+      console.log(this.current_tab)
+      this.tasks = this.tasksArray;
+      console.log(this.tasks)
+      this.cd.detectChanges();
+    } else if (this.current_tab === 'due') {
+      const now = new Date();
+     this.tasks =this.tasksArray.filter((task: { due_date: string | number | Date; }) => {
+        const dueDate = new Date(task.due_date);
+        return dueDate < now;
+      });
+    }
+  
+  }
+
+ 
   updateTask(id: string, status: string) {
     if (status === "Not Started") {
       this.newStatus = "Inprogress";
@@ -251,6 +247,10 @@ newStatus!:string;
       }
   
       return dates;
+    }
+    activeTab(tab: string): any {
+      this.current_tab = tab;
+      this.filterTasks();
     }
     }
    
