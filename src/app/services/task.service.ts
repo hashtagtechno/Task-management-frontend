@@ -25,7 +25,7 @@ authToken!:any;
     return this.http.get(`${environment.apiUrl}/tasks/get-all`,{headers});
   }
   getTasksCount() {
-    return this.http.get(`${environment.apiUrl}/tasks/task-count`);
+    return this.http.get(`${environment.apiUrl}/tasks/tasks-count`);
   }
   addTask(taskdata:any){
     return this.http.post(`${environment.apiUrl}/tasks/add`,taskdata);
