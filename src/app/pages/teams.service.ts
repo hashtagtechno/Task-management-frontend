@@ -24,4 +24,7 @@ export class TeamsService {
   getTeamDetails(id:any){
     return this.http.get(`${environment.apiUrl}/teams/get/${id}`);
   }
+  getTeamMembers(id:any){
+    return this.http.get(`${environment.apiUrl}/teams/get/${id}`);
+  }
 }

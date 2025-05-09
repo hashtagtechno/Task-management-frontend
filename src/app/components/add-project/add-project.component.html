@@ -37,7 +37,7 @@
                   [minDate]="minDate"
                   [bsConfig]="{
                     isAnimated: true,
-                    dateInputFormat: 'DD-MM-YYYY',
+                    dateInputFormat: 'YYYY-MM-DD',
                     containerClass: 'theme-default',
                     showWeekNumbers: false
                   }"
@@ -64,7 +64,7 @@
               [minDate]="minDate"
               [bsConfig]="{
                 isAnimated: true,
-                dateInputFormat: 'DD-MM-YYYY',
+                dateInputFormat: 'YYYY-MM-DD',
                 containerClass: 'theme-default',
                 showWeekNumbers: false
               }"
@@ -108,21 +108,52 @@
     <div class="row d-flex">
    
 <div class="row mt-4 mb-2">
-  <textarea formControlName="project_description" rows="5"
+  <textarea formControlName="additionalInfo" rows="5"
   cols="50"[ngClass]="{
-   'border-touched': addprojectForm.get('project_description')?.touched,
-   'border-invalid': addprojectForm.get('project_description')?.invalid && addprojectForm.get('project_description')?.touched
+   'border-touched': addprojectForm.get('additionalInfo')?.touched,
+   'border-invalid': addprojectForm.get('additionalInfo')?.invalid && addprojectForm.get('additionalInfo')?.touched
  }"
   placeholder="Additional Info..."></textarea>
 </div>
   <div
- *ngIf="addprojectForm.get('project_description')?.errors?.['required']
+ *ngIf="addprojectForm.get('additionalInfo')?.errors?.['required']
  "
  class="alert-error-one"
 >
  * required.
  </div>
 
+  
+    <!-- Select Teams -->
+    <label>Select Team(s)</label>
+    <ng-select *ngIf="teams"
+      [items]="teams"
+      bindLabel="teamName"
+      bindValue="id"
+      [multiple]="true"
+      formControlName="selectedTeams"
+      (change)="onTeamsChange($event)">
+    </ng-select>
+  
+    <!-- Select Team Members -->
+    <label>Select Team Members</label>
+    <ng-select
+      [items]="availableMembers"
+      bindLabel="name"
+    
+      [multiple]="true"
+      formControlName="teamMembers"
+      (change)="onMembersChange($event)">
+    </ng-select>
+  
+    <!-- Select Project Manager -->
+    <label>Select Project Manager</label>
+    <ng-select
+      [items]="selectedMembers"
+      bindLabel="name"
+      bindValue="userId"
+      formControlName="projectManager">
+    </ng-select>
 <div class="row">
   <div class="col-md-12">
     <div class="mb-3" class="d-flex justify-content-end">
@@ -145,4 +176,5 @@
     <div class="mb-3"></div>
   </div>
 </div>
+
 

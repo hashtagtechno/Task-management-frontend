@@ -1,0 +1,39 @@
+<form [formGroup]="projectForm">
+    <!-- Project Name -->
+    <label>Project Name</label>
+    <input type="text" formControlName="projectName" placeholder="Enter project name" />
+  
+    <!-- Select Teams -->
+    <label>Select Team(s)</label>
+    <ng-select
+      [items]="teams"
+      bindLabel="name"
+      bindValue="id"
+      [multiple]="true"
+      formControlName="selectedTeams"
+      (change)="onTeamsChange($event)">
+    </ng-select>
+  
+    <!-- Select Team Members -->
+    <label>Select Team Members</label>
+    <ng-select
+      [items]="availableMembers"
+      bindLabel="name"
+      bindValue="id"
+      [multiple]="true"
+      formControlName="teamMembers"
+      (change)="onMembersChange($event)">
+    </ng-select>
+  
+    <!-- Select Project Manager -->
+    <label>Select Project Manager</label>
+    <ng-select
+      [items]="selectedMembers"
+      bindLabel="name"
+      bindValue="id"
+      formControlName="projectManager">
+    </ng-select>
+  
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="projectForm.invalid">Create Project</button>
+  </form>

@@ -14,7 +14,7 @@ authToken!:any;
   
    }
     addProject(projectdata:any){
-      return this.http.post(`${environment.apiUrl}/projects/projects`,projectdata);
+      return this.http.post(`${environment.apiUrl}/projects/add`,projectdata);
     }
     getProjects(){
       return this.http.get(`${environment.apiUrl}/projects/projects-task-list/${this.userInfo.id.toString() }`

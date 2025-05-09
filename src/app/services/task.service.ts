@@ -22,13 +22,13 @@ authToken!:any;
             'Authorization': `Bearer ${ this.authToken}`
           });
     // console.log(environment.apiUrl)
-    return this.http.get(`${environment.apiUrl}/task/get-all`,{headers});
+    return this.http.get(`${environment.apiUrl}/tasks/get-all`,{headers});
   }
   getTasksCount() {
-    return this.http.get(`${environment.apiUrl}/task/tasks-count`);
+    return this.http.get(`${environment.apiUrl}/tasks/task-count`);
   }
   addTask(taskdata:any){
-    return this.http.post(`${environment.apiUrl}/task/tasks`,taskdata);
+    return this.http.post(`${environment.apiUrl}/tasks/add`,taskdata);
   }
   getTaskDetails(id:string){
     // console.log(`${environment.apiUrl}/tasks/:${id}`)?
