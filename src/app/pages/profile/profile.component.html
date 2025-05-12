@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header ></app-header>
 <div class="main-container">
     <app-sidebar></app-sidebar>
     <div class="content ms-3">
@@ -6,16 +6,11 @@
             <div class="col-lg-3 col-md-3 profile-row">
               <div class="icon-box card p-2 text-center">
                 <div class="card-body">
-                  <img src="../../../assets/images/default-avatar.png" class="profile-pic mb-1" width="80">
+                  <div class="profile-pic-wrapper">
+                  <img [src]="userImage" class="profile-pic mb-1" width="80">
                 
-                  <!-- <label for="file-upload" class="custom-file-upload">
-                    <div
-                      class="div-camera cursor"
-                     
-                    >
-                      <i class="fas fa-camera camera-icon"></i>
-                    </div>
-                   
+                  <label for="file-upload" class="custom-file-upload edit-icon">
+                    <i class="fa-solid fa-pen"></i>
                   </label>
                   <input
                     id="file-upload"
@@ -24,7 +19,8 @@
                     (change)="onChangeFile($event)"
                   
                     accept="image/*"
-                  /> -->
+                  />
+                </div>
                   <!-- (click)="$event.target.value = ''" -->
                   <div><strong>{{ userInfo?.name }}</strong></div>
                   <div class="text-secondary">{{ userInfo?.email }}</div>

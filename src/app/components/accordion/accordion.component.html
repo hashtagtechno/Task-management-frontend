@@ -12,7 +12,7 @@
           </div>
         </div>
       <div class="accordion" id="taskAccordion" >
-          <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" >
+          <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 4, currentPage: p }; let i = index" >
               
             <h1 class="accordion-header" [id]="'heading' + i">
               <div

@@ -38,6 +38,6 @@ authToken!:any;
     return this.http.delete(`${environment.apiUrl}/task/tasks/${id}`);
   }
   updateTask(id:string,status:string){
-    return this.http.put(`${environment.apiUrl}/task/tasks/${id}`,{'status':status});
+    return this.http.put(`${environment.apiUrl}/tasks/update-status/${id}`,{'status':status});
   }
 }

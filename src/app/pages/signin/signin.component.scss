@@ -4,7 +4,7 @@ $white: #fff;
 .signin {
   min-height: 100vh;
   // background: rgb(0, 31, 83);
-  background: linear-gradient(110deg,#23A3A4, rgb(99 98 208 / 9%) 100%);
+  background: linear-gradient(110deg,#46885a, rgb(99 98 208 / 9%) 100%);
  
   h3 {
     font-size: 28px;
@@ -13,16 +13,16 @@ $white: #fff;
     font-weight: 400;
   }
   h4 {
-    color: #23A3A4;
+    color: #46885a;
   }
   .submit {
-    background-color:#23A3A4;
+    background-color:#46885a;
   }
   //COVER BG
   .img {
     background-repeat: no-repeat;
     background-position: center center;
-    border-bottom: 3px solid#23A3A4;
+    border-bottom: 3px solid #46885a;
     background-size: cover;
   }
 
@@ -47,12 +47,12 @@ $white: #fff;
     color: white;
   }
   .btn-signin:hover {
-    color: #23A3A4;
+    color: #46885a;
     background-color: white;
-    border-color: #23A3A4;
+    border-color: #46885a;
   }
   .border-bottom-signin {
-    border-bottom: 3px solid #23A3A4;
+    border-bottom: 3px solid #46885a;
     background-color: #f0f0f0;
   }
   .spendNdrop-logo {
@@ -81,7 +81,7 @@ $white: #fff;
 text-decoration: underline;
 cursor: pointer;
 font-size: 11px;
-color: #23A3A4;
+color: #46885a;
   }
 
 

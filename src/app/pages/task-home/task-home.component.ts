@@ -250,6 +250,8 @@ newStatus!:string;
     }
     activeTab(tab: string): any {
       this.current_tab = tab;
+      
+      this.p=1;
       this.filterTasks();
     }
     }

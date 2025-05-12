@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -13,15 +14,30 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HeaderComponent {
   userInfo!:any;
-  constructor(private router:Router){
+  userImage!:any;
+  constructor(private router:Router,private userService:UserService){
     const storedUser = localStorage.getItem('userInfo');
     this.userInfo = storedUser ? JSON.parse(storedUser) : null;
     // console.log(this.userInfo)
   }
   searchText:string="";
   showClose:boolean=false;
+  ngOnInit(){
+    this.userService.headerUpdate$.subscribe(data => {
+      this.fetchProfile();
+    });
+    this.fetchProfile()
+  }
   search(){
 
+  }
+  fetchProfile(){
+    this.userService.getUserDetail(this.userInfo.id).subscribe((data:any) => {
+      this.userImage = data.profileImage;
+      // console.log(  this.userImage);
+    }, error => {
+  
+    });
   }
   clearSearch(){
 
