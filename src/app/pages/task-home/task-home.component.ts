@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import { NotificationService } from '../../services/notification.service';
 import { NotificationComponent } from '../../components/notification/notification.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-task-home',
   standalone: true,
@@ -24,9 +25,11 @@ import { AccordionComponent } from '../../components/accordion/accordion.compone
   encapsulation: ViewEncapsulation.None,
 })
 export class TaskHomeComponent implements OnInit {
-  constructor(private modalService: NgbModal,private cd: ChangeDetectorRef,private tasksService: TaskService, protected _notificationSvc: NotificationService,){
+  constructor(private modalService: NgbModal,private cdr: ChangeDetectorRef,private TaskService:TaskService,private cd: ChangeDetectorRef,private tasksService: TaskService, protected _notificationSvc: NotificationService,){
 
   }
+  private taskTimesubscription!: Subscription;
+  message: string = '';
   p: number = 1;
   lineChartOptions!: EChartsOption;
   chartOptions: EChartsOption = {};
@@ -37,7 +40,10 @@ recentTasks!:any;
 newStatus!:string;
  newAction:string='';
  current_tab: string = 'alltask';
-
+apiCall!:any;
+taskdetails!:any;
+weeklyHours!:any;
+dailyHours!:any;
   ngOnInit(): void {
    this. current_tab = 'alltask';
     const weekDates = this.getWorkWeekDates();
@@ -75,6 +81,23 @@ newStatus!:string;
  
     });
     
+    this.tasksService.getWeeklyTime('weekly').subscribe(data => {
+      this.weeklyHours = data;
+      // console.log("weekly", this.weeklyHours);
+  // this.recentTasks = tasksArray.slice(-2);
+    }, 
+    error => {
+ 
+    });
+    this.tasksService.getWeeklyTime('daily').subscribe(data => {
+      this.dailyHours = data;
+      // console.log("daily",this.dailyHours);
+  // this.recentTasks = tasksArray.slice(-2);
+    }, 
+    error => {
+ 
+    });
+
     this.tasksService.getTasksCount().subscribe((data: any) => {
       
   this.tasksCount = data;
@@ -136,9 +159,9 @@ newStatus!:string;
   }
   filterTasks() {
     if (this.current_tab === 'alltask') {
-      console.log(this.current_tab)
+      // console.log(this.current_tab)
       this.tasks = this.tasksArray;
-      console.log(this.tasks)
+      // console.log(this.tasks)
       this.cd.detectChanges();
     } else if (this.current_tab === 'due') {
       const now = new Date();
@@ -151,13 +174,25 @@ newStatus!:string;
   }
 
  
-  updateTask(id: string, status: string) {
+  updateTask(id: string, user_id: string,status:string,action:any,timer_id?:any,) {
+    console.log('action',action)
+    console.log('status',status)
+    console.log(timer_id)
     if (status === "Not Started") {
-      this.newStatus = "Inprogress";
+      this.newStatus = "In Progress";
       this.newAction = "Start";
-    } else if (status === "Inprogress") {
+    } else if (status === "In Progress"  && action=="tocomplete") {
       this.newStatus = "Completed";
       this.newAction = "Complete";
+    }
+    else if (status === "In Progress"  && action=="topause") {
+      console.log("ToPAuse")
+      this.newStatus = "Paused";
+      this.newAction = "Pause";
+    }
+    else if (status === "Paused") {
+      this.newStatus = "Inprogress";
+      this.newAction = "Resume";
     }
     if(this.newAction){
       Swal.fire({
@@ -171,25 +206,82 @@ newStatus!:string;
         cancelButtonColor: 'white',
       }).then((res) => {
         if (res.value) {
-          this.tasksService.updateTask(id, this.newStatus).subscribe(
-            (response: any) => {
-              this._notificationSvc.success('', 'Updated successfully');
-              this.ngOnInit();
-            },
-            (error: any) => {
-              this._notificationSvc.error('', 'Updation failed');
+         
+          if (this.newAction === "Start") {
+          this.apiCall = this.tasksService.startTask(id,user_id).subscribe((response:any)=>{
+            const timerId = response._id;
+
+            // 🔍 Find the task and update it
+            const taskIndex = this.tasks.findIndex((task: { _id: any; }) => task._id === id);
+            if (taskIndex !== -1) {
+              this.tasks[taskIndex].tasked_timer_id = timerId;
             }
-          );
+            this.ngOnInit();
+            console.log(this.tasks);
+            });
+          } else if (this.newAction === "Complete") {
+
+           this.apiCall = this.tasksService.completeTask(timer_id);
+          } else if (this.newAction === "Resume") {
+            this.apiCall = this.tasksService.resumeTask(timer_id);
+          }
+          else  {
+            console.log(this.newAction)
+            this.apiCall = this.tasksService.pauseTask(timer_id);
+          }
+          
+  
+          if (this.apiCall) {
+            this.apiCall.subscribe(
+              (response: any) => {
+                console.log(response)
+                this._notificationSvc.success('', 'Updated successfully');
+                this.ngOnInit(); // Or update task list selectively
+              },
+              (error: any) => {
+                this._notificationSvc.error('', 'Updation failed');
+              }
+            );
+          }
         }
       });
     }
   
   }
   
+  onTaskSelected(task: any,duration:string): void {
+    console.log(task)
   
+    if (this.taskTimesubscription) {
+      this.taskTimesubscription.unsubscribe();
+      this.message='';
+    }
+ 
+    this. taskTimesubscription = this.TaskService
+      .getServerSentEvent(task.task_timer_id)
+      .subscribe({
+        next: (data: any) => (this.message = data),
+       
+        
+        error: (err) => console.error('SSE error', err),
+      
+      }
+    );
+    this.cdr.detectChanges();
+      console.log(this.message)
+
+    console.log('Task selected in parent:', task._id);
+    this.TaskService.getTaskDetails(task._id).subscribe(
+      (response) => {
+        // console.log(response)
+        this.taskdetails=response
+    })
+    // You can now use this to display time, update charts, etc.
+  }
+
   openviewTask(taskId:string){
     if ( !taskId) {
-      console.error('Invalid task or ID:', taskId);
+      // console.error('Invalid task or ID:', taskId);
       return;
     }
     else{
@@ -253,6 +345,11 @@ newStatus!:string;
       
       this.p=1;
       this.filterTasks();
+    }
+    ngOnDestroy(): void {
+      if (this.taskTimesubscription) {
+        this.taskTimesubscription.unsubscribe();
+      }
     }
     }
    

@@ -63,7 +63,7 @@ font-size: 13px;
   background-color:#54cdf747;
 }
 .bg-closed{
-  background-color: #0080433d;
+  background-color:rgb(128 72 0 / 24%);
 }
 .vertical-line {
     width: 4px;
@@ -130,4 +130,17 @@ font-size: 12px;
 
 .accordion .accordion-item:nth-child(odd) .accordion-button {
   background-color: #edfbf4 !important;
+}
+.zero-pro{
+  justify-content: center;
+  display: flex;
+  color: red;
+  font-size: 32px;
+}
+
+.prod-hours{
+  font-weight: bold;
+  font-size: 32px;
+  color: green;
+  text-shadow: 2px 2px 8px rgb(47 255 55 / 30%);
 }

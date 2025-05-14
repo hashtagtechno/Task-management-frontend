@@ -37,42 +37,42 @@ export class TaskDetailsComponent {
   }   
   
 
-  onUpdateStatus(id:string) {
-    if (status === "NOT_STARTED") {
-         this.newStatus = "Inprogress";
-         this.newAction = "Start";
-       } else if (status === "Inprogress") {
-         this.newStatus = "Completed";
-         this.newAction = "Complete";
-       }
-      //  console.log('newAction:', this.newAction); // Check the value of newAction
-       if(this.newAction){
-         Swal.fire({
-           position: 'top',
-           title: `Are you sure to ${this.newAction} the task`,
-           icon: 'warning',
-           showCancelButton: true,
-           confirmButtonText: this.newAction,
-           cancelButtonText: 'Cancel',
-           confirmButtonColor: 'black',
-           cancelButtonColor: 'white',
-         }).then((res) => {
-           if (res.value) {
-             // Inside the then(), using an arrow function ensures `this` refers to the component instance
-             this.TaskService.updateTask(id, this.newStatus).subscribe(
-               (response: any) => {
-                this.msg ='Task Updated Successfully';
-                this.triggerEvent(this.msg);
-                this.activeModal.close();
-               },
-               (error: any) => {
-                 // Error handling logic here
-               }
-             );
-           }
-         });
-       }
-  }
+  // onUpdateStatus(id:string) {
+  //   if (status === "NOT_STARTED") {
+  //        this.newStatus = "Inprogress";
+  //        this.newAction = "Start";
+  //      } else if (status === "Inprogress") {
+  //        this.newStatus = "Completed";
+  //        this.newAction = "Complete";
+  //      }
+  //     //  console.log('newAction:', this.newAction); // Check the value of newAction
+  //      if(this.newAction){
+  //        Swal.fire({
+  //          position: 'top',
+  //          title: `Are you sure to ${this.newAction} the task`,
+  //          icon: 'warning',
+  //          showCancelButton: true,
+  //          confirmButtonText: this.newAction,
+  //          cancelButtonText: 'Cancel',
+  //          confirmButtonColor: 'black',
+  //          cancelButtonColor: 'white',
+  //        }).then((res) => {
+  //          if (res.value) {
+  //            // Inside the then(), using an arrow function ensures `this` refers to the component instance
+  //            this.TaskService.updateTask(id, this.newStatus).subscribe(
+  //              (response: any) => {
+  //               this.msg ='Task Updated Successfully';
+  //               this.triggerEvent(this.msg);
+  //               this.activeModal.close();
+  //              },
+  //              (error: any) => {
+  //                // Error handling logic here
+  //              }
+  //            );
+  //          }
+  //        });
+  //      }
+  // }
   triggerEvent(msg: string) {
     this.event.emit(msg);
   }

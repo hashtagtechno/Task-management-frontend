@@ -6,13 +6,14 @@
           <div class="row">
             <div class="col-2 title-label">Task</div>
             <div class="col-2 title-label">Project</div>
-            <div class="col-2 title-label">Assignee</div>
+            <div class="col-1 title-label">Assignee</div>
             <div class="col-1 title-label">Status</div>
             <div class="col-2 title-label d-flex justify-content-center align-items-center">Due Date</div>
           </div>
         </div>
       <div class="accordion" id="taskAccordion" >
-          <div class="accordion-item"*ngFor="let task of tasks | paginate: { itemsPerPage: 4, currentPage: p }; let i = index" >
+          <div   [ngClass]="{ 'highlighted-task': selectedTaskId === task._id }"
+          (click)="onTaskClick(task)" class="accordion-item" *ngFor="let task of tasks | paginate: { itemsPerPage: 4, currentPage: p }; let i = index"  >
               
             <h1 class="accordion-header" [id]="'heading' + i">
               <div
@@ -23,9 +24,9 @@
                   <div class="me-2">
                     <div class="vertical-line" [ngClass]="{
                         'bg-blue-sideline': task.status === 'Not Started',
-                        'bg-pink': task.status === 'Inprogress',
+                        'bg-pink': task.status === 'In Progress',
                         'bg-success': task.status === 'Completed',
-                        'bg-dark': task.status === 'Closed'
+                        'bg-dark': task.status === 'Paused'
                       }"></div>
                   </div>
             
@@ -42,15 +43,15 @@
                   <div class="text-muted col-2 align-content-center">
                     <small>{{ task.project_name }}</small>
                   </div>
-                  <div class="text-muted col-2 align-content-center">
+                  <div class="text-muted col-1 align-content-center">
                     <small>{{ task.assigned_to }}</small>
                   </div>
                   <!-- Status -->
                   <div class="text-muted col-1 align-content-center text-center status-value" [ngClass]="{
                     'bg-notstarted': task.status === 'Not Started',
-                    'bg-inprogress': task.status === 'Inprogress',
+                    'bg-inprogress': task.status === 'In Progress',
                     'bg-completed': task.status === 'Completed',
-                    'bg-closed': task.status === 'Closed'
+                    'bg-closed': task.status === 'Paused'
                   }">
                     <small>{{task.status}}</small>
                   </div>
@@ -71,9 +72,13 @@
                   <small class="action-btn pointer" (click)="deletetask(task._id)">Delete</small>
                 </div>
                 <div
-                class="text-muted col-1 align-content-center"
+                class="text-muted col-2 align-items-center d-flex justify-content-evenly"
               >
-                <small class="action-btn pointer" *ngIf="task.status!='Completed'"   (click)="updatetask(task._id,task.status)">Update</small>
+                <small class="action-btn pointer action-btn-complete" *ngIf="task.status=='In Progress'"   (click)="updatetask(task._id,task.user_id,task.status,'tocomplete',task.task_timer_id)"><i class="fa fa-solid fa-circle-check me-2"></i>Complete</small>
+                <small class="action-btn pointer action-btn-pause" *ngIf="task.status=='In Progress'"   (click)="updatetask(task._id,task.user_id,task.status,'topause',task.task_timer_id)"><i class="fa fa-solid fa-pause me-2"></i>Pause</small>
+                <small class="action-btn pointer action-btn-resume" *ngIf="task.status=='Paused'"   (click)="updatetask(task._id,task.user_id,task.status,'',task.task_timer_id)"><i class="fa fa-solid fa-play resume me-2"></i>Resume</small>
+                <small class="action-btn pointer action-btn-start" *ngIf="task.status=='Not Started'"   (click)="updatetask(task._id,task.user_id,task.status,'')"><i class="fa fa-solid fa-play me-2"></i>Start</small>
+                <small class="action-btn action-btn-completed" *ngIf="task.status=='Completed'" >All Done! No further action needed.</small>
              
               </div>
                 </div>

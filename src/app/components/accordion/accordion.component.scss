@@ -1,0 +1,36 @@
+.action-btn-complete{
+    background-color: #16bebe;
+    border-radius: 10px;
+    padding: 8px;
+}
+.action-btn-pause{
+    background-color: rgb(244, 207, 106);
+    padding: 8px;
+    border-radius: 10px;
+}
+.action-btn-resume{
+    background-color: rgb(215, 170, 47);
+    padding: 8px;
+    border-radius: 10px;
+}
+.action-btn-start{
+    background-color: rgb(187, 245, 174);
+    padding: 8px;
+    border-radius: 10px;
+}
+.action-btn-completed{
+    white-space: normal;      /* Allow wrapping */
+    display: block;           /* Or inline-block if you prefer */
+    width: 100%;
+    font-style: italic;
+    color: grey;
+}
+.highlighted-task{
+    background-color: green;
+}
+.fa-play{
+    color: green;
+}
+.resume{
+    color: rgb(127, 95, 7); 
+}

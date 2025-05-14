@@ -16,7 +16,7 @@ export const TEAM_ROUTES: Routes = [
     
   },
   {
-  path: 'teamdetails/:id',
+  path: 'teamdetails/:id/:name',
   component: TeamDetailsComponent,
   
 },
