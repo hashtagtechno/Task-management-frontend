@@ -17,14 +17,14 @@ import { BreadcrumbModule, BreadcrumbService } from 'xng-breadcrumb';
 })
 export class TeamsComponent {
   breadcrumbs: Array<any> = [];
-  constructor(private router:Router,    private cdr: ChangeDetectorRef,private TeamsService:TeamsService,private breadCrumbService: BreadcrumbService,){
+  constructor(private router:Router,   private cdr: ChangeDetectorRef,private TeamsService:TeamsService,private breadCrumbService: BreadcrumbService,){
 
   }
   teamList!:any;
   ngOnInit(){
     this.breadCrumbService.breadcrumbs$.subscribe((breadcrumbs) => {
       this.breadcrumbs = breadcrumbs;
-      console.log(this.breadcrumbs);
+      // console.log(this.breadcrumbs);
       // this.updateBreadCrumb();
       this.cdr.detectChanges();
     });

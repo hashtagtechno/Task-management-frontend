@@ -1,28 +1,33 @@
 import { NgxOrgChartComponent } from '@ahmedaoui/ngx-org-chart';
 import { INode } from '@ahmedaoui/ngx-org-chart/lib/node';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { AddTeamComponent } from '../add-team/add-team.component';
 import { CommonModule } from '@angular/common';
 import { TeamsService } from '../../pages/teams.service';
 import { ActivatedRoute, Route } from '@angular/router';
+import { BreadcrumbModule, BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
   selector: 'app-team-details',
   standalone: true,
-  imports: [NgxOrgChartComponent,HeaderComponent,SidebarComponent,AddTeamComponent,CommonModule],
+  imports: [NgxOrgChartComponent,BreadcrumbModule,HeaderComponent,SidebarComponent,AddTeamComponent,CommonModule],
   templateUrl: './team-details.component.html',
   styleUrl: './team-details.component.scss'
 })
 export class TeamDetailsComponent {
+  lastBreadcrumbLabel!:string;
   editMode = false;
   teamId!:any;
   team!:any;
-  constructor(private TeamsService:TeamsService,private route:ActivatedRoute){}
+    breadcrumbs: Array<any> = [];
+  constructor(private cdr: ChangeDetectorRef,private TeamsService:TeamsService,private route:ActivatedRoute,private breadCrumbService: BreadcrumbService){}
 ngOnInit(){
   this.teamId = this.route.snapshot.paramMap.get('id');
+ this.extractBreadCrumb();
   console.log('Editing team with ID:', this.teamId);
+   
   this.TeamsService.getTeamDetails(this.teamId).subscribe(
     (response) => {
       // console.log(response)
@@ -209,6 +214,28 @@ ngOnInit(){
     this.team = updatedTeam;
     this.editMode = false;
   }
+   extractBreadCrumb(){
+this.breadCrumbService.breadcrumbs$.subscribe((breadcrumbs) => {
+      this.breadcrumbs = breadcrumbs;
+      
+      // console.log(this.breadcrumbs);
+        this.breadcrumbs = this.breadcrumbs.map((item) => {
+      
+        const segments = item.label.split('/');
+        const lastSegment = segments[segments.length - 1];
+        // console.log(this.breadcrumbs);
+        this. lastBreadcrumbLabel = ` ${lastSegment}`;
+        return {
+          ...item,
+          label: `Team: ${lastSegment}`, // Modify the label to 'Edit {lastSegment}'
+        };
+       
+      })
+      // this.updateBreadCrumb();
+      //  console.log(this.breadcrumbs)
+      this.cdr.detectChanges();
+    });
+   }
 }
 
 

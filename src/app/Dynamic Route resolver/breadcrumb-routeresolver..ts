@@ -12,12 +12,12 @@ export class BreadcrumbResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const name = route.paramMap.get('name');
+    console.log(name)
     const breadcrumb = `Team: ${name}`;
 
     return of(breadcrumb).pipe(
-      delay(500), // optional: simulate delay
       tap(() => {
-        this.breadcrumbService.set('@teams', breadcrumb); // '@teams' matches the alias in the route
+        this.breadcrumbService.set('@teamname', `Team: ${name}`); // '@teams' matches the alias in the route
       })
     );
   }

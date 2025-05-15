@@ -30,12 +30,9 @@ export const routes: Routes = [ {
     import('./pages/teams/teams-routes').then(
       (m) => m.TEAM_ROUTES
     ),
-    resolve: {
-      apiData:BreadcrumbResolver,
-    },
-    data: {
-      breadcrumb: { alias: 'teams' }  // Give it an alias you can update later
-    }
+   data: {
+    breadcrumb: 'Teams' 
+  }
 
 },
 ];
