@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<app-loading *ngIf="loading$ | async"></app-loading>
+<div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+<!-- <router-outlet ></router-outlet> -->
