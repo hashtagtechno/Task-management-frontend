@@ -211,16 +211,18 @@ tag {
  .xng-breadcrumb-item {
     color: black;
     position: relative;
-  background: rgba(206, 244, 225, 0.722);  /* bookmark color */
+  background: #d2efdb;  /* bookmark color */
   padding: 6px 16px 6px 12px;  /* Reduced vertical padding */
   margin-right: 15px; /* space between bookmarks */
   cursor: pointer;
+  font-size: 13px;
  
   }
   
  .xng-breadcrumb-trail{
     color: green!important;
     font-weight: 600;
+     font-size: 13px;
     
  }
  .xng-breadcrumb-item::after {
@@ -231,8 +233,8 @@ tag {
   width: 0;
   height: 0;
   border-top: 16px solid transparent;   /* Reduced triangle height */
-  border-bottom: 22px solid transparent;
-  border-left: 12px solid rgba(206, 244, 225, 0.722);     /* Triangle width and color */     /* same color as background */
+  border-bottom: 15px solid transparent;
+  border-left: 12px solid #d2efdb;     /* Triangle width and color */     /* same color as background */
   z-index: 1;
 }
   
