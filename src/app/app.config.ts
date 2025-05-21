@@ -24,3 +24,7 @@ export const appConfig: ApplicationConfig = {
 };
 
 
+function provideBreadcrumb(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
+  throw new Error('Function not implemented.');
+}
+

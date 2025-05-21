@@ -1,4 +1,6 @@
-<app-loading *ngIf="loading$ | async"></app-loading>
+<ng-container *ngIf="loading$ | async as loading">
+  <app-loading *ngIf="loading"></app-loading>
+</ng-container>
 <div class="main-content">
     <router-outlet></router-outlet>
   </div>

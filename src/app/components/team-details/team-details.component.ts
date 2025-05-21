@@ -19,20 +19,24 @@ import { BreadcrumbModule, BreadcrumbService } from 'xng-breadcrumb';
 export class TeamDetailsComponent {
   lastBreadcrumbLabel!:string;
   editMode = false;
+  teamName!:any;
   teamId!:any;
   team!:any;
     breadcrumbs: Array<any> = [];
   constructor(private cdr: ChangeDetectorRef,private TeamsService:TeamsService,private route:ActivatedRoute,private breadCrumbService: BreadcrumbService){}
 ngOnInit(){
   this.teamId = this.route.snapshot.paramMap.get('id');
- this.extractBreadCrumb();
-  console.log('Editing team with ID:', this.teamId);
+//  this.extractBreadCrumb();
+  this.teamName = this.route.snapshot.paramMap.get('name');
+//  console.log(this.teamName)
+    this.breadCrumbService.set('@teamName', this.teamName);
+  // console.log('Editing team with ID:', this.teamId);
    
   this.TeamsService.getTeamDetails(this.teamId).subscribe(
     (response) => {
       // console.log(response)
       this.team=response
-      console.log(this.team);
+      // console.log(this.team);
 })
 }
   nodes: INode[] = [

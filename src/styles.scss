@@ -208,3 +208,31 @@ tag {
       white-space: nowrap;
       overflow: hidden;
     }
+ .xng-breadcrumb-item {
+    color: black;
+    position: relative;
+  background: rgba(206, 244, 225, 0.722);  /* bookmark color */
+  padding: 6px 16px 6px 12px;  /* Reduced vertical padding */
+  margin-right: 15px; /* space between bookmarks */
+  cursor: pointer;
+ 
+  }
+  
+ .xng-breadcrumb-trail{
+    color: green!important;
+    font-weight: 600;
+    
+ }
+ .xng-breadcrumb-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -12px;   /* width of arrow */
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;   /* Reduced triangle height */
+  border-bottom: 22px solid transparent;
+  border-left: 12px solid rgba(206, 244, 225, 0.722);     /* Triangle width and color */     /* same color as background */
+  z-index: 1;
+}
+  

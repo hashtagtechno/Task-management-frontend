@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { BreadcrumbResolver,  } from './Dynamic Route resolver/breadcrumb-routeresolver.';
 
 export const routes: Routes = [ { 
     path: '', 
