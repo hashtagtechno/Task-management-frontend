@@ -68,7 +68,7 @@ export class AddUserComponent {
       password:data. password,
       designation:data.designation,
       // project:this.selectedProjects,
-    role:data.role.name,
+    role:data.role?.name,
     }
     // console.log(userdata)
       this.UserService.addUser(userdata).subscribe(

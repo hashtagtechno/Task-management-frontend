@@ -8,6 +8,7 @@ export const TEAM_ROUTES: Routes = [
   {
     path: 'add-team',
     component: AddTeamComponent,
+    data: { breadcrumb:'Add Team'}
     
   },
   {

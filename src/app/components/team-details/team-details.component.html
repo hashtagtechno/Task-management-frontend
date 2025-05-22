@@ -30,7 +30,7 @@
         <div class="d-flex justify-content-center align-items-center input-fields row p-2">
        
         <div class="col-md-2 offset-md-2">
-          <img [src]="team?.teamLeadProfileImage" width="30" >
+          <img [src]="team?.teamLeadProfileImage" width="30" class="avatar" >
         </div>
             
             <div  class="col-md-8">{{ team?.teamLead }}
@@ -49,7 +49,7 @@
         <div class="members-container">
           <div *ngFor="let member of team?.teamMember" class="member-node">
             <div class="col-md-2 offset-md-2">
-                <img [src]="member?.profileImage" width="30" >
+                <img [src]="member?.profileImage" width="30" class="avatar" >
               </div>
               <div  class="col-md-8">
               <small>{{ member?.name }}</small

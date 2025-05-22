@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { NgxOrgChartComponent } from '@ahmedaoui/ngx-org-chart';
@@ -9,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TeamsService } from '../../pages/teams.service';
 import { NotificationService } from '../../services/notification.service';
+import { BreadcrumbModule } from 'xng-breadcrumb';
 
 @Component({
   selector: 'app-add-team',
@@ -21,10 +28,12 @@ import { NotificationService } from '../../services/notification.service';
     ReactiveFormsModule,
     NgxOrgChartComponent,
     OrgNodeFormComponent,
-    NgSelectModule,CommonModule
+    NgSelectModule,
+    CommonModule,
+    BreadcrumbModule,
   ],
   templateUrl: './add-team.component.html',
-  styleUrl: './add-team.component.scss'
+  styleUrl: './add-team.component.scss',
 })
 export class AddTeamComponent implements OnInit {
   @Input() initialData: any = null;
@@ -44,12 +53,12 @@ export class AddTeamComponent implements OnInit {
     this.addTeamForm = this.fb.group({
       team_name: [''],
       team_manager: [null],
-      team_members: this.fb.array([])
+      team_members: this.fb.array([]),
     });
   }
 
   ngOnInit() {
-    console.log(this.isEditMode)
+    console.log(this.isEditMode);
     this.loadTeamLeadOptions();
     this.loadTeamUserOptions();
 
@@ -67,7 +76,9 @@ export class AddTeamComponent implements OnInit {
         id: lead._id,
         name: lead.name,
         disabled: lead.teamName !== null,
-        tooltip: lead.teamName ? `Already part of another Team: ${lead.teamName}` :' '
+        tooltip: lead.teamName
+          ? `Already part of another Team: ${lead.teamName}`
+          : ' ',
       }));
     });
   }
@@ -78,8 +89,10 @@ export class AddTeamComponent implements OnInit {
         id: user._id,
         name: user.name,
         teamName: user.teamName,
-         disabled: user.teamName !== null,
-        tooltip: user.teamName ? `Already part of another Team: ${user.teamName}` :' '
+        disabled: user.teamName !== null,
+        tooltip: user.teamName
+          ? `Already part of another Team: ${user.teamName}`
+          : ' ',
       }));
     });
   }
@@ -89,8 +102,8 @@ export class AddTeamComponent implements OnInit {
       team_name: data.teamName,
       team_manager: {
         id: data.teamLeadId,
-        name: data.teamLead
-      }
+        name: data.teamLead,
+      },
     });
 
     const membersArray = this.fb.array([]);
@@ -98,7 +111,7 @@ export class AddTeamComponent implements OnInit {
       membersArray.push(
         this.fb.group({
           id: [member.userId],
-          name: [member.name]
+          name: [member.name],
         })
       );
     });
@@ -113,7 +126,7 @@ export class AddTeamComponent implements OnInit {
     this.teamMembers.push(
       this.fb.group({
         id: [''],
-        name: ['']
+        name: [''],
       })
     );
   }
@@ -131,20 +144,22 @@ export class AddTeamComponent implements OnInit {
         teamMember: this.addTeamForm.value.team_members.map((member: any) => ({
           userId: member.id,
           name: member.name,
-          role: 'Team Member'
-        }))
+          role: 'Team Member',
+        })),
       };
-if (!this.isEditMode){
-this.TeamsService.addTeam(transformedData).subscribe(response => {
-console.log(response)
-})
-}
-else (this.isEditMode)
-{
-  this.TeamsService.editTeam(transformedData,this.initialData._id).subscribe(response => {
-  console.log(response)
-  })
-  }
+      if (!this.isEditMode) {
+        this.TeamsService.addTeam(transformedData).subscribe((response) => {
+          console.log(response);
+        });
+      } else this.isEditMode;
+      {
+        this.TeamsService.editTeam(
+          transformedData,
+          this.initialData?._id
+        ).subscribe((response) => {
+          console.log(response);
+        });
+      }
       this.save.emit(transformedData);
     } else {
       this.addTeamForm.markAllAsTouched();
