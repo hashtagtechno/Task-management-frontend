@@ -36,6 +36,7 @@ export class AccordionComponent {
     this.updateTask.emit({ id: taskId, user_id: user_id,status,timer_id,action});
   }
   onTaskClick(task:any){
+    // console.log(task)
     this.selectedTaskId = task._id;
     this.taskSelected.emit(task);
     // console.log('task', task);

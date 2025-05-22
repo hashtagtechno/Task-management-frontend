@@ -13,14 +13,15 @@
         </div>
       <div class="accordion" id="taskAccordion" >
           <div   [ngClass]="{ 'highlighted-task': selectedTaskId === task._id }"
-          (click)="onTaskClick(task)" class="accordion-item" *ngFor="let task of tasks | paginate: { itemsPerPage: 4, currentPage: p }; let i = index"  >
+         class="accordion-item" *ngFor="let task of tasks | paginate: { itemsPerPage: 4, currentPage: p }; let i = index"  >
               
             <h1 class="accordion-header" [id]="'heading' + i">
               <div
                 class="accordion-button d-flex align-items-center justify-content-between"
              >
+            
                 <div class="d-flex w-100 shadow-none">
-                  <!-- Side line -->
+                  <div class="d-flex w-100 click-zone" (click)="onTaskClick(task)">
                   <div class="me-2">
                     <div class="vertical-line" [ngClass]="{
                         'bg-blue-sideline': task.status === 'Not Started',
@@ -60,7 +61,7 @@
                   <div class="text-muted col-2 d-flex justify-content-center align-items-center">
                     <small>{{ task.due_date | date }}</small>
                   </div>
-            
+                </div>
                   <div
                     class="text-muted col-1 align-content-center"
                   >

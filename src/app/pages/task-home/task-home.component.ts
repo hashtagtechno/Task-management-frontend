@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -19,143 +24,157 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-task-home',
   standalone: true,
-  imports: [SidebarComponent,NotificationComponent ,AccordionComponent,HttpClientModule,HeaderComponent,NgxEchartsModule,CommonModule, NgxPaginationModule,FormsModule],
+  imports: [
+    SidebarComponent,
+    NotificationComponent,
+    AccordionComponent,
+    HttpClientModule,
+    HeaderComponent,
+    NgxEchartsModule,
+    CommonModule,
+    NgxPaginationModule,
+    FormsModule,
+  ],
   templateUrl: './task-home.component.html',
   styleUrl: './task-home.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class TaskHomeComponent implements OnInit {
-  constructor(private modalService: NgbModal,private cdr: ChangeDetectorRef,private TaskService:TaskService,private cd: ChangeDetectorRef,private tasksService: TaskService, protected _notificationSvc: NotificationService,){
-
-  }
+  constructor(
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef,
+    private TaskService: TaskService,
+    private cd: ChangeDetectorRef,
+    private tasksService: TaskService,
+    protected _notificationSvc: NotificationService
+  ) {}
   private taskTimesubscription!: Subscription;
   message: string = '';
   p: number = 1;
   lineChartOptions!: EChartsOption;
   chartOptions: EChartsOption = {};
- tasksCount!:any;
-  tasks:any;
-  tasksArray!:any;
-recentTasks!:any;
-newStatus!:string;
- newAction:string='';
- current_tab: string = 'alltask';
-apiCall!:any;
-taskdetails!:any;
-weeklyHours!:any;
-dailyHours!:any;
+  tasksCount!: any;
+  tasks: any;
+  tasksArray!: any;
+  recentTasks!: any;
+  newStatus!: string;
+  newAction: string = '';
+  current_tab: string = 'alltask';
+  apiCall!: any;
+  taskdetails!: any;
+  weeklyHours!: any;
+  dailyHours!: any;
   ngOnInit(): void {
-   this. current_tab = 'alltask';
+    this.current_tab = 'alltask';
     const weekDates = this.getWorkWeekDates();
     this.lineChartOptions = {
       title: {
-        text: 'Total hours worked/Day'
+        text: 'Total hours worked/Day',
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
       },
       xAxis: {
         type: 'category',
-        data: weekDates
+        data: weekDates,
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
       },
       series: [
         {
           name: 'Hours',
           data: [8, 7, 9, 6, 5],
           type: 'line',
-          smooth: true
-        }
-      ]
+          smooth: true,
+        },
+      ],
     };
-  
-    this.tasksService.getTasks().subscribe(data => {
-      this.tasksArray = data;
-      this.filterTasks();
-      this.cd.detectChanges();
-  // this.recentTasks = tasksArray.slice(-2);
-    }, 
-    error => {
- 
-    });
-    
-    this.tasksService.getWeeklyTime('weekly').subscribe(data => {
-      this.weeklyHours = data;
-      // console.log("weekly", this.weeklyHours);
-  // this.recentTasks = tasksArray.slice(-2);
-    }, 
-    error => {
- 
-    });
-    this.tasksService.getWeeklyTime('daily').subscribe(data => {
-      this.dailyHours = data;
-      // console.log("daily",this.dailyHours);
-  // this.recentTasks = tasksArray.slice(-2);
-    }, 
-    error => {
- 
-    });
+
+    this.tasksService.getTasks().subscribe(
+      (data) => {
+        this.tasksArray = data;
+        this.filterTasks();
+        this.cd.detectChanges();
+        // this.recentTasks = tasksArray.slice(-2);
+      },
+      (error) => {}
+    );
+
+    this.tasksService.getWeeklyTime('weekly').subscribe(
+      (data) => {
+        this.weeklyHours = data;
+        // console.log("weekly", this.weeklyHours);
+        // this.recentTasks = tasksArray.slice(-2);
+      },
+      (error) => {}
+    );
+    this.tasksService.getWeeklyTime('daily').subscribe(
+      (data) => {
+        this.dailyHours = data;
+        // console.log("daily",this.dailyHours);
+        // this.recentTasks = tasksArray.slice(-2);
+      },
+      (error) => {}
+    );
 
     this.tasksService.getTasksCount().subscribe((data: any) => {
-      
-  this.tasksCount = data;
-  // console.log(this.tasksCount)
-  let statusMap: { [key: string]: { label: string; color: string } } = {
-    'Not Started': { label: 'New', color: '#0b47b83d' },
-    Inprogress: { label: 'Active', color: '#ea05a95c' },
-    Completed: { label: 'Completed', color:'rgb(84 112 198)' }
-  };
-  
-  // Create xAxis labels
-  const xAxisData = Object.keys(statusMap).map(key => statusMap[key].label);
-  
-  // Build series data
-  let chartSeriesData = Object.keys(statusMap).map(key => ({
-    value: this.tasksCount[key] || 0,
-    itemStyle: { color: statusMap[key].color }
-  }));
-  this.chartOptions = {
-    title: {
-      text: '',
-      left: 'center'
-    },
-    tooltip: {},
-    xAxis: [
-      {
-        type: 'category',   
-        data: ['New', 'Active', 'Completed'],
-        axisLabel: {
-          rotate: 45,
-          interval: 0,  
-        }
-      }
-    ],
-    yAxis: [
-      {
-        type: 'value'  
-      }
-    ],
-    series: [
-      {
-        name: 'Task',
-        type: 'bar',
-        data: chartSeriesData
-      }
-    ]
-  };
-    });
+      this.tasksCount = data;
+      // console.log(this.tasksCount)
+      let statusMap: { [key: string]: { label: string; color: string } } = {
+        'Not Started': { label: 'New', color: '#0b47b83d' },
+        Inprogress: { label: 'Active', color: '#ea05a95c' },
+        Completed: { label: 'Completed', color: 'rgb(84 112 198)' },
+      };
 
+      // Create xAxis labels
+      const xAxisData = Object.keys(statusMap).map(
+        (key) => statusMap[key].label
+      );
+
+      // Build series data
+      let chartSeriesData = Object.keys(statusMap).map((key) => ({
+        value: this.tasksCount[key] || 0,
+        itemStyle: { color: statusMap[key].color },
+      }));
+      this.chartOptions = {
+        title: {
+          text: '',
+          left: 'center',
+        },
+        tooltip: {},
+        xAxis: [
+          {
+            type: 'category',
+            data: ['New', 'Active', 'Completed'],
+            axisLabel: {
+              rotate: 45,
+              interval: 0,
+            },
+          },
+        ],
+        yAxis: [
+          {
+            type: 'value',
+          },
+        ],
+        series: [
+          {
+            name: 'Task',
+            type: 'bar',
+            data: chartSeriesData,
+          },
+        ],
+      };
+    });
   }
   openTaskModal() {
     const modalRef = this.modalService.open(AddTaskComponent);
     modalRef.componentInstance.event.subscribe((data: any) => {
-          if (data=='Task created successfully') {
-            
-            this.ngOnInit();
-          }
-        })
+      if (data == 'Task created successfully') {
+        this.ngOnInit();
+      }
+    });
   }
   filterTasks() {
     if (this.current_tab === 'alltask') {
@@ -165,36 +184,40 @@ dailyHours!:any;
       this.cd.detectChanges();
     } else if (this.current_tab === 'due') {
       const now = new Date();
-     this.tasks =this.tasksArray.filter((task: { due_date: string | number | Date; }) => {
-        const dueDate = new Date(task.due_date);
-        return dueDate < now;
-      });
+      this.tasks = this.tasksArray.filter(
+        (task: { due_date: string | number | Date }) => {
+          const dueDate = new Date(task.due_date);
+          return dueDate < now;
+        }
+      );
     }
-  
   }
 
- 
-  updateTask(id: string, user_id: string,status:string,action:any,timer_id?:any,) {
-    console.log('action',action)
-    console.log('status',status)
-    console.log(timer_id)
-    if (status === "Not Started") {
-      this.newStatus = "In Progress";
-      this.newAction = "Start";
-    } else if (status === "In Progress"  && action=="tocomplete") {
-      this.newStatus = "Completed";
-      this.newAction = "Complete";
+  updateTask(
+    id: string,
+    user_id: string,
+    status: string,
+    action: any,
+    timer_id?: any
+  ) {
+    console.log('action', action);
+    console.log('status', status);
+    console.log(timer_id);
+    if (status === 'Not Started') {
+      this.newStatus = 'In Progress';
+      this.newAction = 'Start';
+    } else if (status === 'In Progress' && action == 'tocomplete') {
+      this.newStatus = 'Completed';
+      this.newAction = 'Complete';
+    } else if (status === 'In Progress' && action == 'topause') {
+      console.log('ToPAuse');
+      this.newStatus = 'Paused';
+      this.newAction = 'Pause';
+    } else if (status === 'Paused') {
+      this.newStatus = 'Inprogress';
+      this.newAction = 'Resume';
     }
-    else if (status === "In Progress"  && action=="topause") {
-      console.log("ToPAuse")
-      this.newStatus = "Paused";
-      this.newAction = "Pause";
-    }
-    else if (status === "Paused") {
-      this.newStatus = "Inprogress";
-      this.newAction = "Resume";
-    }
-    if(this.newAction){
+    if (this.newAction) {
       Swal.fire({
         position: 'top',
         title: `Are you sure to ${this.newAction} the task?`,
@@ -206,35 +229,35 @@ dailyHours!:any;
         cancelButtonColor: 'white',
       }).then((res) => {
         if (res.value) {
-         
-          if (this.newAction === "Start") {
-          this.apiCall = this.tasksService.startTask(id,user_id).subscribe((response:any)=>{
-            const timerId = response._id;
+          if (this.newAction === 'Start') {
+            this.apiCall = this.tasksService
+              .startTask(id, user_id)
+              .subscribe((response: any) => {
+                const timerId = response._id;
 
-            // 🔍 Find the task and update it
-            const taskIndex = this.tasks.findIndex((task: { _id: any; }) => task._id === id);
-            if (taskIndex !== -1) {
-              this.tasks[taskIndex].tasked_timer_id = timerId;
-            }
-            this.ngOnInit();
-            console.log(this.tasks);
-            });
-          } else if (this.newAction === "Complete") {
-
-           this.apiCall = this.tasksService.completeTask(timer_id);
-          } else if (this.newAction === "Resume") {
+                // 🔍 Find the task and update it
+                const taskIndex = this.tasks.findIndex(
+                  (task: { _id: any }) => task._id === id
+                );
+                if (taskIndex !== -1) {
+                  this.tasks[taskIndex].tasked_timer_id = timerId;
+                }
+                this.ngOnInit();
+                console.log(this.tasks);
+              });
+          } else if (this.newAction === 'Complete') {
+            this.apiCall = this.tasksService.completeTask(timer_id);
+          } else if (this.newAction === 'Resume') {
             this.apiCall = this.tasksService.resumeTask(timer_id);
-          }
-          else  {
-            console.log(this.newAction)
+          } else {
+            console.log(this.newAction);
             this.apiCall = this.tasksService.pauseTask(timer_id);
           }
-          
-  
+
           if (this.apiCall) {
             this.apiCall.subscribe(
               (response: any) => {
-                console.log(response)
+                console.log(response);
                 this._notificationSvc.success('', 'Updated successfully');
                 this.ngOnInit(); // Or update task list selectively
               },
@@ -246,112 +269,105 @@ dailyHours!:any;
         }
       });
     }
-  
   }
-  
-  onTaskSelected(task: any,duration:string): void {
-    console.log(task)
-  
-    if (this.taskTimesubscription) {
-      this.taskTimesubscription.unsubscribe();
-      this.message='';
-    }
- 
-    this. taskTimesubscription = this.TaskService
-      .getServerSentEvent(task.task_timer_id)
-      .subscribe({
-        next: (data: any) => (this.message = data),
-       
-        
-        error: (err) => console.error('SSE error', err),
-      
+
+  onTaskSelected(task: any, duration: string): void {
+       if (this.taskTimesubscription) {
+        this.taskTimesubscription.unsubscribe();
+        this.message = '';
       }
-    );
-    this.cdr.detectChanges();
-      console.log(this.message)
+    if (task.task_timer_id!=null) {
+   
 
-    console.log('Task selected in parent:', task._id);
-    this.TaskService.getTaskDetails(task._id).subscribe(
-      (response) => {
-        // console.log(response)
-        this.taskdetails=response
-    })
-    // You can now use this to display time, update charts, etc.
+      this.taskTimesubscription = this.TaskService.getServerSentEvent(
+        task.task_timer_id
+      ).subscribe({
+        next: (data: any) => {
+          this.message = data;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('SSE error', err),
+      });
+    } else {
+      this.message = '';
+      // console.log(this.message);
+    }
+
+    // console.log('Task selected in parent:', task._id);
+    this.TaskService.getTaskDetails(task._id).subscribe((response) => {
+      // console.log(response);
+      this.taskdetails = response;
+    });
   }
 
-  openviewTask(taskId:string){
-    if ( !taskId) {
+  openviewTask(taskId: string) {
+    if (!taskId) {
       // console.error('Invalid task or ID:', taskId);
       return;
-    }
-    else{
-    
-      const modalRef = this.modalService.open(TaskDetailsComponent); 
+    } else {
+      const modalRef = this.modalService.open(TaskDetailsComponent);
       modalRef.componentInstance.taskId = taskId;
     }
-    }
-    deleteTask(id:string){
-      Swal.fire({
-        position: 'top',
-        title: `Are you sure to delete the task?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Delete',
-        cancelButtonText: 'Cancel',
-        confirmButtonColor: 'black',
-        cancelButtonColor: 'white',
-      }).then((res) => {
-        if (res.value) {
-          this.tasksService.deleteTask(id).subscribe(
-            (response) => {
-              this._notificationSvc.success('', 'Deleted successfully');
-             this.ngOnInit(  )
-            },
-            (error) => {
-              this._notificationSvc.error('', 'deletion Failed!');
-              this.ngOnInit();
-            }
-          );
-        } else {
-        }
-      });
+  }
+  deleteTask(id: string) {
+    Swal.fire({
+      position: 'top',
+      title: `Are you sure to delete the task?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: 'black',
+      cancelButtonColor: 'white',
+    }).then((res) => {
+      if (res.value) {
+        this.tasksService.deleteTask(id).subscribe(
+          (response) => {
+            this._notificationSvc.success('', 'Deleted successfully');
+            this.ngOnInit();
+          },
+          (error) => {
+            this._notificationSvc.error('', 'deletion Failed!');
+            this.ngOnInit();
+          }
+        );
+      } else {
+      }
+    });
+  }
+
+  getWorkWeekDates(): string[] {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
+
+    const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + diffToMonday);
+
+    const dates = [];
+
+    for (let i = 0; i < 5; i++) {
+      const nextDay = new Date(monday);
+      nextDay.setDate(monday.getDate() + i);
+
+      const day = nextDay.getDate().toString().padStart(2, '0');
+      const month = (nextDay.getMonth() + 1).toString().padStart(2, '0');
+      const year = nextDay.getFullYear();
+
+      dates.push(`${day}/${month}/${year}`);
     }
 
-    getWorkWeekDates(): string[] {
-      const today = new Date();
-      const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
-  
-      const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-      const monday = new Date(today);
-      monday.setDate(today.getDate() + diffToMonday);
-  
-      const dates = [];
-  
-      for (let i = 0; i < 5; i++) {
-        const nextDay = new Date(monday);
-        nextDay.setDate(monday.getDate() + i);
-  
-        const day = nextDay.getDate().toString().padStart(2, '0');
-        const month = (nextDay.getMonth() + 1).toString().padStart(2, '0');
-        const year = nextDay.getFullYear();
-  
-        dates.push(`${day}/${month}/${year}`);
-      }
-  
-      return dates;
-    }
-    activeTab(tab: string): any {
-      this.current_tab = tab;
-      
-      this.p=1;
-      this.filterTasks();
-    }
-    ngOnDestroy(): void {
-      if (this.taskTimesubscription) {
-        this.taskTimesubscription.unsubscribe();
-      }
-    }
-    }
-   
-  
+    return dates;
+  }
+  activeTab(tab: string): any {
+    this.current_tab = tab;
 
+    this.p = 1;
+    this.filterTasks();
+  }
+  ngOnDestroy(): void {
+    if (this.taskTimesubscription) {
+      this.taskTimesubscription.unsubscribe();
+    }
+  }
+}

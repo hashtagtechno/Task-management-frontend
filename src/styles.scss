@@ -212,7 +212,7 @@ tag {
     color: black;
     position: relative;
   background: #d2efdb;  /* bookmark color */
-  padding: 6px 16px 6px 12px;  /* Reduced vertical padding */
+  padding: 6px 16px 6px 20px;  /* Reduced vertical padding */
   margin-right: 15px; /* space between bookmarks */
   cursor: pointer;
   font-size: 13px;
@@ -236,5 +236,21 @@ tag {
   border-bottom: 15px solid transparent;
   border-left: 12px solid #d2efdb;     /* Triangle width and color */     /* same color as background */
   z-index: 1;
+}
+.xng-breadcrumb-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 16px solid #d2efdb;   /* Reduced triangle height */
+  border-bottom: 15px solid #d2efdb;
+  border-left: 12px solid white; 
+  z-index: 2;
+  right: -12px;
+}
+.xng-breadcrumb-separator{
+  display: none!important;
 }
   
