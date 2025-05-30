@@ -1,0 +1,16 @@
+<app-header></app-header>
+<div class="main-container">
+  <app-sidebar></app-sidebar>
+  <div class="content ms-3">
+    <div class="row d-flex">
+   <div *ngFor="let group of groupedScreenshots | keyvalue">
+  <h3>{{ group.key }}</h3> <!-- the hour label -->
+
+  <div class="screenshots-row">
+    <img *ngFor="let shot of group.value" [src]="shot?.path" alt="Screenshot" />
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+

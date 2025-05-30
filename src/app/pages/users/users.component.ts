@@ -36,7 +36,7 @@ export class UsersComponent {
     ngOnInit(){
       this.UserService.getUsers().subscribe((res: any) => {
         this.users = res.users; 
-        // console.log(this.users); 
+        console.log(this.users); 
       });
     }
 }

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
+import { ScreenShotService } from '../../services/screen-shot.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,9 @@ import { UserService } from '../../services/user.service';
 export class HeaderComponent {
   userInfo!:any;
   userImage!:any;
-  constructor(private router:Router,private userService:UserService){
+   screenshots: string[] = [];
+    screenshot: string | null = null;
+  constructor(private router:Router,private userService:UserService,private ScreenShotService:ScreenShotService){
     const storedUser = localStorage.getItem('userInfo');
     this.userInfo = storedUser ? JSON.parse(storedUser) : null;
     // console.log(this.userInfo)
@@ -26,8 +29,41 @@ export class HeaderComponent {
     this.userService.headerUpdate$.subscribe(data => {
       this.fetchProfile();
     });
-    this.fetchProfile()
+    this.fetchProfile();
+     window.addEventListener('message', (event) => {
+      console.log('[Angular] Screenshot received');
+    if (event.data?.type === 'screenshot') {
+      this.screenshot = event.data.data;
+        this.screenshots.unshift(event.data.data); // Adds to top of array
+      console.log('[Angular] Screenshot received');
+      if (this.screenshot){
+ this.sendScreenshotToBackend(this.screenshot);
+      }
+     
+    }
+  });
   }
+   sendScreenshotToBackend(base64: string) {
+  const blob = this.base64ToBlob(base64);
+  const formData = new FormData();
+
+  formData.append('screenshot', blob, `screenshot_${Date.now()}.png`);
+  formData.append('userId', this.userInfo.id); // Replace with dynamic ID if needed
+// console.log(formData);
+  this.ScreenShotService. addScreenShot(formData).subscribe({
+    next: () => console.log('[Angular] Screenshot uploaded successfully'),
+    error: (err) => console.error('[Angular] Upload failed', err),
+  });
+}
+base64ToBlob(base64: string): Blob {
+  const byteString = atob(base64.split(',')[1]);
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+ const intArray = new Uint8Array(arrayBuffer.byteLength);
+  for (let i = 0; i < byteString.length; i++) {
+    intArray[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([intArray], { type: 'image/png' });
+}
   search(){
 
   }

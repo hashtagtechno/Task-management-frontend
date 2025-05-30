@@ -1,0 +1,16 @@
+
+<div class="container">
+  <div *ngFor="let group of rawScreenshots" class="group-row">
+    <div class="hour-label">
+      {{ group.timestamp }}
+    </div>
+    <div class="screenshots-row">
+      <img
+        *ngFor="let shot of group.imageUrl"
+        [src]="shot.imageUrl"
+        [alt]="shot.timestamp"
+        class="screenshot-img"
+      />
+    </div>
+  </div>
+</div>

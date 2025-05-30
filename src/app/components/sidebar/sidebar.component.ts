@@ -20,6 +20,7 @@ export class SidebarComponent {
     { title: 'Profile', icon:"fa fa-solid fa-user", route: '/profile'},
     { title: 'Users', icon:"fa fa-solid fa-users", route: '/users'},
     { title: 'Teams', icon:"fa fa-solid fa-users", route: '/teams'},
+     { title: 'Reports', icon:"fa fa-solid fa-table", route: '/reports'},
    
   ]
   

@@ -24,6 +24,10 @@ export const routes: Routes = [ {
     path: 'users', 
     loadComponent: () => import('../app/pages/users/users.component').then(m => m.UsersComponent) 
   },
+   { 
+    path: 'reports', 
+    loadComponent: () => import('../app/pages/reports/reports.component').then(m => m.ReportsComponent) 
+  },
   { path: 'teams', 
   loadChildren: () =>
     import('./pages/teams/teams-routes').then(
