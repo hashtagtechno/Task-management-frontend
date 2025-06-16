@@ -5,23 +5,27 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterModule,CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  constructor(private router:Router){
-
-  }
+  constructor(private router: Router) {}
   sidebarItems = [
-    { title: 'Task Home', icon:"fa fa-home", route: '/taskhome' },
-    { title: 'Projects', icon:"fa fa-solid fa-list-check", route: '/projects' },
-    { title: 'Kanban', icon:"fa fa-solid fa-boxes-stacked", route: '/kanban'},
-    { title: 'Profile', icon:"fa fa-solid fa-user", route: '/profile'},
-    { title: 'Users', icon:"fa fa-solid fa-users", route: '/users'},
-    { title: 'Teams', icon:"fa fa-solid fa-users", route: '/teams'},
-     { title: 'Reports', icon:"fa fa-solid fa-table", route: '/reports'},
-   
-  ]
-  
+    { title: 'Task Home', icon: 'fa fa-home', route: '/taskhome' },
+    {
+      title: 'Projects',
+      icon: 'fa fa-solid fa-list-check',
+      route: '/projects',
+    },
+    { title: 'Kanban', icon: 'fa fa-solid fa-boxes-stacked', route: '/kanban' },
+    { title: 'Profile', icon: 'fa fa-solid fa-user', route: '/profile' },
+    { title: 'Users', icon: 'fa fa-solid fa-users', route: '/users' },
+    { title: 'Teams', icon: 'fa fa-solid fa-users', route: '/teams' },
+    {
+      title: 'Productivity',
+      icon: 'fa fa-solid fa-chart-simple',
+      route: '/reports',
+    },
+  ];
 }

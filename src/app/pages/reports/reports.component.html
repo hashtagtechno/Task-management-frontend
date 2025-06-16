@@ -1,16 +1,78 @@
+
 <app-header></app-header>
 <div class="main-container">
   <app-sidebar></app-sidebar>
   <div class="content ms-3">
-    <div class="row d-flex">
-   <div *ngFor="let group of groupedScreenshots | keyvalue">
-  <h3>{{ group.key }}</h3> <!-- the hour label -->
+      <div class="content-list row">
+          <br />
+          <div class="col-md-10 tab-section">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item tab-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="productivity-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#productivity"
+                  type="button"
+                  role="tab"
+                  aria-controls="productivity"
+                  aria-selected="false"
+                  (click)="activeTab('productivity')"
+                  [class.active]="current_tab === 'productivity'"
+                >
+                  <div class="row tab-row-info">
+                    <div class="col-3 tab-icon-col">
+                      <i class="fa fa-solid fa-list-check"></i>
+                    </div>
+                    <div class="col-9 nav-col-name">Report</div>
+                  </div>
+                </button>
+              </li>
+              <li class="nav-item tab-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="task-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#screenshot"
+                  type="button"
+                  role="tab"
+                  aria-controls="screenshot"
+                  aria-selected="false"
+                  (click)="activeTab('screenshot')"
+                  [class.active]="current_tab === 'screenshot'"
+                >
+                  <div class="row tab-row-task">
+                    <div class="col-3">
+                      <i class="fa fa-solid fa-calendar"></i>
+                    </div>
+                    <div class="col-9 nav-col-name nav-col-task">Screens</div>
+                  </div>
+                </button>
+              </li>
+            </ul>
+          </div>
+         
+        </div>
 
-  <div class="screenshots-row">
-    <img *ngFor="let shot of group.value" [src]="shot?.path" alt="Screenshot" />
-  </div>
-</div>
+        <div class="tab-content w-100" id="myTabContent">
+          <div
+            class="tab-pane fade tab-project-productivity"
+            id="productivity"
+            role="tabpanel"
+            [class.show]="current_tab === 'productivity'"
+            [class.active]="current_tab === 'productivity'"
+            aria-labelledby="productivity-tab"
+          >
+           <app-productivityreport></app-productivityreport>
+          </div>
+          <div
+            class="tab-pane fade tab-project-details"
+            id="screenshot"
+            [class.show]="current_tab === 'screenshot'"
+            [class.active]="current_tab === 'screenshot'"
+            role="tabpanel"
+            aria-labelledby="screenshot-tab"
+          >
+          <app-screenshot></app-screenshot>
     </div>
-  </div>
-</div>
-
+    </div>

@@ -1,0 +1,26 @@
+<table class="activity-table">
+  <thead>
+    <tr>
+      <th>App Name</th>
+      <th>Title</th>
+      <th>Duration</th>
+      <th>Visual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of reports">
+      <td>{{ item.appName }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.readableDuration }}</td>
+      <td>
+        <div class="bar-container">
+          <div
+            class="bar"
+            [style.width.%]="(item.duration / maxDuration) * 100"
+          ></div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

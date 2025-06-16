@@ -1,145 +1,187 @@
 <app-header></app-header>
 <div class="main-container">
-    <app-sidebar></app-sidebar>
-    <div class="content ms-3">
-
-<div class="row">
-    <div class="container-fluid mt-1">
-     
-        <div class="row" >
+  <app-sidebar></app-sidebar>
+  <div class="content ms-3">
+    <div class="row">
+      <div class="container-fluid mt-1">
+        <div class="row">
           <div class="col-md-2">
             <div class="row card mb-1">
-             <div class="card-header">Total Worked Today</div>
-              <div class="card-body d-flex justify-content-center">{{dailyHours?.readable_time}}</div>
+              <div class="card-header">Total Worked Today</div>
+              <div class="card-body d-flex justify-content-center">
+                {{ dailyHours?.readable_time }}
+              </div>
             </div>
             <div class="row card mb-1">
               <div class="card-header">Total Worked this week</div>
-               <div class="card-body d-flex justify-content-center">{{weeklyHours?.readable_time}}</div>
-             </div>
-            <div class="row card mb-1"  *ngIf="message!=''">
-              <div class="card-header">Time spent on {{taskdetails.task_name}}</div>
-               <div class="card-body prod-hours d-flex justify-content-center">{{message}}</div>
-             </div>
-             <div class="row card mb-3"  *ngIf="message==''">
-              <div class="card-header">Productivity % of the day</div>
-              <div class="card-body  zero-pro" *ngIf="dailyHours?.productivity_percent=='0.00'" >---</div>
-              <div  class="card-body prod-hours" *ngIf="dailyHours?.productivity_percent !== '0.00'">
-             
-                {{ dailyHours?.productivity_percent }}%
-               
+              <div class="card-body d-flex justify-content-center">
+                {{ weeklyHours?.readable_time }}
               </div>
-              
-             </div>
-            
-           
-            
+            </div>
+            <div class="row card mb-1" *ngIf="message != ''">
+              <div class="card-header">
+                Time spent on {{ taskdetails.task_name }}
+              </div>
+              <div class="card-body prod-hours d-flex justify-content-center">
+                {{ message }}
+              </div>
+            </div>
+            <div class="row card mb-3" *ngIf="message == ''">
+              <div class="card-header">Productivity % of the day</div>
+              <div
+                class="card-body zero-pro"
+                *ngIf="dailyHours?.productivity_percent == '0.00'"
+              >
+                ---
+              </div>
+              <div
+                class="card-body prod-hours"
+                *ngIf="dailyHours?.productivity_percent !== '0.00'"
+              >
+                {{ dailyHours?.productivity_percent }}%
+              </div>
+            </div>
           </div>
           <div class="col-md-6">
             <div class="card mb-4">
               <div class="card-header">Time Overview</div>
               <div class="card-body">
-            <div echarts [options]="lineChartOptions" class="demo-chart" style="height: 255px;"></div>
-</div>
-</div>
+                <div
+                  echarts
+                  [options]="lineChartOptions"
+                  class="demo-chart"
+                  style="height: 255px"
+                ></div>
+              </div>
+            </div>
           </div>
           <div class="col-md-4">
             <!-- Bar Chart -->
             <div class="card mb-4">
               <div class="card-header">Task Overview</div>
               <div class="card-body">
-                <div echarts [options]="chartOptions" class="w-100" style="height: 250px;"></div>
+                <div
+                  echarts
+                  [options]="chartOptions"
+                  class="w-100"
+                  style="height: 250px"
+                ></div>
               </div>
             </div>
           </div>
-          </div>
-          <div class="content-list row">
-            <br />
-            <div class="col-md-10 tab-section">
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item tab-item" role="presentation">
-                  <button
-                    class="nav-link active"
-                    id="alltask-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#alltask"
-                    type="button"
-                    role="tab"
-                    aria-controls="alltask"
-                    aria-selected="false"
-                    (click)="activeTab('alltask')" [class.active]="current_tab === 'alltask'"
-                  >
-                    <div class="row tab-row-info">
-                      <div class="col-3 tab-icon-col">
-                        <i class="fa fa-solid fa-list-check"></i>
-                      </div>
-                      <div class="col-9 nav-col-name">All Tasks</div>
-                    </div>
-                  </button>
-                </li>
-                <li class="nav-item tab-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    id="task-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#due"
-                    type="button"
-                    role="tab"
-                    aria-controls="due"
-                    aria-selected="false"
-                    (click)="activeTab('due')"  [class.active]="current_tab === 'due'"
-                  >
-                    <div class="row tab-row-task">
-                      <div class="col-3">
-                        <i class="fa fa-solid fa-calendar"></i>
-                      </div>
-                      <div class="col-9 nav-col-name nav-col-task">Past Due</div>
-                    </div>
-                  </button>
-                </li>
-      
-              
-                
-              </ul>
-          
-           </div>
-           <div class="col-md-2 mb-1">
-            <div class="d-flex justify-content-end mb-3">
-              <button class="btn btn-create" (click)="openTaskModal()">+ Create Task</button>
-            </div>
-            </div>
-           </div>
-              
-                <div class="tab-content w-100" id="myTabContent">
-                  <div
-                    class="tab-pane fade tab-project-alltask"
-                    id="alltask"
-                    role="tabpanel"   [class.show]="current_tab === 'alltask'"
-                    [class.active]="current_tab === 'alltask'"
-                    aria-labelledby="alltask-tab"
-                  >
-                  <app-accordion  (taskSelected)="onTaskSelected($event,$event)"
-                  [tasks]="tasks" 
-                  [p]="p"
-                  (viewTask)="openviewTask($event)"
-                  (deleteTask)="deleteTask($event)"
-                  (updateTask)="updateTask($event.id, $event.user_id,$event.status,$event.action,$event.timer_id)">
-                </app-accordion></div>
-                  <div
-                  class="tab-pane fade tab-project-details"
-                  id="due"  [class.show]="current_tab === 'due'"
-                  [class.active]="current_tab === 'due'"
-                  role="tabpanel"
-                  aria-labelledby="due-tab"
+        </div>
+        <div class="content-list row">
+          <br />
+          <div class="col-md-10 tab-section">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item tab-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="alltask-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#alltask"
+                  type="button"
+                  role="tab"
+                  aria-controls="alltask"
+                  aria-selected="false"
+                  (click)="activeTab('alltask')"
+                  [class.active]="current_tab === 'alltask'"
                 >
-                <app-accordion 
-                [tasks]="tasks" 
-                [p]="p"
-                (viewTask)="openviewTask($event)"
-                (deleteTask)="deleteTask($event)"
-                (updateTask)="updateTask($event.id, $event.user_id,$event.status,$event.timer_id,$event.action)">
-              </app-accordion>
-              </div>
-          
-      
+                  <div class="row tab-row-info">
+                    <div class="col-3 tab-icon-col">
+                      <i class="fa fa-solid fa-list-check"></i>
+                    </div>
+                    <div class="col-9 nav-col-name">All Tasks</div>
+                  </div>
+                </button>
+              </li>
+              <li class="nav-item tab-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="task-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#due"
+                  type="button"
+                  role="tab"
+                  aria-controls="due"
+                  aria-selected="false"
+                  (click)="activeTab('due')"
+                  [class.active]="current_tab === 'due'"
+                >
+                  <div class="row tab-row-task">
+                    <div class="col-3">
+                      <i class="fa fa-solid fa-calendar"></i>
+                    </div>
+                    <div class="col-9 nav-col-name nav-col-task">Past Due</div>
+                  </div>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 mb-1">
+            <div class="d-flex justify-content-end mb-3">
+              <button class="btn btn-create" (click)="openTaskModal()">
+                + Create Task
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content w-100" id="myTabContent">
+          <div
+            class="tab-pane fade tab-project-alltask"
+            id="alltask"
+            role="tabpanel"
+            [class.show]="current_tab === 'alltask'"
+            [class.active]="current_tab === 'alltask'"
+            aria-labelledby="alltask-tab"
+          >
+            <app-accordion
+              (taskSelected)="onTaskSelected($event, $event)"
+              [tasks]="tasks"
+              [p]="p"
+              (viewTask)="openviewTask($event)"
+              (deleteTask)="deleteTask($event)"
+              (updateTask)="
+                updateTask(
+                  $event.id,
+                  $event.user_id,
+                  $event.status,
+                  $event.action,
+                  $event.timer_id
+                )
+              "
+            >
+            </app-accordion>
+          </div>
+          <div
+            class="tab-pane fade tab-project-details"
+            id="due"
+            [class.show]="current_tab === 'due'"
+            [class.active]="current_tab === 'due'"
+            role="tabpanel"
+            aria-labelledby="due-tab"
+          >
+            <app-accordion
+              [tasks]="tasks"
+              [p]="p"
+              (viewTask)="openviewTask($event)"
+              (deleteTask)="deleteTask($event)"
+              (updateTask)="
+                updateTask(
+                  $event.id,
+                  $event.user_id,
+                  $event.status,
+                  $event.timer_id,
+                  $event.action
+                )
+              "
+            >
+            </app-accordion>
+          </div>
+        </div>
+        <app-notification></app-notification>
+      </div>
+    </div>
+  </div>
 </div>
-<app-notification></app-notification>

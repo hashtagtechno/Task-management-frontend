@@ -1,0 +1,13 @@
+{
+  "name": "electron-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "type": "module",
+  "dependencies": {
+    "active-win": "^9.0.0",
+    "electron": "36.3.1"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}

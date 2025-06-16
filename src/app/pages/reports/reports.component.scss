@@ -1,40 +1,9 @@
-/* Container for each hour group */
-.screenshots-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px; /* spacing between screenshots */
-  margin-bottom: 20px;
-}
-
-/* Each screenshot image */
-.screenshots-row img {
-  width: 120px;   /* fixed width */
-  height: 80px;   /* fixed height */
-  object-fit: cover;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
-  cursor: pointer;
-}
-
-/* Zoom effect on hover */
-.screenshots-row img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-/* Group header style */
-h3 {
-  margin: 16px 0 8px;
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #333;
-}
 .main-container {
     display: flex;
     flex-direction: row;
 }
 
+/* Sidebar styling */
 app-sidebar {
     width: 200px; 
     height: 100vh;
@@ -46,3 +15,23 @@ app-sidebar {
     margin-top: 80px;
 
 }
+ .fa{
+    color: rgb(24, 22, 22);
+  }
+  .nav-tabs{
+    border-bottom: none;
+  }
+  .nav-link{
+    color: rgb(18, 16, 16);
+  }
+  .nav-link:hover{
+    color: black;
+  }
+  .nav-link.active{
+    color: green!important;
+    border: none;
+    background-color: #d2efdb;
+    .fa{
+      color: green!important;
+    }
+  }
