@@ -8,16 +8,17 @@ export class ProjectService {
 userInfo!:any;
 authToken!:any;
   constructor(private http: HttpClient) {
-    const storedUser = localStorage.getItem('userInfo');
-    this.authToken=localStorage.getItem('authToken')
-    this.userInfo = storedUser ? JSON.parse(storedUser) : null;
+    // const storedUser = localStorage.getItem('userInfo');
+    // this.authToken=localStorage.getItem('authToken')
+    // this.userInfo = storedUser ? JSON.parse(storedUser) : null;
   
    }
     addProject(projectdata:any){
       return this.http.post(`${environment.apiUrl}/projects/add`,projectdata);
     }
-    getProjects(){
-      return this.http.get(`${environment.apiUrl}/projects/projects-task-list/${this.userInfo.id.toString() }`
+    getProjects(userInfo:any){
+      console.log(this.userInfo)
+      return this.http.get(`${environment.apiUrl}/projects/projects-task-list/${userInfo.id.toString() }`
       );
     }
     getProjectList(){

@@ -1,14 +1,24 @@
 <div class="fixed-top">
-<nav class="navbar navbar-expand-lg navbar-light bg-light pe-3">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light pe-3">
     <a class="navbar-brand" href="#">
-        <img src="../../../assets/images/hashtag.png"  class="d-inline-block align-top ms-3 logo" alt="">
-      </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <img
+        src="assets/images/hashtag.png"
+        class="d-inline-block align-top ms-3 logo"
+        alt=""
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-  
 
-              
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="search-box mx-auto">
         <input
@@ -22,8 +32,7 @@
           (keyup.enter)="enterSearch()"
           placeholder="Search..."
         />
-        
-      
+
         <a class="search-btn cursor" (click)="enterSearch()">
           <i class="fas fa-search"></i>
         </a>
@@ -31,19 +40,32 @@
       <div class="dropdown ms-auto me-3">
         <button
           class="btn avatar-btn dropdown-toggle p-0"
-          type="button"  role="button"
-          id="userDropdown" 
+          type="button"
+          role="button"
+          id="userDropdown"
           data-bs-toggle="dropdown"
-          aria-expanded="false">
-          <img [src]="userImage" class="profile-pic mb-1" width="40">
+          aria-expanded="false"
+        >
+          <img [src]="userImage" class="profile-pic mb-1" width="40" />
         </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li><a class="dropdown-item cursor" (click)="profile()"><i class="fa fa-solid fa-user me-2"></i>Profile</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item cursor" (click)="logOut()"><i class="fa fa-solid fa-arrow-right-from-bracket me-2"></i> Logout</a></li>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="userDropdown"
+        >
+          <li>
+            <a class="dropdown-item cursor" (click)="profile()"
+              ><i class="fa fa-solid fa-user me-2"></i>Profile</a
+            >
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <a class="dropdown-item cursor" (click)="logOut()"
+              ><i class="fa fa-solid fa-arrow-right-from-bracket me-2"></i>
+              Logout</a
+            >
+          </li>
         </ul>
       </div>
     </div>
   </nav>
-  </div>
-
+</div>

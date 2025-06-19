@@ -4,10 +4,40 @@
   "main": "main.js",
   "type": "module",
   "dependencies": {
-    "active-win": "^9.0.0",
-    "electron": "36.3.1"
+    "active-win": "^9.0.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron-builder": "^26.0.12",
+    "electron": "36.3.1"
+  },
+  "build": {
+    "appId": "com.hashtagtech.taskmanager",
+    "productName": "Task Manager",
+    "files": [
+      "main.js",
+    "preload.cjs",
+      "dist/**/*"
+    ],
+     "asarUnpack": [
+    "dist/**"
+  ],
+    
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }

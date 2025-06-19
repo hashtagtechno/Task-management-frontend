@@ -41,14 +41,10 @@ function createWindow() {
     },
   });
 
-  const indexPath = path.join(
-    __dirname,
-    "..",
-    "dist",
-    "task-management",
-    "browser",
-    "index.html"
-  );
+// const indexPath = app.isPackaged
+//   ? path.join(process.resourcesPath, "app", "dist", "task-management", "browser", "index.html")
+//   : path.join(__dirname, "dist", "task-management", "browser", "index.html");
+const indexPath = path.join(__dirname, "dist", "task-management", "browser", "index.html");
   win.loadFile(indexPath);
 }
 
@@ -132,16 +128,15 @@ setInterval(async () => {
 }, 20000);
 
 setInterval(() => {
- const idleTime = powerMonitor.getSystemIdleTime(); // in seconds
+  const idleTime = powerMonitor.getSystemIdleTime(); // in seconds
   const now = Date.now();
 
   if (idleTime >= 900) {
     // User is idle 15+ mins
 
     if (!lastIdleSentAt || now - lastIdleSentAt >= 15 * 60 * 1000) {
-
       showIdleNotification();
- win.webContents.send("idle-time", idleTime);
+      win.webContents.send("idle-time", idleTime);
       lastIdleSentAt = now;
       console.log("Idle for 15 min. Sent to backend.");
     }
@@ -150,6 +145,4 @@ setInterval(() => {
     lastIdleSentAt = null;
     hasShownIdleAlert = false;
   }
-
 }, 10000); // Check every 10 seconds
- 

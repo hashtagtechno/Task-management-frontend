@@ -21,7 +21,12 @@ import { NotificationService } from '../../services/notification.service';
   styleUrl: './project-borard.component.scss'
 })
 export class ProjectBorardComponent implements OnInit {
-  constructor(private modalService: NgbModal,protected _notificationSvc: NotificationService,private ProjectService:ProjectService){}
+  userInfo!:any;
+authToken!:any;
+  constructor(private modalService: NgbModal,protected _notificationSvc: NotificationService,private ProjectService:ProjectService){
+      const storedUser = localStorage.getItem('userInfo');
+    this.userInfo = storedUser ? JSON.parse(storedUser) : null;
+  }
   chartOptions: EChartsOption = {};
   public donutChartOptions: EChartsOption = {}; // init as empty
   gaugeChartOptions:EChartsOption={}
@@ -80,7 +85,7 @@ ngOnInit(): void {
     ]
   };
   
-  this.ProjectService.getProjects().subscribe((data:any) => {
+  this.ProjectService.getProjects(this.userInfo).subscribe((data:any) => {
     this.projects = data.projects;
     console.log(this.projects);
   }, error => {

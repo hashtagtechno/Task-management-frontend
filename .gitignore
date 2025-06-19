@@ -43,3 +43,24 @@ Thumbs.db
 
 # elctron
 electron/node_modules/
+
+# Electron build artifacts
+electron/release/
+electron/dist/
+electron/out/
+electron/*.exe
+electron/*.dmg
+electron/*.AppImage
+
+# Electron builder cache
+electron/build/
+
+# Logs
+*.log
+
+# Prevent committing built Angular app copied to Electron
+electron/dist/
+
+# Prevent release uploads or temporary files
+*.bak
+*.tmp
