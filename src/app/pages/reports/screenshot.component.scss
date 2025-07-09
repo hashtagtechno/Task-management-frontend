@@ -1,48 +1,43 @@
-/* Container for each hour group */
+/* Row containing images */
 .screenshots-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px; /* spacing between screenshots */
+  gap: 8px;
   margin-bottom: 20px;
+  position: relative;
+  z-index: 0;
 }
 
-/* Each screenshot image */
-.screenshots-row img {
-  width: 120px;   /* fixed width */
-  height: 80px;   /* fixed height */
+.image-card {
+  position: relative;
+  overflow: visible;
+}
+.image-card img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+}
+
+/* Image styling */
+.zoom-on-hover {
+  width: 120px;
+  height: 80px;
   object-fit: cover;
   border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
-  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  position: relative;
+  z-index: 1;
 }
 
-/* Zoom effect on hover */
-.screenshots-row img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-/* Group header style */
-h3 {
-  margin: 16px 0 8px;
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #333;
-}
-.main-container {
-    display: flex;
-    flex-direction: row;
-}
-
-app-sidebar {
-    width: 200px; 
-    height: 100vh;
-}
-
-.content {
-    width: calc(100% - 220px); 
-    padding: 10px;
-    margin-top: 80px;
-
+/* Zoom effect */
+.image-card:hover .zoom-on-hover {
+  transform: scale(4); /* change this as you like */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }

@@ -70,21 +70,20 @@ export class AppComponent {
         console.log('Idle Time:', idleTime);
 
         if (idleTime > 900) {
-        this.ngZone.run(() => {
+          this.ngZone.run(() => {
             const userID = this.userInfo.id; // howevy
             // er you retrieve it
             const idleData = {
-              idleSeconds:idleTime,
-              userID
+              idleSeconds: idleTime,
+              userID,
             };
-             console.log('Received with userId:', idleData);
+            console.log('Received with userId:', idleData);
             this.ScreenShotService.addIdleDataDetails(idleData).subscribe({
-              next: () =>
-                console.log('Idle time uploaded successfully'),
+              next: () => console.log('Idle time uploaded successfully'),
               error: (err) => console.error('[Angular] Upload failed', err),
             });
-        })
-      }
+          });
+        }
       });
       // Screenshot listener
       window.addEventListener('message', (event) => {
@@ -92,9 +91,23 @@ export class AppComponent {
         if (event.data?.type === 'screenshot') {
           console.log('[Angular] Screenshot received');
           this.screenshot = event.data.data;
+          console.log(this.screenshot);
           this.screenshots.unshift(event.data.data);
 
           if (this.screenshot) {
+            const blob = this.base64ToBlob(this.screenshot);
+            const objectUrl = URL.createObjectURL(blob);
+
+            const img = new Image();
+            img.onload = () => {
+              console.log('Image width:', img.width);
+              console.log('Image height:', img.height);
+              console.log('File size in KB:', Math.round(blob.size / 1024));
+              URL.revokeObjectURL(objectUrl);
+            };
+
+            img.src = objectUrl;
+
             this.sendScreenshotToBackend(this.screenshot);
           }
         }

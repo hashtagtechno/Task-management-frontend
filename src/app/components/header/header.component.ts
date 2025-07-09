@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
 import { ScreenShotService } from '../../services/screen-shot.service';
-
+import { DownloadModalComponent } from '../download-modal/download-modal.component';
+import { isElectron } from '../../utils/electron.util';
+import { GithubRleaseService } from '../../services/github-rlease.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -16,11 +18,13 @@ import { ScreenShotService } from '../../services/screen-shot.service';
 export class HeaderComponent {
   userInfo!: any;
   userImage!: any;
-
+  isElectronApp: boolean = false;
   constructor(
     private router: Router,
     private userService: UserService,
-    private ScreenShotService: ScreenShotService
+    private ScreenShotService: ScreenShotService,
+    private modalService: NgbModal,
+    private GithubRleaseService: GithubRleaseService
   ) {
     const storedUser = localStorage.getItem('userInfo');
     this.userInfo = storedUser ? JSON.parse(storedUser) : null;
@@ -28,7 +32,16 @@ export class HeaderComponent {
   }
   searchText: string = '';
   showClose: boolean = false;
+  windowsDownloadUrl: any;
   ngOnInit() {
+    this.isElectronApp = isElectron();
+
+    //  this.GithubRleaseService.getLatestWindowsInstallerUrl().subscribe((data) => {
+    //   const exeAsset = data.assets.find((asset: any) => asset.name.endsWith('.exe'));
+    //   if (exeAsset) {
+    //     this.windowsDownloadUrl = exeAsset.browser_download_url;
+    //   }
+    // });
     this.userService.headerUpdate$.subscribe((data) => {
       this.fetchProfile();
     });
@@ -57,6 +70,13 @@ export class HeaderComponent {
   }
   profile() {
     this.router.navigateByUrl('/profile');
+  }
+  openDownloadModal() {
+    const modalRef = this.modalService.open(DownloadModalComponent);
+    modalRef.componentInstance.windowsUrl =
+      'https://github.com/youruser/yourrepo/releases/latest/download/yourapp.exe';
+    modalRef.componentInstance.macUrl =
+      'https://github.com/youruser/yourrepo/releases/latest/download/yourapp.dmg';
   }
 }
 // declare global {

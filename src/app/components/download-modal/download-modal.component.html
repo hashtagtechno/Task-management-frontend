@@ -1,0 +1,25 @@
+<!-- download-modal.component.html -->
+<div class="modal-header">
+  <h6 class="modal-title">Download Desktop App</h6>
+  <div class="ms-auto">
+    <i
+      class="fa fa-times text-dark fa-lg"
+      aria-hidden="true"
+      (click)="closeModal()"
+    ></i>
+  </div>
+</div>
+
+<div class="modal-body text-center">
+  <div class="d-flex justify-content-center mt-3">
+    <a
+      class="btn btn-custom-success me-3"
+      (click)="downloadWindowsApp()"
+    >
+      <i class="fa-brands fa-windows me-2"></i> Download for Windows
+    </a>
+    <a class="btn btn-custom-success" href="https://github.com/hashtagtechno/Task-management-frontend/releases/download/macv1.0.0/Task.Manager-1.0.0-arm64.dmg" download>
+      <i class="fa-brands fa-apple me-2"></i>Download for Mac
+    </a>
+  </div>
+</div>

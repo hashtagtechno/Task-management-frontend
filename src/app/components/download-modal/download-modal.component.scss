@@ -1,0 +1,31 @@
+.modal-header {
+  background-color: #d2efdb;
+  font-weight: 500;
+  color: #0000008c;
+}
+
+
+.btn-custom-success {
+  width: auto;
+  height: auto;
+  background-color: #46885a;
+  color: white;
+  font-size: 13px;
+  margin: 5px 3px;
+  box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+}
+
+.btn-custom-success:hover {
+  color: white;
+  background-color: #3c704d;
+}
+
+.btn-custom-cancel {
+  width: auto;
+  height: auto;
+  background-color: none;
+  color: black;
+  font-size: 10px;
+  margin: 5px 3px;
+  box-shadow: 0 3px 4px 0 rgb(0 0 0 / 30%);
+}

@@ -37,34 +37,40 @@
           <i class="fas fa-search"></i>
         </a>
       </div>
-      <div class="dropdown ms-auto me-3">
-        <button
-          class="btn avatar-btn dropdown-toggle p-0"
-          type="button"
-          role="button"
-          id="userDropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img [src]="userImage" class="profile-pic mb-1" width="40" />
+      <div class="d-flex align-items-center ms-auto me-3">
+        <button class="btn me-3 download-btn" (click)="openDownloadModal()"  *ngIf="!isElectronApp">
+          <i class="fa fa-download me-1"></i> Download App
         </button>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="userDropdown"
-        >
-          <li>
-            <a class="dropdown-item cursor" (click)="profile()"
-              ><i class="fa fa-solid fa-user me-2"></i>Profile</a
-            >
-          </li>
-          <li><hr class="dropdown-divider" /></li>
-          <li>
-            <a class="dropdown-item cursor" (click)="logOut()"
-              ><i class="fa fa-solid fa-arrow-right-from-bracket me-2"></i>
-              Logout</a
-            >
-          </li>
-        </ul>
+
+        <div class="dropdown ms-auto me-3">
+          <button
+            class="btn avatar-btn dropdown-toggle p-0"
+            type="button"
+            role="button"
+            id="userDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img [src]="userImage" class="profile-pic mb-1" width="40" />
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="userDropdown"
+          >
+            <li>
+              <a class="dropdown-item cursor" (click)="profile()"
+                ><i class="fa fa-solid fa-user me-2"></i>Profile</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item cursor" (click)="logOut()"
+                ><i class="fa fa-solid fa-arrow-right-from-bracket me-2"></i>
+                Logout</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>

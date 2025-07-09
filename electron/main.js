@@ -1,10 +1,17 @@
+import os from "os";
+
+const iconPath = {
+  win32: "assets/hashtag.ico",
+  darwin: "assets/hashtag.icns",
+  linux: "assets/hashtag.png",
+}[os.platform()];
 let win; // ✅ Declare win in outer scope
 let hasShownIdleAlert = false;
 let lastIdleSentAt = null;
 import {
   app,
   BrowserWindow,
-  ipcMain,
+  ipcMain,screen,
   dialog,
   desktopCapturer,
   powerMonitor,
@@ -30,6 +37,7 @@ function createWindow() {
   win = new BrowserWindow({
     width: 1024,
     height: 768,
+    icon: path.join(__dirname, iconPath),
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
       // preload: pathToFileURL(path.join(__dirname, 'preload.js')).href,
@@ -41,10 +49,13 @@ function createWindow() {
     },
   });
 
-// const indexPath = app.isPackaged
-//   ? path.join(process.resourcesPath, "app", "dist", "task-management", "browser", "index.html")
-//   : path.join(__dirname, "dist", "task-management", "browser", "index.html");
-const indexPath = path.join(__dirname, "dist", "task-management", "browser", "index.html");
+  const indexPath = path.join(
+    __dirname,
+    "dist",
+    "task-management",
+    "browser",
+    "index.html"
+  );
   win.loadFile(indexPath);
 }
 
@@ -53,7 +64,28 @@ console.log("Preload path:", path.join(__dirname, "preload.cjs"));
 
 app.whenReady().then(createWindow);
 
-// 🔁 Screenshot every 5min and send to renderer
+// // 🔁 Screenshot every 5min and send to renderer
+// setInterval(async () => {
+//   console.log("[Main] Screenshot timer triggered");
+
+//   if (!win || win.isDestroyed()) {
+//     console.warn("[Main] BrowserWindow not ready yet.");
+//     return;
+//   }
+
+//   try {
+
+//     const sources = await desktopCapturer.getSources({ types: ["screen"] });
+//     sources.forEach((source, index) => {
+//       const base64 = source.thumbnail.toDataURL();
+//       win.webContents.send("screenshot-captured", { index, image: base64 });
+//     });
+//   } catch (err) {
+//     console.error("[Main] Error capturing screen:", err);
+//   }
+// }, 180000);
+
+
 setInterval(async () => {
   console.log("[Main] Screenshot timer triggered");
 
@@ -63,15 +95,24 @@ setInterval(async () => {
   }
 
   try {
-    const sources = await desktopCapturer.getSources({ types: ["screen"] });
+    // Get the primary display size
+    const { width, height } = screen.getPrimaryDisplay().size;
+    const sources = await desktopCapturer.getSources({
+      types: ["screen"],
+      thumbnailSize: { width, height }, // 👈 Force full-resolution screenshot
+    });
+
     sources.forEach((source, index) => {
-      const base64 = source.thumbnail.toDataURL();
-      win.webContents.send("screenshot-captured", { index, image: base64 });
+      const base64 = source.thumbnail.toDataURL(); // base64-encoded PNG
+      win.webContents.send("screenshot-captured", {
+        type: "screenshot",
+        data: base64,
+      });
     });
   } catch (err) {
     console.error("[Main] Error capturing screen:", err);
   }
-}, 1800000);
+}, 1800000); // 3 minutes (180,000ms)
 
 let lastActive = null;
 let lastActiveStartTime = null;
