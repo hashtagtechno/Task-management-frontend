@@ -12,7 +12,7 @@ import { BreadcrumbModule, BreadcrumbService } from 'xng-breadcrumb';
 @Component({
   selector: 'app-team-details',
   standalone: true,
-  imports: [NgxOrgChartComponent,BreadcrumbModule,HeaderComponent,SidebarComponent,AddTeamComponent,CommonModule],
+  imports: [NgxOrgChartComponent,BreadcrumbModule,AddTeamComponent,CommonModule],
   templateUrl: './team-details.component.html',
   styleUrl: './team-details.component.scss'
 })

@@ -1,24 +1,21 @@
-.main-container {
-    display: flex;
-    flex-direction: row;
-}
+
 .ngx-pagination .pagination-previous,.ngx-pagination .pagination-next {
   background-color: white;
   color: black;
   font-size: 12px;
     }
 /* Sidebar styling */
-app-sidebar {
-    width: 200px; 
-    height: 100vh;
-}
+// app-sidebar {
+//     width: 200px; 
+//     height: 100vh;
+// }
 
-.content {
-    width: calc(100% - 220px); 
-    padding: 10px;
-    margin-top: 80px;
+// .content {
+//     width: calc(100% - 220px); 
+//     padding: 10px;
+//     margin-top: 80px;
 
-}
+// }
 .label-style{
   color: grey;
   font-size: 11px;
@@ -50,11 +47,7 @@ color: #23A3A4;
   .bg-blue-sideline{
     background-color: rgb(196 215 242);
   }
-  .btn-create{
-    background-color:#d2efdb;
-    font-weight: 500;
-    font-weight: 500;
-  }
+ 
   .title-text{
     font-weight: 500;
   }
@@ -69,11 +62,7 @@ color: #23A3A4;
     width: 4px;
     height: 100%;
   }
-  .btn-create:hover{
-    border:1px solid #46885a;  
-    background-color: white;
-    color: #46885a;  
-}
+  
 .accordion .accordion-item:nth-child(even) .accordion-button {
   background-color: #d2efdb !important;
 }
@@ -85,6 +74,19 @@ color: #23A3A4;
   max-width: 900px; /* or any width you want */
   width: 90%;
 }
+.custom-button {
+ background: linear-gradient(to bottom right, #a020ef, #CB0FBC, #f7029d);
+  color: #ffffff;
+  border: 1px solid #cccccc;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+}
 
+.custom-button:hover {
+  background-color: #ffffff;
+  background: none;
+  color: #c662be;
+  border-color: #c662be;
+}
   
   

@@ -10,8 +10,9 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  constructor(private router: Router) {}
-  sidebarItems = [
+  userInfo!: any;
+  productivityRoute!: any;
+  sidebarItems: any[] = [
     { title: 'Task Home', icon: 'fa fa-home', route: '/taskhome' },
     {
       title: 'Projects',
@@ -22,10 +23,26 @@ export class SidebarComponent {
     { title: 'Profile', icon: 'fa fa-solid fa-user', route: '/profile' },
     { title: 'Users', icon: 'fa fa-solid fa-users', route: '/users' },
     { title: 'Teams', icon: 'fa fa-solid fa-users', route: '/teams' },
-    {
-      title: 'Productivity',
-      icon: 'fa fa-solid fa-chart-simple',
-      route: '/reports',
-    },
   ];
+
+  constructor(private router: Router) {
+    const storedUser = localStorage.getItem('userInfo');
+    this.userInfo = storedUser ? JSON.parse(storedUser) : null;
+    console.log(this.userInfo);
+
+    this.productivityRoute =
+      this.userInfo?.role === 'Employee'
+        ? `teamlist/reports/${this.userInfo.id}`
+        : this.userInfo?.role === 'Team Lead'
+        ? `/teamlist`
+        : null;
+
+    if (this.productivityRoute) {
+      this.sidebarItems.push({
+        title: 'Productivity',
+        icon: 'fa fa-solid fa-chart-simple',
+        route: this.productivityRoute,
+      });
+    }
+  }
 }

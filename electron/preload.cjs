@@ -27,6 +27,7 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
+  isElectron: true,
   captureScreen: (options) => ipcRenderer.invoke("request-screenshot", options),
 
   onActiveWindowUpdate: (callback) => {

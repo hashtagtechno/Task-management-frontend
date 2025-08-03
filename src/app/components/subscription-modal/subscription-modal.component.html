@@ -1,0 +1,112 @@
+ <div class="subscription-modal pb-1">
+  <!-- <div class="modal-header row"><span class="modal-title">Subscribe</span>
+    <div class="ms-auto">
+        <i class="fa fa-times  fa-lg" aria-hidden="true" (click)="closeModal()" ></i>
+  </div> -->
+ 
+  <div class="modal-body m-2">
+    <div class="row">
+          <div class="col-12 d-flex justify-content-center p-0">
+             <img src="assets/images/hashtag.png" class="logo">
+          </div>
+        </div>
+    <form [formGroup]="subscriptionForm" (ngSubmit)="onSubmit()" novalidate>
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label text-secondary">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="firstName"
+                  />
+                </div>
+                <div class="col">
+                  <label class="form-label text-secondary">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="lastName"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3 col-6">
+                  <label class="form-label text-secondary"
+                    >Organization Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="organization"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label text-secondary">Phone Number</label>
+                  <ngx-intl-tel-input
+                    [cssClass]="'form-control'"
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="false"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.All]"
+                    [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.UnitedStates"
+                    [phoneValidation]="true"
+                    [separateDialCode]="true"
+                    formControlName="phone"
+                  ></ngx-intl-tel-input>
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3 col-6">
+                  <label class="form-label text-secondary">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                </div>
+                <div class="mb-3 col-6">
+                  <label class="form-label text-secondary">Country</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="country"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-4">
+          <div class="form-check mt-3">
+  <input
+    type="checkbox"
+    class="form-check-input"
+    id="agreement"
+    formControlName="agreement"
+  />
+  <label class="form-check-label" for="agreement">
+    I agree to the
+    <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
+    and the
+    <a href="/about-plan" target="_blank">About Free Plan</a>.
+  </label>
+
+  <div
+    class="text-danger mt-1"
+    *ngIf="subscriptionForm.get('agreement')?.touched && subscriptionForm.get('agreement')?.invalid"
+  >
+    You must agree before submitting.
+  </div>
+</div>
+
+              </div>
+
+              <button
+                type="submit"
+                class="btn custom-button w-100"
+                [disabled]="subscriptionForm.invalid"
+              >
+                Submit
+              </button>
+            </form>
+            </div>

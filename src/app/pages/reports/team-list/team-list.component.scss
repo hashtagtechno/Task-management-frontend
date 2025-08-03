@@ -1,0 +1,68 @@
+.action-btn {
+  color: #23a3a4;
+}
+.label-style {
+  color: grey;
+  font-size: 11px;
+}
+.title-label {
+  color: black;
+  font-size: 13px;
+  font-weight: 500;
+}
+.accordion-button {
+  padding: 0px;
+  font-size: 14px;
+  border: 1px solid lightgrey;
+  background-color: #7fd8d929 !important;
+}
+.list-group-item {
+  font-size: 13px;
+}
+.accordion-button:after {
+  display: none;
+}
+.card-header {
+  background-color: #23a3a4;
+}
+.vertical-line {
+  width: 4px;
+  height: 100%;
+  background-color: #23a3a4;
+}
+.bg-blue-sideline {
+  background-color: #23a3a4;
+}
+.btn-create {
+  background-color: #d2efdb;
+}
+.title-text {
+  font-weight: 500;
+}
+.fa{
+  color: #46885a;
+}
+.pointer {
+  cursor: pointer;
+}
+.btn-create:hover {
+  border: 1px solid #46885a;
+  background-color: white;
+  color: #46885a;
+}
+.accordion .accordion-item:nth-child(even) .accordion-button {
+  background-color: #d2efdb !important;
+}
+
+.accordion .accordion-item:nth-child(odd) .accordion-button {
+  background-color: #edfbf4 !important;
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.fourtile{
+  border: 1px solid lightgrey;
+}

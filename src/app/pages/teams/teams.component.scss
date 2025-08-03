@@ -1,23 +1,18 @@
-.main-container {
-    display: flex;
-    flex-direction: row;
+
+.custom-button {
+ background: linear-gradient(to bottom right, #a020ef, #CB0FBC, #f7029d);
+  color: #ffffff;
+  border: 1px solid #cccccc;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
 }
 
-app-sidebar {
-    width: 200px; 
-    height: 100vh;
+.custom-button:hover {
+  background-color: #ffffff;
+  background: none;
+  color: #c662be;
+  border-color: #c662be;
 }
-
-.content {
-    width: calc(100% - 220px); 
-    padding: 10px;
-    margin-top: 80px;
-
-}
-.btn-create{
-    background-color:#d2efdb;
-    font-weight: 500;
-  }
   .team-card{
     height: 60px;
     background-color:#e6f0ea; ;

@@ -23,3 +23,23 @@
 .bar-td {
   width: 600px;
 }
+.fourtile{
+  border: 1px solid lightgrey;
+}
+.fa{
+  color: #46885a;
+}
+.download-btn {
+  background-color: #d2efdb;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border: #46885a;
+  padding: 5px 10px;
+}
+.grey-bg{
+  background-color: #f7f3f3;
+}
+ .custom-datepicker-theme .bs-datepicker-head {
+    background-color: #f7f3f3 !important;
+  }

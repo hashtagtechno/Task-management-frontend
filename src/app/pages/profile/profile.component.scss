@@ -1,119 +1,100 @@
-.main-container {
-    display: flex;
-    flex-direction: row;
+.profile-card-header {
+  background-color: #23a3a4;
+  color: white;
+  font-size: 16px;
+  height: 40px;
 }
 
-app-sidebar {
-    width: 200px; 
-    height: 100vh;
-}
-
-.content {
-    width: calc(100% - 220px); 
-    padding: 10px;
-    margin-top: 80px;
-
-}
-.profile-card-header{
-    background-color:#23A3A4;
-    color: white;
-    font-size: 16px;
-    height: 40px;
-}
-
-.fa{
-  
-    color: #46885a;
-
+.fa {
+  color: #46885a;
 }
 
 li {
-    list-style-type: none; /* Removes bullet points */
-    padding-left: 0; /* Optional: Removes extra left padding */
-    margin-left: 0; /* Optional: Adjusts left margin */
-  
+  list-style-type: none; /* Removes bullet points */
+  padding-left: 0; /* Optional: Removes extra left padding */
+  margin-left: 0; /* Optional: Adjusts left margin */
 }
-.profile-row{
-    padding: 30px;
+.profile-row {
+  padding: 30px;
 }
-.value{
-    color: black;
-    font-size:13px; 
+.value {
+  color: black;
+  font-size: 13px;
 }
-label{
-    color: grey;
-    font-size:13px;
+label {
+  color: grey;
+  font-size: 13px;
 }
-.bg-success{
-    border:none;
+.bg-success {
+  border: none;
 }
-.note{
-    font-size:13px;
+.note {
+  font-size: 13px;
 }
-.profile-pic{
-    opacity: 0.6;
-    border-radius: 50px;
+.profile-pic {
+  opacity: 0.6;
+  border-radius: 50px;
 }
-.card{
-   box-shadow: 0 4px 10px rgba(185, 184, 184, 0.27);
-   background-color:#def5f34f;
-
+.card {
+  box-shadow: 0 4px 10px rgba(185, 184, 184, 0.27);
+  background-color: #def5f34f;
 }
 .marker-removed li {
-    list-style: none;
+  list-style: none;
 }
 
-ul, ol {
-    padding-left: 0;
-    margin-left: 0;
+ul,
+ol {
+  padding-left: 0;
+  margin-left: 0;
 }
 .tag-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .custom-tag {
-    background-color: #abe4e7;
-    color: #333;
-    padding: 2px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    display: inline-block;
-  }
-  
-  .div-camera {
-    border-radius: 50px;
-    color: #23A3A4;
-    position: absolute;
-    left: 55%;
-    top: 48%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-cursor{
-    cursor: pointer;
+
+.custom-tag {
+  background-color: #abe4e7;
+  color: #333;
+  padding: 2px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.div-camera {
+  border-radius: 50px;
+  color: #23a3a4;
+  position: absolute;
+  left: 55%;
+  top: 48%;
+}
+cursor {
+  cursor: pointer;
 }
 .profile-pic-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-  }
-  
-  .profile-pic {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%; /* optional: circular image */
-    object-fit: cover;
-  }
-  
-  .edit-icon {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #fff;
-    border-radius: 50%;
-    padding: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-  }
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* optional: circular image */
+  object-fit: cover;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}

@@ -1,71 +1,499 @@
-<section class="signin d-flex align-items-center">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-12 col-lg-10">
-          <div class="wrap d-md-flex">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center me-3" href="#">
+      <img
+        src="assets/images/hashtag.png"
+        class="d-inline-block align-top ms-3 logo"
+        alt="Logo"
+        width="120"
+        height="70"
+        class="me-2"
+      />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+          <a class="nav-link active" href="#features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#pricing">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item"  *ngIf="isElectronApp">
+          <a class="nav-link fw-bolder cursor" (click)="openSignInModal()"
+            >| Sign In</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="bg-white first-section">
+  <div class="container text-center">
+    <h3 class="fw-bolder text-secondary mb-3">Welcome to TaskManager</h3>
+    <p class="lead text-secondary fw-normal mb-4">
+      Manage your tasks, projects, and productivity — all in one place.
+    </p>
+    <button class="btn custom-button" (click)="openSubscriptionModal()"  *ngIf="!isElectronApp">
+      Try free
+    </button>
+  </div>
+</section>
+
+<section class="inside d-flex text-white pt-5">
+  <div class="container">
+    <h2 class="text-center mb-5 pt-5">What's Inside?</h2>
+    <div class="row align-items-start">
+      <div class="col-md-5">
+        <div class="feature-list">
+          <div
+            *ngFor="let item of features; let i = index"
+            (click)="selectFeature(i)"
+            [class.active]="selectedIndex === i"
+            class="feature-item mb-4 d-flex"
+          >
+            <i class="fa-solid fa-check-circle fs-4 text-white me-2"></i>
+            <h5 class="cursor">{{ item.title }}</h5>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Dynamic Image -->
+      <div class="col-md-7 text-center">
+        <div class="image-frame-wrapper position-relative d-inline-block">
+          <ng-container
+            *ngFor="
+              let color of features[selectedIndex].bgColors;
+              let i = index
+            "
+          >
             <div
-              class="d-none d-md-block col-md-6 img"
-              style="background-image:url('assets/images/signin_img.jpg')"
+              class="bg-layer position-absolute"
+              [ngStyle]="{
+                'background-color': color,
+                top: 0 + i * -5 + 'px',
+                left: 0 + i * 6 + 'px',
+                transform: 'rotate(' + (i % 2 === 0 ? -4 : 4) + 'deg)'
+              }"
             ></div>
-            <div class="col-12 col-md-6 p-4 p-md-5 border-bottom-signin border-3">
-             
-              <div class="row mb-3">
-                <div class="col-8 p-0">
-                  <h4 class="text-uppercase">Task Manager</h4>
-                  
-                </div>
-              </div>
-              <form
-                action="#"
-                class="signin-form needs-validation"
-                [formGroup]="signinForm"
-                (ngSubmit)="signin()"
-              >
-                <div class="mb-3 form-div">
-                  <label class="label" for="name">Email</label>
-                  <input autocomplete="off" 
-                    type="email"
-                    class="form-control mt-1"
-                    placeholder="email"
-                    name="email"
-                    formControlName="email"
-                    required
-                  />
-                </div>
-                <div class="mb-3 form-div">
-                  <label class="label" for="password">Password</label>
-                  <input
-                    type="password" autocomplete="off" 
-                    class="form-control mt-1"
-                    placeholder="Password"
-                    name="password"
-                    formControlName="password"
-                    autocomplete="on"
-                    required
-                  />
-                </div>
-                <div class="alert alert-danger" role="alert" *ngIf="alererror">
-                  {{this.msg}}
-                </div>
-               
-                <div class="d-grid mb-5 mt-4">
-                  <button
-                    type="submit"
-                    class="btn btn-prim rounded submit px-3 btn-signin"
-                  >
-                    <span>Sign In</span>
-                  
-                  </button>
-                  <p class="signup-btn mt-2 text-center pointer"(click)="openSignUpModal()">Sign Up</p>
-                
-                </div>
-               
-              </form>
-              
-            </div>
+          </ng-container>
+
+          <img
+            [src]="features[selectedIndex].image"
+            class="img-fluid rounded shadow position-relative"
+            [alt]="features[selectedIndex].title"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature-highlight py-5 bg-white mt-5">
+  <div class="container">
+    <div class="row align-items-center mb-5 pb-5">
+      <div class="col-12 text-center">
+        <h3 class="fw-bold text-secondary mb-3">
+          Everything You Need to Manage Work and Measure Productivity
+        </h3>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <!-- Screenshot Section -->
+      <div class="col-md-6 position-relative">
+        <div class="screenshot-frame">
+          <img
+            src="assets/images/screenshot3.png"
+            alt="Task Manager Screenshot"
+            class="img-fluid rounded shadow"
+          />
+          <div class="angle-bg-2"></div>
+        </div>
+      </div>
+      <!-- Text Section -->
+      <div class="col-md-6">
+        <h5 class="fw-bold text-secondary mb-3">
+          Boost Team Focus with Built-in Productivity Monitoring
+        </h5>
+        <p class="text-secondary">
+          Track how your team spends their time, improve accountability, and
+          generate detailed reports for review and optimization.
+        </p>
+        <ul class="text-secondary ps-3">
+          <li class="mb-2">
+            Monitor working hours and track which browser tabs are active during
+            work sessions
+          </li>
+          <li class="mb-2">
+            Capture screenshots of active workspaces every 30 minutes for
+            visibility
+          </li>
+          <li class="mb-2">
+            Download comprehensive productivity reports for individuals or
+            entire teams
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="feature-highlight py-5 bg-white mt-5 mb-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Text Section -->
+      <div class="col-md-6">
+        <h5 class="fw-bold text-secondary mb-3">
+          Streamline Your Workflow from Users to Project Delivery
+        </h5>
+        <p class="text-secondary">
+          Our Task Manager lets you manage users, create teams, assign tasks,
+          and track project progress—all in one platform built for clarity and
+          control.
+        </p>
+        <ul class="text-secondary ps-3">
+          <li class="mb-2">
+            Create users, teams, and projects with ease using a structured
+            hierarchy
+          </li>
+          <li class="mb-2">
+            Manage project workflows using intuitive Kanban boards and live
+            status updates
+          </li>
+          <li class="mb-2">
+            Visualize progress with real-time dashboards and download detailed
+            productivity reports
+          </li>
+        </ul>
+      </div>
+
+      <!-- Screenshot Section -->
+      <div class="col-md-6 position-relative">
+        <div class="screenshot-frame">
+          <img
+            src="assets/images/screnshot5.png"
+            alt="Task Manager Screenshot"
+            class="img-fluid rounded shadow"
+          />
+          <div class="angle-bg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="pricing-section py-5 bg-light text-dark"  *ngIf="!isElectronApp">
+  <div class="container">
+    <h3 class="text-center text-secondary mb-5 fw-bold">Choose Your Plan</h3>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let plan of pricingPlans">
+        <div class="card h-100 shadow-sm pricing-card">
+          <div class="card-header text-center bg-white">
+            <h5 class="mb-0 text-secondary">{{ plan.name }}</h5>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h2 class="text-center mb-4 text-success">{{ plan.price }}</h2>
+            <ul class="list-unstyled mb-4">
+              <li *ngFor="let feature of plan.features">
+                <i class="fa fa-check-circle text-success me-2"></i>
+                {{ feature }}
+              </li>
+            </ul>
+            <button
+              class="btn custom-button mt-auto btn-sm p-2 mx-auto"
+              *ngIf="plan.buttonLabel === 'Free Trial'"
+              (click)="openSubscriptionModal()"
+            >
+              {{ plan.buttonLabel }}
+            </button>
+            <button
+              class="btn custom-button mt-auto btn-sm p-2 mx-auto"
+              *ngIf="plan.buttonLabel !== 'Free Trial'"
+            >
+              {{ plan.buttonLabel }}
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section py-5 bg-white text-dark"  *ngIf="!isElectronApp">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Text -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <h2 class="fw-bold text-secondary mb-3">Contact Our Sales Team</h2>
+        <p class="lead fw-normal text-secondary">
+          Reach out today for a personalized quote and learn how TaskManager can
+          scale with your team and goals.
+        </p>
+      </div>
+
+      <!-- Right Form with background frame -->
+      <div class="col-md-6 text-center">
+        <div class="image-frame-wrapper position-relative d-inline-block w-100">
+          <!-- Background Layers -->
+          <ng-container *ngFor="let color of contactBgColors; let i = index">
+            <div
+              class="bg-layer position-absolute"
+              [ngStyle]="{
+                'background-color': color,
+                top: 0 + i * -5 + 'px',
+                left: 0 + i * 6 + 'px',
+                transform: 'rotate(0deg)'
+              }"
+            ></div>
+          </ng-container>
+
+          <!-- Form content -->
+          <div
+            class="form-frame bg-white position-relative p-4 shadow rounded text-start"
+          >
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label text-secondary">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="firstName"
+                  />
+                </div>
+                <div class="col">
+                  <label class="form-label text-secondary">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="lastName"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3 col-6">
+                  <label class="form-label text-secondary"
+                    >Organization Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="organization"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label text-secondary">Phone Number</label>
+                  <ngx-intl-tel-input
+                    [cssClass]="'form-control'"
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="false"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.All]"
+                    [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.UnitedStates"
+                    [phoneValidation]="true"
+                    [separateDialCode]="true"
+                    formControlName="phone"
+                  ></ngx-intl-tel-input>
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3 col-6">
+                  <label class="form-label text-secondary">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                </div>
+                <div class="mb-3 col-6">
+                  <label class="form-label text-secondary">Country</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="country"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label text-secondary">Message</label>
+                <textarea
+                  id="message"
+                  class="form-control"
+                  rows="4"
+                  formControlName="message"
+                  placeholder="Enter your message here..."
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="btn custom-button w-100"
+                [disabled]="contactForm.invalid"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-section bg-light text-dark pt-5 pb-4">
+  <div class="container">
+    <div class="row">
+      <!-- Column 1 -->
+      <div class="col-md-4 mb-4 mb-md-0">
+        <h5 class="fw-bold mb-3">Legal</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href="#" class="text-decoration-none text-secondary"
+              >Privacy Policy</a
+            >
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-decoration-none text-secondary"
+              >Terms & Conditions</a
+            >
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-decoration-none text-secondary"
+              >Cookie Policy</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="col-md-4 mb-4 mb-md-0">
+        <h5 class="fw-bold mb-3">Support</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href="#" class="text-decoration-none text-secondary"
+              >Help Center</a
+            >
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-decoration-none text-secondary"
+              >Contact Us</a
+            >
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-decoration-none text-secondary">FAQ</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="col-md-4 text-md-start text-center">
+        <img
+          src="assets/images/hashtag.png"
+          alt="Company Logo"
+          width="100"
+          class="mb-2"
+        />
+        <address class="text-secondary small mb-0">
+          HashTag Technologies.<br />
+          Dubai Silicon Oasis HQ, Block E,<br />
+          Dubai<br />
+          info&#64;hashtagtechno.com
+        </address>
+      </div>
+    </div>
+    <hr class="my-4" />
+    <p class="text-center text-muted small mb-0">
+      &copy; {{ currentYear }} TaskManager Inc. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<!-- <section class="signin d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <div class="wrap d-md-flex">
+          <div
+            class="d-none d-md-block col-md-6 img"
+            style="background-image: url('assets/images/signin_img.jpg')"
+          ></div>
+          <div class="col-12 col-md-6 p-4 p-md-5 border-bottom-signin border-3">
+            <div class="row mb-3">
+              <div class="col-8 p-0">
+                <h4 class="text-uppercase">Task Manager</h4>
+              </div>
+            </div>
+            <form
+              action="#"
+              class="signin-form needs-validation"
+              [formGroup]="signinForm"
+              (ngSubmit)="signin()"
+            >
+              <div class="mb-3 form-div">
+                <label class="label" for="name">Email</label>
+                <input
+                  autocomplete="off"
+                  type="email"
+                  class="form-control mt-1"
+                  placeholder="email"
+                  name="email"
+                  formControlName="email"
+                  required
+                />
+              </div>
+              <div class="mb-3 form-div">
+                <label class="label" for="password">Password</label>
+                <input
+                  type="password"
+                  autocomplete="off"
+                  class="form-control mt-1"
+                  placeholder="Password"
+                  name="password"
+                  formControlName="password"
+                  autocomplete="on"
+                  required
+                />
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="alererror">
+                {{ this.msg }}
+              </div>
+
+              <div class="d-grid mb-5 mt-4">
+                <button
+                  type="submit"
+                  class="btn btn-prim rounded submit px-3 btn-signin"
+                >
+                  <span>Sign In</span>
+                </button>
+                <p
+                  class="signup-btn mt-2 text-center pointer"
+                  (click)="openSignUpModal()"
+                >
+                  Sign Up
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->

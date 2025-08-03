@@ -1,168 +1,202 @@
-<app-header></app-header>
-<div class="main-container">
-    <app-sidebar></app-sidebar>
-    <div class="content ms-3">
+
 
 <div class="row">
-    <div class="container-fluid">
-        <div class="row">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="d-flex justify-content-end mb-3">
-                <button class="btn btn-create" (click)="openProjectModal()">+ Create Project</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex justify-content-end mb-3">
+            <button class="btn custom-button" (click)="openProjectModal()">
+              + Create Project
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Section: Graph + Activities -->
+      <div class="col-md-4">
+        <!-- Bar Chart -->
+        <div class="card mb-6">
+          <div class="card-header">Project Overview</div>
+          <div class="card-body">
+            <div
+              echarts
+              [options]="donutChartOptions"
+              class="w-100"
+              style="height: 200px"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">Recent Projects</div>
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item"
+              *ngFor="let activity of recentActivities"
+            >
+              <strong>{{ activity.user }}</strong> {{ activity.action }} <br />
+              <small class="text-muted">{{
+                activity.time | date : "short"
+              }}</small>
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex mt-4">
+          <div class="card mb-3 col-md-6">
+            <div class="card-header">Utilized time</div>
+            <div class="card-body">12hrs</div>
+          </div>
+
+          <div class="card mb-3 col-md-6">
+            <div class="card-header">Estimated time</div>
+            <div class="card-body">50%</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-6">
+          <div class="card-header">Project Completion Rate</div>
+          <div class="card-body">
+            <div
+              echarts
+              [options]="gaugeChartOptions"
+              class="demo-chart"
+              style="height: 200px"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="Project-header-row mb-3 mt-5">
+      <div class="row">
+        <div class="col-3 title-label">Project</div>
+
+        <div class="col-3 title-label">start Date</div>
+        <div class="col-2 title-label">Due Date</div>
+      </div>
+    </div>
+    <div class="accordion" id="ProjectAccordion">
+      <div
+        class="accordion-item"
+        *ngFor="
+          let project of projects
+            | paginate : { itemsPerPage: 10, currentPage: p };
+          let i = index
+        "
+      >
+        <!-- Accordion Header -->
+        <h2 class="accordion-header" [id]="'heading' + i">
+          <button
+            class="accordion-button collapsed d-flex align-items-center justify-content-between"
+            type="button"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapse' + i"
+            aria-expanded="false"
+            [attr.aria-controls]="'collapse' + i"
+          >
+            <div class="d-flex w-100">
+              <!-- Side line -->
+              <div class="me-3">
+                <div class="vertical-line"></div>
               </div>
+
+              <!-- Title and ID -->
+              <div class="p-1 col-3">
+                <div class="text-muted title-text">
+                  {{ project.projectName }}
+                </div>
+                <div>
+                  <span class="label-style">ID:</span>
+                  <span class="label-style"
+                    ><i>{{ getLast4Chars(project._id) }}</i></span
+                  >
+                </div>
               </div>
+
+              <!-- Start Date -->
+              <div class="text-muted col-3 align-content-center">
+                <small>{{ project.startDate | date }}</small>
               </div>
-      
-          <!-- Right Section: Graph + Activities -->
-          <div class="col-md-4">
-            <!-- Bar Chart -->
-            <div class="card mb-6">
-              <div class="card-header">Project Overview</div>
-              <div class="card-body">
-                <div echarts [options]="donutChartOptions" class="w-100" style="height: 200px;"></div>
+
+              <!-- End Date -->
+              <div class="text-muted col-2 align-content-center">
+                <small>{{ project.endDate | date }}</small>
+              </div>
+
+              <!-- Actions -->
+              <div class="text-muted col-1 align-content-center">
+                <small
+                  class="action-btn pointer"
+                  (click)="openviewProject(project._id)"
+                  >View</small
+                >
+              </div>
+              <div class="text-muted col-1 align-content-center">
+                <small
+                  class="action-btn pointer"
+                  (click)="deleteProject(project._id)"
+                  >Delete</small
+                >
               </div>
             </div>
-      
-          
-          </div>
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-header">Recent Projects</div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let activity of recentActivities">
-                  <strong>{{ activity.user }}</strong> {{ activity.action }} <br />
-                  <small class="text-muted">{{ activity.time | date:'short' }}</small>
+          </button>
+        </h2>
+
+        <!-- Accordion Body -->
+        <div
+          [id]="'collapse' + i"
+          class="accordion-collapse collapse"
+          [attr.aria-labelledby]="'heading' + i"
+          data-bs-parent="#ProjectAccordion"
+        >
+          <div class="accordion-body">
+            <h5>Tasks</h5>
+
+            <!-- If project has tasks -->
+            <div
+              *ngIf="project.tasks && project.tasks.length > 0; else noTasks"
+            >
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let task of project.tasks">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <strong>{{ task.task_name }}</strong> - {{ task.status }}
+                      <div class="text-muted small">{{ task.description }}</div>
+                    </div>
+                    <div>
+                      <small>Due: {{ task.due_date | date }}</small>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
-            <div class="d-flex mt-4">
-              <div class="card mb-3 col-md-6">
-               <div class="card-header">Utilized time</div>
-                <div class="card-body">12hrs</div>
-              </div>
-            
-              <div class="card mb-3 col-md-6 ">
-                <div class="card-header">Estimated time</div>
-                 <div class="card-body">50%</div>
-               </div>
-              </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card mb-6">
-              <div class="card-header">Project Completion Rate</div>
-              <div class="card-body">
-                <div echarts [options]="gaugeChartOptions" class="demo-chart" style="height: 200px;"></div>
 
-              </div>
-            </div>
-            
+            <!-- No tasks fallback -->
+            <ng-template #noTasks>
+              <p class="text-muted">No tasks available for this project.</p>
+            </ng-template>
           </div>
-        </div>
-      
-            <div class="Project-header-row mb-3 mt-5">
-                <div class="row">
-                  <div class="col-3 title-label">Project</div>
-                 
-                  <div class="col-3 title-label">start Date</div>
-                  <div class="col-2 title-label">Due Date</div>
-                </div>
-              </div>
-              <div class="accordion" id="ProjectAccordion">
-                <div class="accordion-item" *ngFor="let project of projects | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
-                  
-                  <!-- Accordion Header -->
-                  <h2 class="accordion-header" [id]="'heading' + i">
-                    <button 
-                      class="accordion-button collapsed d-flex align-items-center justify-content-between"
-                      type="button" 
-                      data-bs-toggle="collapse" 
-                      [attr.data-bs-target]="'#collapse' + i" 
-                      aria-expanded="false" 
-                      [attr.aria-controls]="'collapse' + i"
-                    >
-                      <div class="d-flex w-100">
-                        <!-- Side line -->
-                        <div class="me-3">
-                          <div class="vertical-line"></div>
-                        </div>
-              
-                        <!-- Title and ID -->
-                        <div class="p-1 col-3">
-                          <div class="text-muted title-text">{{ project.projectName }}</div>
-                          <div>
-                            <span class="label-style">ID:</span>
-                            <span class="label-style"><i>{{ getLast4Chars(project._id) }}</i></span>
-                          </div>
-                        </div>
-              
-                        <!-- Start Date -->
-                        <div class="text-muted col-3 align-content-center">
-                          <small>{{ project.startDate | date }}</small>
-                        </div>
-              
-                        <!-- End Date -->
-                        <div class="text-muted col-2 align-content-center">
-                          <small>{{ project.endDate | date }}</small>
-                        </div>
-              
-                        <!-- Actions -->
-                        <div class="text-muted col-1 align-content-center">
-                          <small class="action-btn pointer" (click)="openviewProject(project._id)">View</small>
-                        </div>
-                        <div class="text-muted col-1 align-content-center">
-                          <small class="action-btn pointer" (click)="deleteProject(project._id)">Delete</small>
-                        </div>
-                      </div>
-                    </button>
-                  </h2>
-              
-                  <!-- Accordion Body -->
-                  <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#ProjectAccordion">
-                    <div class="accordion-body">
-              
-                      <h5>Tasks</h5>
-              
-                      <!-- If project has tasks -->
-                      <div *ngIf="project.tasks && project.tasks.length > 0; else noTasks">
-                        <ul class="list-group">
-                          <li class="list-group-item" *ngFor="let task of project.tasks">
-                            <div class="d-flex justify-content-between align-items-center">
-                              <div>
-                                <strong>{{ task.task_name }}</strong> - {{ task.status }}
-                                <div class="text-muted small">{{ task.description }}</div>
-                              </div>
-                              <div>
-                                <small>Due: {{ task.due_date | date }}</small>
-                              </div>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-              
-                      <!-- No tasks fallback -->
-                      <ng-template #noTasks>
-                        <p class="text-muted">No tasks available for this project.</p>
-                      </ng-template>
-              
-                    </div>
-                  </div>
-              
-                </div>
-              
-                <!-- Pagination -->
-                <pagination-controls *ngIf="projects?.length" 
-                  style="margin-top: 20px; display: block;" 
-                  previousLabel="Prev"
-                  nextLabel="Next" 
-                  (pageChange)="p = $event">
-                </pagination-controls>
-              
-              </div>
-              
-             </div> 
         </div>
       </div>
-    
+
+      <!-- Pagination -->
+      <pagination-controls
+        *ngIf="projects?.length"
+        style="margin-top: 20px; display: block"
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="p = $event"
+      >
+      </pagination-controls>
+    </div>
+  </div>
 </div>
+<!-- </div>
+    
+</div> -->
 <app-notification></app-notification>

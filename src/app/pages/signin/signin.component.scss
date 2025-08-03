@@ -1,11 +1,11 @@
-// @import "node_modules/bootstrap/scss/variables";
 $black: #000;
 $white: #fff;
-.signin {
+.signin,
+.inside {
   min-height: 100vh;
-  // background: rgb(0, 31, 83);
-  background: linear-gradient(110deg,#46885a, rgb(99 98 208 / 9%) 100%);
- 
+  padding: 100px;
+  background: #46885a;
+  clip-path: polygon(0 60px, 100% 0, 100% 100%, 0% 100%);
   h3 {
     font-size: 28px;
     color: $black;
@@ -16,7 +16,7 @@ $white: #fff;
     color: #46885a;
   }
   .submit {
-    background-color:#46885a;
+    background-color: #46885a;
   }
   //COVER BG
   .img {
@@ -24,6 +24,30 @@ $white: #fff;
     background-position: center center;
     border-bottom: 3px solid #46885a;
     background-size: cover;
+  }
+  .image-frame-wrapper {
+    position: relative;
+    padding: 1rem;
+
+    .bg-layer {
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    img {
+      z-index: 10;
+      position: relative;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.03);
+    }
   }
 
   .wrap {
@@ -42,21 +66,10 @@ $white: #fff;
       font-weight: 300;
     }
   }
-  .btn-signin {
-    
-    color: white;
-  }
-  .btn-signin:hover {
-    color: #46885a;
-    background-color: white;
-    border-color: #46885a;
-  }
+
   .border-bottom-signin {
     border-bottom: 3px solid #46885a;
     background-color: #f0f0f0;
-  }
-  .spendNdrop-logo {
-    width: 100px;
   }
 
   .form-group {
@@ -77,16 +90,188 @@ $white: #fff;
       color: lighten($black, 50%);
     }
   }
-  .signup-btn{
-text-decoration: underline;
-cursor: pointer;
-font-size: 11px;
-color: #46885a;
+}
+.form-div .label {
+  font-size: 11px;
+}
+.custom-button {
+  background: linear-gradient(to bottom right, #a020ef, #cb0fbc, #f7029d);
+  color: #ffffff;
+  border: 1px solid #cccccc;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+}
+.cursor {
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #ffffff;
+  background: none;
+  color: #c662be;
+  border-color: #c662be;
+}
+.first-section {
+  padding-top: 150px;
+  padding-bottom: 130px;
+}
+.pricing-section {
+  background-color: #f9f9f9;
+
+  .pricing-card {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h4 {
+      font-weight: 600;
+    }
+
+    ul {
+      padding-left: 0;
+      li {
+        padding: 0.4rem 0;
+        font-size: 0.95rem;
+      }
+    }
+
+    .btn {
+      border-radius: 50px;
+    }
+  }
+}
+.contact-section {
+  background-color: $white;
+
+  h2 {
+    font-size: 28px;
+    color: #46885a;
   }
 
+  p {
+    font-size: 1rem;
+    color: #555;
+  }
 
+  form {
+    .form-label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #333;
+    }
+
+    .form-control,
+    .form-select {
+      font-size: 0.9rem;
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ccc;
+      box-shadow: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #46885a;
+        outline: none;
+        box-shadow: 0 0 0 0.1rem rgba(70, 136, 90, 0.25);
+      }
+    }
+
+    button {
+      font-size: 0.95rem;
+      border-radius: 50px;
+    }
+  }
 }
-.form-div .label{
-  font-size: 11px;
+.contact-section {
+  .image-frame-wrapper {
+    position: relative;
+    // padding: 1rem;
+    width: 100%;
 
+    .bg-layer {
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .form-frame {
+      z-index: 10;
+      position: relative;
+      border-radius: 12px;
+      background-color: $white;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  form {
+    .form-label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #333;
+    }
+
+    .form-control,
+    .form-select {
+      font-size: 0.9rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+
+      &:focus {
+        border-color: #46885a;
+        box-shadow: 0 0 0 0.1rem rgba(70, 136, 90, 0.25);
+      }
+    }
+  }
+}
+.feature-highlight {
+  .screenshot-frame {
+    position: relative;
+    display: inline-block;
+
+    img {
+      z-index: 2;
+      position: relative;
+      border-radius: 10px;
+      max-width: 100%;
+    }
+
+    .angle-bg {
+      position: absolute;
+      top: 30px;
+      left: 20px;
+      width: 100%;
+      height: 100%;
+      background: #ffb700;
+      transform: rotate(9deg);
+      z-index: 1;
+    }
+    .angle-bg-2 {
+      position: absolute;
+      top: -20px;
+      left: -10px;
+      width: 100%;
+      height: 100%;
+      background: #a6e7e9;
+      transform: rotate(351deg);
+      z-index: 1;
+    }
+  }
+
+  ul {
+    padding-left: 1rem;
+    list-style-type: disc;
+  }
+
+  li {
+    line-height: 1.6;
+  }
+}
+::ng-deep .modal.wide-modal .modal-dialog {
+  max-width: 900px; /* or any width you want */
+  width: 90%;
 }

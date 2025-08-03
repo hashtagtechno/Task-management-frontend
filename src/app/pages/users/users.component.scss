@@ -1,69 +1,58 @@
-.main-container {
-    display: flex;
-    flex-direction: row;
+.action-btn {
+  color: #23a3a4;
 }
-
-/* Sidebar styling */
-app-sidebar {
-    width: 200px; 
-    height: 100vh;
+.label-style {
+  color: grey;
+  font-size: 11px;
 }
-
-.content {
-    width: calc(100% - 220px); 
-    padding: 10px;
-    margin-top: 80px;
-
+.title-label {
+  color: black;
+  font-size: 13px;
+  font-weight: 500;
 }
-.action-btn{
-  color:#23A3A4;
+.accordion-button {
+  padding: 0px;
+  font-size: 14px;
+  border: 1px solid lightgrey;
+  background-color: #7fd8d929 !important;
 }
-.label-style{
-    color: grey;
-    font-size: 11px;
+.list-group-item {
+  font-size: 13px;
 }
-.title-label{
-      color:black;
-      font-size: 13px;
-      font-weight: 500;
-}
-.accordion-button{
-    padding:  0px;
-    font-size: 14px;
-   border: 1px solid lightgrey;
-   background-color:#7fd8d929!important;
-}
-.list-group-item{
-font-size: 13px;
-}
-.accordion-button:after{
+.accordion-button:after {
   display: none;
 }
-.card-header{
-    background-color: #23A3A4;
+.card-header {
+  background-color: #23a3a4;
 }
 .vertical-line {
-    width: 4px;
-    height: 100%;
-     background-color: #23A3A4;
- 
-  }
-  .bg-blue-sideline{
-    background-color:#23A3A4;
-  }
-  .btn-create{
-    background-color:#d2efdb;
-  }
-  .title-text{
-    font-weight: 500;
-  }
-  .pointer {
-    cursor: pointer;
-  }
-  .btn-create:hover{
-    border:1px solid #46885a;
-    background-color: white;
-    color: #46885a; 
+  width: 4px;
+  height: 100%;
+  background-color: #23a3a4;
+}
+.bg-blue-sideline {
+  background-color: #23a3a4;
+}
+
+.title-text {
+  font-weight: 500;
+}
+.pointer {
+  cursor: pointer;
+}
+.custom-button {
+ background: linear-gradient(to bottom right, #a020ef, #CB0FBC, #f7029d);
+  color: #ffffff;
+  border: 1px solid #cccccc;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: #ffffff;
+  background: none;
+  color: #c662be;
+  border-color: #c662be;
 }
 .accordion .accordion-item:nth-child(even) .accordion-button {
   background-color: #d2efdb !important;
@@ -72,10 +61,9 @@ font-size: 13px;
 .accordion .accordion-item:nth-child(odd) .accordion-button {
   background-color: #edfbf4 !important;
 }
-.avatar{
+.avatar {
   width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
 }
-  

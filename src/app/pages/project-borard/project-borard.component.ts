@@ -99,7 +99,7 @@ ngOnInit(): void {
       value: item.number_of_task
     }));
 
-    // Set chart config AFTER data is ready
+    
     this.donutChartOptions = {
       tooltip: {
         trigger: 'item',

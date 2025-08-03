@@ -1,40 +1,21 @@
-.main-container {
-    display: flex;
-    flex-direction: row;
+.card {
+  padding: 10px;
 }
-
-/* Sidebar styling */
-app-sidebar {
-    width: 200px; 
-    height: 100vh;
+label {
+  color: grey;
 }
-
-.content {
-    width: calc(100% - 220px); 
-    padding: 10px;
-    margin-top: 80px;
-
-}
-.card{
-    padding: 10px;
-}
-label{
-    color: grey;
-}
-.kanban-container{
-    font-size: 13px;
+.kanban-container {
+  font-size: 13px;
 }
 .border-bottom-blue {
-   border-bottom:10px solid rgb(207 224 220 / 94%);
-  }
-  .border-bottom-green {
-    border-bottom:10px solid  rgb(78 144 9);
-   }
-   .border-bottom-orange {
-    border-bottom:10px solid  rgb(149 240 77);
-      }
-      .border-bottom-red {
-        border-bottom:10px solid rgb(191 240 191);
-      }
-
-
+  border-bottom: 10px solid rgb(207 224 220 / 94%);
+}
+.border-bottom-green {
+  border-bottom: 10px solid rgb(78 144 9);
+}
+.border-bottom-orange {
+  border-bottom: 10px solid rgb(149 240 77);
+}
+.border-bottom-red {
+  border-bottom: 10px solid rgb(191 240 191);
+}

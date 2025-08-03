@@ -35,10 +35,26 @@ getUserDetail(id:string){
 uploadProfile(FormData:any){
   return this.http.post(`${environment.apiUrl}/auth/upload-profile`, FormData);
 }
-// updateProfile(data:any){
-//   console.log(this.userInfo.id)
-//   return this.http.put(`${environment.apiUrl}/auth/update/${this.userInfo.id}`,data );
-// }
+//  getUserTagsTaskModel(): Observable<any> {
+//     // console.log(this.useTagsBoolean);
+//     if (this.userTags) {
+//       if (this.useTagsBoolean == true) {
+//         console.log(this.useTagsBoolean);
+//         this.userTags = this.http
+//           .get(`${apiPath.getUserTags_TaskModel}`)
+//           .pipe(shareReplay());
+//         this.updateuserTagsFalse();
+//         return this.userTags;
+//       } else {
+//         return this.userTags;
+//       }
+//     } else {
+//       this.userTags = this.http
+//         .get(`${apiPath.getUserTags_TaskModel}`)
+//         .pipe(shareReplay());
+//       return this.userTags;
+//     }
+//   }
 updateHeader() {
   this.headerUpdateSource.next();
 }

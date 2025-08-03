@@ -1,128 +1,106 @@
-.main-container {
-    display: flex;
-    flex-direction: row;
+.label-style {
+  color: grey;
+  font-size: 11px;
 }
-
-/* Sidebar styling */
-app-sidebar {
-    width: 200px; 
-    height: 100vh;
+.title-label {
+  color: black;
+  font-size: 13px;
+  font-weight: 500;
 }
-
-.content {
-    width: calc(100% - 220px); 
-    padding: 10px;
-    margin-top: 80px;
-
-}
-.label-style{
-    color: grey;
-    font-size: 11px;
-}
-.title-label{
-    color:black;
-    font-size: 13px;
-    font-weight: 500;
-  
-}
-.accordion-item{
+.accordion-item {
   border: none;
 }
-.accordion-button:not(.collapsed){
-  box-shadow: none!important;
+.accordion-button:not(.collapsed) {
+  box-shadow: none !important;
 }
-.accordion-button{
-    padding:  0px;
-    font-size: 14px;
-    border: none;
+.accordion-button {
+  padding: 0px;
+  font-size: 14px;
+  border: none;
   //  border: 1px solid lightgrey;
   //  background-color:#7fd8d929!important;
 }
-.list-group-item{
-font-size: 13px;
+.list-group-item {
+  font-size: 13px;
 }
-.accordion-button:after{
+.accordion-button:after {
   display: none;
 }
-.card-header{
-    background-color: #edfbf4b8;
-    font-weight: 500;
+.card-header {
+  background-color: #edfbf4b8;
+  font-weight: 500;
 }
-.action-btn{
+.action-btn {
   color: black;
 }
-.bg-notstarted{
+.bg-notstarted {
   background-color: #0b47b83d;
 }
-.bg-inprogress{
-  background-color:rgb(234 5 169 / 20%);
+.bg-inprogress {
+  background-color: rgb(234 5 169 / 20%);
 }
 
 
-.bg-completed{
-  background-color:#54cdf747;
+.bg-completed {
+  background-color: #54cdf747;
 }
-.bg-closed{
-  background-color:rgb(128 72 0 / 24%);
+.bg-closed {
+  background-color: rgb(128 72 0 / 24%);
 }
 .vertical-line {
-    width: 4px;
-    height: 100%;
-  
-  }
-  .status-value{
-    border-radius: 4px;
-  }
-  .bg-blue-sideline{
-    background-color: rgb(176, 147, 244);
-  }
-  .bg-pink{
-   background-color: rgba(234, 5, 169, 0.2);
-  }
-  .btn-create{
-    background-color:#d2efdb;
-    font-weight: 500;
-  }
-  .title-text{
-    font-weight: 500;
-  }
-  .pointer {
-    cursor: pointer;
-  }
-  .fa{
-    color: rgb(24, 22, 22);
-  }
-  .nav-tabs{
-    border-bottom: none;
-  }
-  .nav-link{
-    color: rgb(18, 16, 16);
-  }
-  .nav-link:hover{
-    color: black;
-  }
-  .nav-link.active{
-    color: green!important;
-    border: none;
-    background-color: #d2efdb;
-    .fa{
-      color: green!important;
-    }
-  }
- .ngx-pagination .pagination-previous,.ngx-pagination .pagination-next {
-background-color: white!important;
-color: black;
-font-size: 12px;
-  }
-  .task-title{
-    font-size: 13px;
-  }
+  width: 4px;
+  height: 100%;
+}
+.status-value {
+  border-radius: 4px;
+}
+.bg-blue-sideline {
+  background-color: rgb(176, 147, 244);
+}
+.bg-pink {
+  background-color: rgba(234, 5, 169, 0.2);
+}
 
-  
-  .btn-create:hover{
-    border:1px solid  #46885a;
-    background-color: white;
-    color: #007ba5; 
+.title-text {
+  font-weight: 500;
+}
+.pointer {
+  cursor: pointer;
+}
+.fa {
+  color: rgb(24, 22, 22);
+}
+.nav-tabs {
+  border-bottom: none;
+}
+.nav-link {
+  color: rgb(18, 16, 16);
+}
+.nav-link:hover {
+  color: black;
+}
+.nav-link.active {
+  color: green !important;
+  border: none;
+  background-color: #d2efdb;
+  .fa {
+    color: green !important;
+  }
+}
+.ngx-pagination .pagination-previous,
+.ngx-pagination .pagination-next {
+  background-color: white !important;
+  color: black;
+  font-size: 12px;
+}
+.task-title {
+  font-size: 13px;
+}
+
+.btn-create:hover {
+  border: 1px solid #46885a;
+  background-color: white;
+  color: #007ba5;
 }
 .accordion .accordion-item:nth-child(even) .accordion-button {
   background-color: #d2efdb !important;
@@ -131,16 +109,30 @@ font-size: 12px;
 .accordion .accordion-item:nth-child(odd) .accordion-button {
   background-color: #edfbf4 !important;
 }
-.zero-pro{
+.zero-pro {
   justify-content: center;
   display: flex;
   color: red;
   font-size: 32px;
 }
 
-.prod-hours{
+.prod-hours {
   font-weight: bold;
   font-size: 32px;
   color: green;
   text-shadow: 2px 2px 8px rgb(47 255 55 / 30%);
+}
+.custom-button {
+ background: linear-gradient(to bottom right, #a020ef, #CB0FBC, #f7029d);
+  color: #ffffff;
+  border: 1px solid #cccccc;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: #ffffff;
+  background: none;
+  color: #c662be;
+  border-color: #c662be;
 }

@@ -2,15 +2,5 @@
   <app-loading *ngIf="loading"></app-loading>
 </ng-container>
 <div class="main-content">
-  <!-- <button (click)="captureScreenshot()" id="screenshot-button">Take Screenshot</button> -->
-<!-- 
-<div *ngIf="screenshot">
-  <h3>Screenshot Preview:</h3>
-  <img [src]="screenshot" alt="Screenshot" style="max-width: 100%; border: 1px solid #ccc;" />
-<div *ngFor="let img of screenshots">
-  <img [src]="img" alt="Screenshot" style="width: 300px; margin-bottom: 10px;" />
+  <router-outlet></router-outlet>
 </div>
-</div> -->
-    <router-outlet></router-outlet>
-  </div>
-<!-- <router-outlet ></router-outlet> -->

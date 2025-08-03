@@ -1,0 +1,65 @@
+<div class="signin-modal">
+
+  <div class="modal-body p-0">
+    <div class="signin row">
+      <!-- <div
+        class="col-md-7 d-none d-md-block img p-0"
+        style="background-image: url('assets/images/hashtag.png'); border-radius:5px;background-size: cover; background-position: center; min-height: 100%;"
+      ></div> -->
+      <div class="col-12  p-4 p-md-5">
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center p-0">
+            <!-- <h4 class="text-uppercase custom-text text-secondary">Task Manager</h4> -->
+             <img src="assets/images/hashtag.png" class="logo">
+          </div>
+        </div>
+        <form
+          action="#"
+          class="signin-form needs-validation"
+          [formGroup]="signinForm"
+          (ngSubmit)="signin()"
+        >
+          <div class="mb-3 form-div">
+            <label class="label text-secondary" for="name">Email</label>
+            <input
+              autocomplete="off"
+              type="email"
+              class="form-control mt-1"
+              placeholder="email"
+              name="email"
+              formControlName="email"
+              required
+            />
+          </div>
+          <div class="mb-3 form-div">
+            <label class="label text-secondary
+            " for="password">Password</label>
+            <input
+              type="password"
+              autocomplete="off"
+              class="form-control mt-1"
+              placeholder="Password"
+              name="password"
+              formControlName="password"
+              autocomplete="on"
+              required
+            />
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="alererror">
+            {{ this.msg }}
+          </div>
+
+            <div class="d-grid mb-2 mt-5">
+                <button
+                type="submit"
+                class="btn btn-prim rounded submit px-3 btn-signin custom-button"
+                >
+                <span>Sign In</span>
+                </button>
+            
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>

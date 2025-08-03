@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ScreensViewComponent } from '../../components/screens-view/screens-view.component';
@@ -10,17 +10,13 @@ import { ImageModalComponent } from '../../components/image-modal/image-modal.co
 @Component({
   selector: 'app-screenshot',
   standalone: true,
-  imports: [
-    SidebarComponent,
-    HeaderComponent,
-    ScreensViewComponent,
-    CommonModule,
-  ],
+  imports: [ScreensViewComponent, CommonModule],
   templateUrl: './screenshot.component.html',
   styleUrl: './screenshot.component.scss',
 })
 export class ScreenshotComponent {
   userInfo!: any;
+  @Input() userId!:any;
   groupedScreenshots: { [hour: string]: Screenshot[] } = {};
   rawScreenshots: Screenshot[] = []; // Load from backend
   constructor(
@@ -32,7 +28,8 @@ export class ScreenshotComponent {
     // console.log(this.userInfo)
   }
   ngOnInit() {
-    this.ScreenShotService.getScreenshots(this.userInfo.id).subscribe(
+    // console.log(this.userId)
+    this.ScreenShotService.getScreenshots(this.userId).subscribe(
       (data: any) => {
         this.rawScreenshots = data.data;
 

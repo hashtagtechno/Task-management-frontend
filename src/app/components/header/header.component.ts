@@ -35,13 +35,7 @@ export class HeaderComponent {
   windowsDownloadUrl: any;
   ngOnInit() {
     this.isElectronApp = isElectron();
-
-    //  this.GithubRleaseService.getLatestWindowsInstallerUrl().subscribe((data) => {
-    //   const exeAsset = data.assets.find((asset: any) => asset.name.endsWith('.exe'));
-    //   if (exeAsset) {
-    //     this.windowsDownloadUrl = exeAsset.browser_download_url;
-    //   }
-    // });
+    console.log(this.isElectronApp);
     this.userService.headerUpdate$.subscribe((data) => {
       this.fetchProfile();
     });

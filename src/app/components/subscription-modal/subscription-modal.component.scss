@@ -1,0 +1,39 @@
+h3 {
+  font-size: 28px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+}
+.signin {
+  display: flex;
+  height: 100%;
+}
+
+.modal-body {
+  height: 100%;
+}
+h4 {
+  color: #46885a;
+}
+.submit {
+  background-color: #46885a;
+}
+
+.border-signin {
+  border-left: 1px solid #edc8ea;
+}
+.logo {
+  width: 150px;
+}
+.custom-button:hover {
+  background-color: #ffffff;
+  background: none;
+  color: #c662be;
+  border-color: #c662be;
+}
+.custom-button {
+  background: linear-gradient(to bottom right, #a020ef, #cb0fbc, #f7029d);
+  color: #ffffff;
+  border: 1px solid #cccccc;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+}

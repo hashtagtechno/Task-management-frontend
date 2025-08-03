@@ -1,79 +1,76 @@
-<app-header></app-header>
-<div class="main-container">
-  <app-sidebar></app-sidebar>
-        
-  <div class="content ms-3" *ngIf="!editMode">
-    <!-- {{lastBreadcrumbLabel}} -->
-      <xng-breadcrumb  [separator]="'›'"></xng-breadcrumb>
-    <!-- <ngx-org-chart [nodes]="nodes" direction="vertical" (itemClick)="test($event)"></ngx-org-chart> -->
-    <div>
-      <!-- Read-Only View -->
-      <div class="d-flex justify-content-center align-items-center">
-      <div class="d-flex justify-content-center align-items-center input-fields row p-2">
-     
-      <div class="col-md-2 offset-md-2">
-       <i class="fa fa-solid fa-users"></i>
-      </div>
-          
-          <div  class="col-md-8">{{ team?.teamName }}
-          <br>  <label>Team Name</label>
-          </div>
-        </div> 
-      
-      </div>
-
-      <div class="row d-flex justify-content-center">
-        <div class="arrow-down"></div>
-      </div>
-
-      <div class="d-flex justify-content-center align-items-center mt-2">
-        <div class="d-flex justify-content-center align-items-center input-fields row p-2">
-       
+<div class="content ms-3" *ngIf="!editMode">
+  <!-- {{lastBreadcrumbLabel}} -->
+  <xng-breadcrumb [separator]="'›'"></xng-breadcrumb>
+  <!-- <ngx-org-chart [nodes]="nodes" direction="vertical" (itemClick)="test($event)"></ngx-org-chart> -->
+  <div>
+    <!-- Read-Only View -->
+    <div class="d-flex justify-content-center align-items-center">
+      <div
+        class="d-flex justify-content-center align-items-center input-fields row p-2"
+      >
         <div class="col-md-2 offset-md-2">
-          <img [src]="team?.teamLeadProfileImage" width="30" class="avatar" >
-        </div>
-            
-            <div  class="col-md-8">{{ team?.teamLead }}
-            <br>  <label>Team Lead</label>
-            </div>
-          </div> 
-        
+          <i class="fa fa-solid fa-users"></i>
         </div>
 
-      <div class="row d-flex justify-content-center">
-        <div class="arrow-down"></div>
-      </div>
-
-      <div class="tree-node member-box mt-2">
-        <label>Team Members:</label>
-        <div class="members-container">
-          <div *ngFor="let member of team?.teamMember" class="member-node">
-            <div class="col-md-2 offset-md-2">
-                <img [src]="member?.profileImage" width="30" class="avatar" >
-              </div>
-              <div  class="col-md-8">
-              <small>{{ member?.name }}</small
-              ><br />
-              <label>{{ member?.role }}</label>
-            </div>
-          </div>
+        <div class="col-md-8">
+          {{ team?.teamName }} <br />
+          <label>Team Name</label>
         </div>
-      </div>
-
-      <div class="d-flex justify-content-end mt-3">
-        <button (click)="enableEdit()">Edit</button>
       </div>
     </div>
-  </div>
 
-  <!-- Editable Form -->
-  <div class="content ms-3" *ngIf="editMode">
-    <!-- Reuse your existing <form [formGroup]="addTeamForm" (ngSubmit)="onSubmit()">... -->
-    <app-add-team
-      [initialData]="team"
-      (save)="handleSave($event)"
-      (cancel)="cancelEdit()"
-    >
-    </app-add-team>
+    <div class="row d-flex justify-content-center">
+      <div class="arrow-down"></div>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center mt-2">
+      <div
+        class="d-flex justify-content-center align-items-center input-fields row p-2"
+      >
+        <div class="col-md-2 offset-md-2">
+          <img [src]="team?.teamLeadProfileImage" width="30" class="avatar" />
+        </div>
+
+        <div class="col-md-8">
+          {{ team?.teamLead }} <br />
+          <label>Team Lead</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="arrow-down"></div>
+    </div>
+
+    <div class="tree-node member-box mt-2">
+      <label>Team Members:</label>
+      <div class="members-container">
+        <div *ngFor="let member of team?.teamMember" class="member-node">
+          <div class="col-md-2 offset-md-2">
+            <img [src]="member?.profileImage" width="30" class="avatar" />
+          </div>
+          <div class="col-md-8">
+            <small>{{ member?.name }}</small
+            ><br />
+            <label>{{ member?.role }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+      <button (click)="enableEdit()">Edit</button>
+    </div>
   </div>
+</div>
+
+<!-- Editable Form -->
+<div class="content ms-3" *ngIf="editMode">
+  <!-- Reuse your existing <form [formGroup]="addTeamForm" (ngSubmit)="onSubmit()">... -->
+  <app-add-team
+    [initialData]="team"
+    (save)="handleSave($event)"
+    (cancel)="cancelEdit()"
+  >
+  </app-add-team>
 </div>

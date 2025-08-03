@@ -11,7 +11,8 @@ let lastIdleSentAt = null;
 import {
   app,
   BrowserWindow,
-  ipcMain,screen,
+  ipcMain,
+  screen,
   dialog,
   desktopCapturer,
   powerMonitor,
@@ -43,6 +44,7 @@ function createWindow() {
       // preload: pathToFileURL(path.join(__dirname, 'preload.js')).href,
       contextIsolation: true,
       nodeIntegration: false,
+
       enableRemoteModule: false,
       sandbox: false,
       enableBlinkFeatures: "DesktopCapture",
@@ -84,7 +86,6 @@ app.whenReady().then(createWindow);
 //     console.error("[Main] Error capturing screen:", err);
 //   }
 // }, 180000);
-
 
 setInterval(async () => {
   console.log("[Main] Screenshot timer triggered");

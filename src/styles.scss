@@ -156,6 +156,20 @@ textarea{
   textarea.border-touched{
     border: .2px solid #ced4da;
   }
+  .custom-button {
+ background: linear-gradient(to bottom right, #a020ef, #CB0FBC, #f7029d);
+  color: #ffffff;
+  border: 1px solid #cccccc;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: #ffffff;
+  background: none;
+  color: #c662be;
+  border-color: #c662be;
+}
   .btn-custom-success{
     border:white;
     background-color: #007ba5;
